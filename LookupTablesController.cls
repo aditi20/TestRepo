@@ -38,7 +38,7 @@ public with sharing class LookupTablesController {
                 selectedTableId = value;
             }
         }
-        //Test parent
+        //Test parent - test
     }
 
 
