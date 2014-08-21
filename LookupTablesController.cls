@@ -15,13 +15,6 @@ public with sharing class LookupTablesController {
     private static final String FIELD_EXPDEF = 'ExpenditureDefinition__c';
     private static final String FIELD_LDEF = 'LineDefinition__c';
     private static final String FIELD_ID = 'Identifier__c';
-    private static final List<String> TABLE_FIELDS = new List<String>{
-            FIELD_ALPHA,
-            FIELD_PRATE,
-            FIELD_PPP,
-            FIELD_EXPDEF,
-            FIELD_LDEF,
-            FIELD_ID};
 
     //---------------------------------------
     // Page properties
@@ -45,6 +38,7 @@ public with sharing class LookupTablesController {
                 selectedTableId = value;
             }
         }
+        //Test parent
     }
 
 
