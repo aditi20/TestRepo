@@ -45,6 +45,7 @@ public with sharing class LookupTablesController {
                 selectedTableId = value;
             }
         }
+        // Test child
     }
 
 
@@ -54,7 +55,7 @@ public with sharing class LookupTablesController {
     public string fileName{get;set;}                    // The name of the selected file
     public string fileContent{get;set;}                 // The string content of the file
     public Blob fileBinary{get;set;}                    // The binary content of the file
-
+    // commit 1
 
     //---------------------------------------
     // Class constructor
