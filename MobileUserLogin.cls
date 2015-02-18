@@ -2,8 +2,8 @@
  * Class that get the login request and process it
  * (c) Copyright 2013 Grameen Foundation USA. All rights reserved
  *
- * @author dcaballero
- * @author Alejandro De Gregorio Tort // Test parent changes
+ * @author dcaballero // Test child changes
+ * @author Alejandro De Gregorio Tort // Test child changes
  */
 
 @RestResource(urlMapping='/login')
