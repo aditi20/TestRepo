@@ -3,7 +3,7 @@
  * (c) Copyright 2013 Grameen Foundation USA. All rights reserved
  *
  * @author dcaballero
- * @author Alejandro De Gregorio Tort
+ * @author Alejandro De Gregorio Tort - Test child changes
  */
 
 @RestResource(urlMapping='/login')
@@ -16,7 +16,7 @@ global class MobileUserLogin {
      * If username and password are correct and device id exists -> returns a 200 and a session token and save a Session object
      * If username and password are correct and deviceId does not exists -> creates a device, returns a 200 and a  session token and save a session object
      * If username or password are wrong or device is deactivated -> returns a 401 (unauthorized)
-     * If required parameters are missing -> returns a 400 (bad request).
+     * If required parameters are missing -> returns a 400 (bad request). // test 123
      */
     @HttpGet
     global static void doGet(){
