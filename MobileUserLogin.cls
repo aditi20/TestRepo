@@ -4,6 +4,8 @@
  *
  * @author dcaballero// Test parent new changes
  * @author Alejandro De Gregorio Tort // Test parent new changes
+ * @author dcaballero // Test child changes
+ * @author Alejandro De Gregorio Tort // Test child changes
  */
 
 @RestResource(urlMapping='/login')
