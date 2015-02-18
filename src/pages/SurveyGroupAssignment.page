@@ -1,4 +1,0 @@
-<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
-<apex:page controller="SurveyGroupAssignmentController" tabStyle="ContactGroup__c" sidebar="false">
-<!-- PAGE DEPRECATED LEAVING COMPONENT AS CANNOT REMOVE -->
-</apex:page>

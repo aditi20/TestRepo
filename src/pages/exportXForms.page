@@ -1,9 +1,0 @@
-<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
-<apex:page></apex:page>
-<!-- CODE DEPRECATED THIS PAGE IS NO LONGER IN USE
-<apex:page controller="XFormCreator" action="{!createDocument}" >
- <apex:form >
-     <strong> <apex:outputlabel value="{!Message}"></apex:outputlabel></strong>
-     <apex:outputLink value="{!url}" rendered="{!url != ''}">DOWNLOAD </apex:outputLink>
- </apex:form>
-</apex:page>-->

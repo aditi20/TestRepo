@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>29.0</apiVersion>
-    <description>Page that allows a Salesforce User to manipulate the custom settings for the package</description>
-    <label>Application Settings</label>
-</ApexPage>

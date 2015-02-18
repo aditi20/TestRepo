@@ -1,3 +1,0 @@
-<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
-<apex:page contentType="text/xml"  controller="ServicesController">
-</apex:page>
