@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>FieldApiName__c</fullName>
+        <description>Field api name of the object defined in the parent Survey Answer, where will be saved the answer for the QuestionAnswer&apos;s related question question</description>
+        <externalId>false</externalId>
+        <label>Field Api Name</label>
+        <length>60</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsBroken__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Is Broken</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Question__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Question</label>
+        <referenceTo>Question__c</referenceTo>
+        <relationshipLabel>Question Mappings</relationshipLabel>
+        <relationshipName>QuestionMappings</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SurveyMapping__c</fullName>
+        <externalId>false</externalId>
+        <label>Survey Mapping</label>
+        <referenceTo>SurveyMapping__c</referenceTo>
+        <relationshipLabel>Question Mappings</relationshipLabel>
+        <relationshipName>QuestionMappings</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Question Mapping</label>
+    <nameField>
+        <label>Question Mapping Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Question Mappings</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>ParentCannotBeReference</fullName>
+        <active>true</active>
+        <description>Only allows a question mapping to the field that is the same as the SurveyMapping__c.MatchingField__c if the SurveyMapping__c is a reference mapping</description>
+        <errorConditionFormula>AND( SurveyMapping__r.IsReference__c,  NOT( SurveyMapping__r.MatchingField__c  =  FieldApiName__c ))</errorConditionFormula>
+        <errorMessage>You cannot add a Question Mapping to a Survey Mapping that is a reference</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RepeatedSectionMappingCheck</fullName>
+        <active>true</active>
+        <description>Prevent questions from different repeated sections on the same level(not parent-child between them) to have mappings on the same mapped object.</description>
+        <errorConditionFormula>AND(AND(ISPICKVAL(Question__r.Parent__r.Type__c , &apos;repeat&apos;) , SurveyMapping__r.Repeat__c != Question__r.Parent__c),SurveyMapping__r.Repeat__r.Parent__c==null)</errorConditionFormula>
+        <errorMessage>This repeated question is not child of its mapped objects associated repeated section.</errorMessage>
+    </validationRules>
+</CustomObject>

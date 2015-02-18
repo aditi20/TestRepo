@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Grupo de Puntuación</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Grupos de Puntuación</value>
+    </caseValues>
+    <fields>
+        <label>Nombre de la puntuación</label>
+        <name>Caption__c</name>
+    </fields>
+    <fields>
+        <label>Encuesta</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Grupos de puntuación</relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Número de Grupo de Puntuación</nameFieldLabel>
+</CustomObjectTranslation>

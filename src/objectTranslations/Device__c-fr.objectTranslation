@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Machines</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Machine</value>
+    </caseValues>
+    <fields>
+        <label>Version d'Application</label>
+        <name>App_version__c</name>
+    </fields>
+    <fields>
+        <label>No de Machine</label>
+        <name>Device_Id__c</name>
+    </fields>
+    <fields>
+        <label>IMEI</label>
+        <name>IMEI__c</name>
+    </fields>
+    <fields>
+        <label>Dernière Date d'enregistrement</label>
+        <name>LastCheckInBy__c</name>
+        <relationshipLabel>Machines</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Dernière Date d'enregistrement</label>
+        <name>LastCheckInDate__c</name>
+    </fields>
+    <fields>
+        <label>Dernier Utilisateur</label>
+        <name>Last_Check_in_By_Name__c</name>
+    </fields>
+    <fields>
+        <label>Modèle</label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <label>Nombre</label>
+        <name>Number__c</name>
+    </fields>
+    <fields>
+        <label>OS</label>
+        <name>OS__c</name>
+    </fields>
+    <fields>
+        <label>Statut</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Actif</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation>Inactif</translation>
+        </picklistValues>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Device Layout</layout>
+        <sections>
+            <label>Liens personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Surnom</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage>La Date de Dernière Sauvegarde ne peut pas être dans le futur</errorMessage>
+        <name>CheckLastCheckinDate</name>
+    </validationRules>
+    <webLinks>
+        <label>Activer</label>
+        <name>Activate</name>
+    </webLinks>
+    <webLinks>
+        <label>Désactiver</label>
+        <name>Deactivate</name>
+    </webLinks>
+    <webLinks>
+        <label>Supprimer</label>
+        <name>Delete</name>
+    </webLinks>
+</CustomObjectTranslation>

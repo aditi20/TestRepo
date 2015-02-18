@@ -1,0 +1,401 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardcontroller="Survey__c" extensions="TemplateManagerController" sidebar="false" tabstyle="SurveyManager__tab" id="page">
+
+    <style type="text/css">
+        #simplemodal-overlay {background-color:#000;}
+        #simplemodal-container {background-color:white; border:3px solid #444;}
+        #getNewTemplates{
+            width:450px;
+            display:none
+        }
+        .select{width:215px; color:black;}
+        div.checkBox{width:200px;}
+        .selectRow{display:inline-block; vertical-align:top; margin-right:20px;}
+        #checkCloneAssignments{margin:10px 5px 0pt 0px;}
+        .errorMsg{margin-bottom:2px;border-left:2px solid IndianRed;}
+        .bPageBlock .detailList tr td,.bPageBlock .detailList tr th,.hoverDetail .bPageBlock .detailList tr td,.hoverDetail .bPageBlock .detailList tr th
+            {border:none;}
+        textarea{resize:none;}
+    </style>
+
+    <!-- Following two scripts are needed to run SOQL from javascript -->
+    <script type="text/javascript">
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+    </script>
+    <script src="/soap/ajax/25.0/connection.js" type="text/javascript"/>
+
+    <apex:includeScript value="{!$Resource.jquery}" />
+    <apex:includeScript value="{!$Resource.jquerySimpleModal}" />
+    <apex:includeScript value="{!$Resource.jqueryui}"/>
+    <apex:includeScript value="{!$Resource.jquery_validate}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'utils.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.encoder, 'Class.create.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.encoder, 'encoder.js')}" />
+
+    <script type="text/javascript">
+
+        var loadedFilter = false;
+
+        $(document).ready(loadLibraries);
+
+
+
+        function encodeHTMLEntities(decodedStr){
+            return $("<div/>").text(decodedStr).html();
+        }
+
+        // Load the available libraries if needed
+        function loadLibraries() {
+
+            if (!loadedFilter) {
+                $.encoder.encodeForHTML($('#showList').html(''));
+                var showListOptions =  {!canUseTemplates} ?
+                        '<option id="all" value="all"> {!JSENCODE($Label.GENERAL_SHOW_ALL)} </option>' +
+                        '<option id="temp" value="temp"> {!JSENCODE($Label.TEMP_MAN_SHOW_TEMP)} </option>' +
+                        '<option id="ppi" value="ppi">{!JSENCODE($Label.TEMP_MAN_SHOW_PPI)}</option>' :
+                        '<option id="ppi" value="ppi">{!JSENCODE($Label.TEMP_MAN_SHOW_PPI)}</option>';
+
+                $('#showList').append(showListOptions);
+                loadedFilter = true;
+            }
+
+            // Clear existing list
+            $.encoder.encodeForHTML($('#libList').html(''));
+            $.encoder.encodeForHTML($('#newLibList').html(''));
+
+            // Decide upon the clause for the library type
+            var clause = " {!$ObjectType.SurveyLibrary__c.Fields['IsPPI__c'].Name} = true " +
+                "OR {!$ObjectType.SurveyLibrary__c.Fields['IsTemplate__c'].Name} = true ";
+
+            if ($('#showList').val() == 'ppi') {
+                clause = " {!$ObjectType.SurveyLibrary__c.Fields['IsPPI__c'].Name} = true ";
+            }
+            else if ($('#showList').val() == 'temp') {
+                clause = " {!$ObjectType.SurveyLibrary__c.Fields['IsTemplate__c'].Name} = true ";
+            }
+
+            clause = clause.replace("'","\\'");
+            var libs = sforce.connection.query(
+                "SELECT Name, Id " +
+                "FROM {!$ObjectType.SurveyLibrary__c.Name} " +
+                "WHERE " + clause +
+                "ORDER BY Name"
+            ).records;
+
+            var libOptions = '<option id="selectOne" value="default" selected ="true"> {!JSENCODE($Label.SURVEY_LIBRARY_ALL_LIBRARY)} </option>' +
+                '<option id="myLib" value="myLib"> My Library </option>';
+
+            var remoteLibs = '<option id="selectOne" value="default" selected ="true"> {!JSENCODE($Label.CREATESURVEY_LABEL_SELECTLIBRARY)} </option>';
+
+            var foundLibs = '';
+
+            // Generate the options for the libraries.
+            if (typeof libs != 'undefined') {
+                if (typeof libs.length != 'undefined') {
+                    for (var i = 0; i < libs.length; i++) {
+                        foundLibs += '<option id="' + libs[i].id + '">' + encodeHTMLEntities(libs[i].Name) + '</option>';
+                    }
+                }
+                else {
+                    foundLibs += '<option id="' + libs.id + '">' + encodeHTMLEntities(libs.Name) + '</option>';
+                }
+            }
+
+            // Add the options to the library select
+            $('#libList').append(libOptions + foundLibs);
+            $('#newLibList').append(remoteLibs + foundLibs);
+            if ({!canClonePpi}) {
+                loadPpiToClone();
+            }
+
+            // Run validation when user changes combo boxes
+            $("#newLibList", "#newPpiCloneList").change(function() {
+                $('[id$=newTemplateForm]').validate().form();
+            });
+        }
+
+        function loadPpiToClone() {
+            $.encoder.encodeForHTML($('#newPpiCloneList').html(''));
+            var ppis = sforce.connection.query(
+                'SELECT Id, ' +
+                       'Distributed__c, ' +
+                       'Name, ' +
+                       'Survey__r.Name, ' +
+                       'Survey__r.Id ' +
+                'FROM SurveyVersion__c ' +
+                'WHERE Distributed__c = true ' +
+                'AND Survey__r.IsPPI__c = true ' +
+                'AND Survey__r.IsTemplate__c = true ' +
+                'ORDER BY Survey__r.Name'
+            ).records;
+            var ppisToClone = '<option id="selectOne" value="default" selected ="true"> {!JSENCODE($Label.CREATE_SURVEY_SELECT_ONE)} </option>';
+            if (typeof ppis != 'undefined') {
+                if (typeof ppis.length != 'undefined') {
+                    for (var i = 0; i < ppis.length; i++) {
+                        ppisToClone += '<option id="' + ppis[i].Survey__r.Id + '" value="' +
+                            ppis[i].Survey__r.Id + '">' + encodeHTMLEntities(ppis[i].Survey__r.Name)
+                            + '</option>';
+                    }
+                } else {
+                    ppisToClone += '<option id="' + ppis.Survey__r.Id + '" value="' +
+                        ppis.Survey__r.Id + '">' + encodeHTMLEntities(ppis.Survey__r.Name) +
+                        '</option>';
+                }
+            }
+            $('#newPpiCloneList').append(ppisToClone);
+        }
+
+        function filterTemplates() {
+            filterTempDisplay(
+                $('#libList').val(),
+                $('#showList').val() == 'ppi',
+                $('#showList').val() == 'all'
+            );
+        }
+
+        // Makes an id generated by Salesforce usable by jQuery as ":" in an id causes errors in jQuery
+        function makeStringJQueryOK(string) {
+            return string.replace(/:/g, '\\:');
+        }
+
+        function openNew() {
+            $("#" + makeStringJQueryOK("{!$Component.page.newTemplateForm.newTemplates}")).modal();
+        }
+
+        function doAction() {
+            openNewTemp($('input:radio[name=group1]:checked').val(), $('#newLibList').val(), $('#newPpiCloneList').val());
+        }
+
+        function setDisabledSelectOption(){
+            var download = $('#download').is(':checked');
+            $('#newLibList').prop('disabled', !download );
+            if(!download) {
+                $('#newLibList').removeClass('error errorMsg');
+            }
+            var clonePpiTemplate = $('#clonePpiTemplate').is(':checked');
+            $('#newPpiCloneList').prop('disabled', !clonePpiTemplate );
+            if(!clonePpiTemplate) {
+                $('#newPpiCloneList').removeClass('error errorMsg');
+            }
+            $('.errorMsg').remove();
+        }
+
+        $.validator.addMethod("valueNotEquals", function(value, element, arg){
+            $(element).toggleClass('error', arg == value);
+            return arg != value;
+        }, "Value must not equal to default");
+
+        $('[id$=newTemplateForm]').validate({
+            rules: {
+                newLibList : { valueNotEquals: "default" },
+                newPpiCloneList : { valueNotEquals: "default" }
+            },
+            errorElement: "div",
+            errorClass: "errorMsg",
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parent("div"));
+            },
+            messages: {
+                newLibList: {
+                    valueNotEquals: "<strong>{!JSENCODE($Label.GENERAL_ERR_ERROR)}</strong> {!JSENCODE($Label.CREATESURVEY_ERR_NOLIBRARYSELECTED)}"
+                },
+                newPpiCloneList: {
+                    valueNotEquals: "<strong>{!JSENCODE($Label.GENERAL_ERR_ERROR)}</strong> {!JSENCODE($Label.GENERAL_PPI_TEMPLATE)}"
+                }
+            }
+        });
+
+        function confirmDelete() {
+            return confirm("{!JSENCODE($Label.TEMPLATE_MANAGER_MSG_CONFIRM_DELETE)}");
+        }
+
+        //given a survey id it ask the user for confirmation before calling the actionFunction to delete the template
+        function deleteItLink(idToDelete) {
+            if (confirmDelete()) {
+                blockPage('{!JSENCODE($Label.GENERAL_DELETING)}...');
+                deleteItActionController(idToDelete);
+            }
+            else {
+                return false;
+            }
+
+            return true;
+
+        }
+
+    </script>
+
+    <apex:sectionHeader title="Home" subtitle="Template Manager" />
+    <apex:pageMessages id="errorMessage" ></apex:pageMessages>
+    <c:blockOverlay label="{!$Label.LOADING}"/>
+
+    <!-- Modal to show the get new template options -->
+    <div id="getNewTemplates">
+        <apex:form id="newTemplateForm">
+            <apex:actionFunction name="openNewTemp" action="{!newTemplate}" rerender="{!$Component.page.tableForm.templatesPageBlock.tableContainer}, {!$Component.page.errorMessage}">
+                <apex:param name="templateAction" value=""/>
+                <apex:param name="libraryName" value=""/>
+                <apex:param name="ppiToClone" value=""/>
+            </apex:actionFunction>
+            <apex:pageBlock id="newTemplates">
+                <apex:pageBlockSection title="Choose method for new template" collapsible="false" id="blockSectionStartWith" columns="1">
+                    <apex:pageBlockSectionItem rendered="{!canCreateTemplates}">
+                        <div class="checkBox selectRow">
+                            <input id="createTemp" type="radio" name="group1" onclick="setDisabledSelectOption()" value="createTemp"><label for="createTemp">{!$Label.TEMP_MAN_CREATE_NEW_TEMPLATE}</label></input>
+                        </div>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!canCreatePPI}">
+                        <div class="checkBox selectRow">
+                            <input id="createNewPPITemp" type="radio" name="group1" onclick="setDisabledSelectOption()" value="createNewPPITemp"><label for="blank">{!$Label.TEMP_MAN_CREATE_PPI}</label></input>
+                        </div>
+                    </apex:pageBlockSectionItem>
+<!--
+                    <apex:pageBlockSectionItem rendered="{!canCreateTemplates}">
+                        <div class="checkBox selectRow">
+                            <input id="clone" type="radio" name="group1" onclick="setDisabledSelectOption()" value="clone"><label for="clone">{!$Label.TEMP_MAN_CLONE}</label></input>
+                        </div>
+                    </apex:pageBlockSectionItem>
+-->
+                    <apex:pageBlockSectionItem rendered="{!canDownloadTemplates}">
+                        <div class="checkBox selectRow">
+                            <input id="download" type="radio" name="group1" onclick="setDisabledSelectOption()" value="download"><label for="download">{!$Label.TEMP_MAN_DOWNLOAD}</label></input>
+                        </div>
+                        <div class="lib selectRow">
+                            <select id="newLibList" class="select" name="newLibList" size="1" disabled="true">
+                            </select>
+                        </div>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!canClonePpi}">
+                        <div class="checkBox selectRow">
+                            <input id="clonePpiTemplate" type="radio" name="group1" onclick="setDisabledSelectOption()" value="clonePpiTemplate"><label for="clonePpiTemplate">{!$Label.CLONE_PPI_TEMPLATE}</label></input>
+                        </div>
+                        <div class="ppiClone selectRow">
+                            <select id="newPpiCloneList" class="select" name="newPpiCloneList" size="1" disabled="true">
+                            </select>
+                        </div>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!canDownloadPPI}">
+                        <div class="checkBox selectRow">
+                            <input id="getPPI" type="radio" name="group1" checked="true" onclick="setDisabledSelectOption()" value="getPpi"><label for="getPpi">{!$Label.TEMP_MAN_GETPPI}</label></input>
+                        </div>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <div align="right">
+                            <button id="btnCancel" class="btn" type="button" onclick="$.modal.close()">{!$Label.CANCEL}</button>&nbsp;&nbsp;
+                            <button id="btnGo" class="btn" type="button" onclick="openNewTemp($('input:radio[name=group1]:checked').val(), $('#newLibList').val(), $('#newPpiCloneList').val())">{!$Label.SAVE_AND_CONTINUE}</button>
+                        </div>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </div>
+
+    <apex:form id="tableForm">
+        <label for="showList">{!$Label.FILTER} </label>
+        <select id="showList" class="select" size="1" onchange="loadLibraries()">
+        </select>&nbsp;
+        <select id="libList" class="select" size="1">
+        </select>&nbsp;
+        <button id="Refresh" onclick="blockPage('{!JSENCODE($Label.TEMP_MAN_REFRESH)}...');filterTemplates()" type="button">{!$Label.GENERAL_REFRESH}</button>
+        <apex:actionFunction name="filterTempDisplay" action="{!filterDisplay}" rerender="{!$Component.page.tableForm.templatesPageBlock.tableContainer}, {!$Component.page.errorMessage}">
+                <apex:param name="libraryName" value=""/>
+                <apex:param name="showPpi" value=""/>
+                <apex:param name="showAll" value=""/>
+        </apex:actionFunction>
+         <apex:actionFunction name="deleteItActionController" action="{!deleteIt}" oncomplete="unblockPage()"
+                    rerender="{!$Component.page.tableForm.templatesPageBlock.tableContainer}, {!$Component.page.errorMessage}">
+                      <apex:param id="surveyIdToDelete" name="surveyIdToDelete" assignTo="{!surveyIdToDelete}" value="" />
+                 </apex:actionFunction>
+
+        <apex:pageBlock id="templatesPageBlock" title="Templates">
+            <apex:pageBlockButtons id="buttons" location="top">
+                <button id="new" onclick="openNew();" type="button">{!$Label.TEMP_MAN_GET_NEW}</button>&nbsp;&nbsp;
+                <button id="btnSurveyManager" class="btn" type="button" onclick="redirect('{!$Page.SurveyManager}')">{!$Label.SURVEY_MANAGER}</button>&nbsp;&nbsp;
+            </apex:pageBlockButtons>
+            <apex:outputPanel id="tableContainer">
+                <script type="text/javascript">
+                    unblockPage();
+                </script>
+                <c:Pagination paginator="{!paginator}" rendered="{!templates.size > 0}">
+                    <apex:pageBlockTable id="table" value="{!templates}" var="template" rendered="{!templates.size > 0}">
+                        <apex:column title="{!$Label.GENERAL_SOURCE_LIBRARY}">
+                            <apex:facet name="header">
+                                <apex:commandLink value="{!$Label.GENERAL_SOURCE_LIBRARY}" action="{!doSort}" rerender="tableContainer, {!$Component.page.errorMessage}" onclick="blockPage('{!JSENCODE($Label.TEMP_MAN_REFRESH)}...')" oncomplete="unblockPage()">
+                                    <apex:param name="orderByColumn" value="Survey__r.SurveyLibrary__r.Name" assignTo="{!orderByColumn}"/>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!IF(ISNULL(template.Survey__r.SurveyLibrary__c), 'My Library', template.Survey__r.SurveyLibrary__r.Name)}"/>
+                        </apex:column>
+                        <apex:column title="{!$ObjectType.Survey__c.Fields.Name.Label}">
+                            <apex:facet name="header">
+                                <apex:commandLink value="{!$ObjectType.Survey__c.Fields.Name.Label}" action="{!doSort}" rerender="tableContainer, {!$Component.page.errorMessage}" onclick="blockPage('{!JSENCODE($Label.TEMP_MAN_REFRESH)}...')" oncomplete="unblockPage()">
+                                    <apex:param name="orderByColumn" value="Survey__r.Name" assignTo="{!orderByColumn}"/>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!template.Survey__r.Name}"/>&nbsp;
+                            <apex:image rendered="{!template.Distributed__c}" value="{!URLFOR($Resource.IconPackage, '/actions/bookmark-new-4-16.png')}"
+                                title="{!$Label.SURVEY_LABEL_RELEASEDTOLIBRARY} {!template.DistributionDate__c}" alt="{!$Label.SURVEY_LABEL_RELEASEDTOLIBRARY} {!template.DistributionDate__c}"/>
+                        </apex:column>
+                        <apex:column title="{!$ObjectType.Survey__c.Fields.Description__c.Label}">
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$ObjectType.Survey__c.Fields.Description__c.Label}"/>
+                            </apex:facet>
+                            <apex:outputText value="{!template.Survey__r.Description__c}"/>
+                        </apex:column>
+                        <apex:column title="Created By">
+                            <apex:facet name="header">
+                                <apex:outputText value="Created By"/>
+                            </apex:facet>
+                            <apex:outputText value="{!template.Survey__r.CreatedBy.Name}"/>
+                        </apex:column>
+                        <apex:column title="{!$Label.TEMP_MAN_LOCAL_STATUS}">
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$ObjectType.Survey__c.Fields.Version__c.Label} / {!$ObjectType.Survey__c.Fields.CreatedDate.Label}"/>
+                            </apex:facet>
+                            <apex:outputText value="{!template.Survey__r.Version__c} / {0,date,medium}">
+                                <apex:param value="{!template.Survey__r.CreatedDate}" />
+                            </apex:outputText>
+                        </apex:column>
+                        <apex:column title="{!$Label.TEMP_MAN_REMOTE_STATUS}">
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$Label.GENERAL_LATEST_VERSION} / {!$Label.SURVEY_LIBRARY_COLUMN_HEADER_CREATED_DATE}"/>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column title="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_ACTIONS}">
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_ACTIONS}"/>
+                            </apex:facet>
+                            <apex:variable var="isEditable" value="{!!template.Distributed__c && ((template.Survey__r.IsPPI__c && canEditPPI) || (template.Survey__r.IsTemplate__c && canEditTemplates && !template.Survey__r.IsPPI__c))}"/>
+                            <apex:variable var="isUsable" value="{!(template.Survey__r.IsPPI__c && canUsePPI) || (template.Survey__r.IsTemplate__c && canUseTemplates)}"/>
+                            <apex:variable var="isDeletable" value="{!(template.Survey__r.IsPPI__c && canDeletePPI) || (template.Survey__r.IsTemplate__c && canDeleteTemplates)}"/>
+                            <apex:commandLink action="{!editIt}" onclick="blockPage()" oncomplete="unblockPage()">
+                                <apex:image rendered="{!isEditable}" value="{!URLFOR($Resource.IconPackage, '/icons/pencil24.png')}" title="{!$Label.EDIT}" alt="{!$Label.EDIT}"/>
+                                <apex:param value="{!template.Survey__c}" name="baseTemplates"/>
+                            </apex:commandLink>
+                            <apex:image rendered="{!isEditable == false}" value="{!URLFOR($Resource.IconPackage, '/icons/pencil24_gray.png')}" title="{!$Label.EDIT}" alt="{!$Label.EDIT}"/>
+
+                            <apex:commandLink action="{!useIt}" onclick="blockPage()" oncomplete="unblockPage()">
+                                <apex:image rendered="{!isUsable}" value="{!URLFOR($Resource.IconPackage, 'icons/publish-24.png')}"  title="{!$Label.TEMP_MAN_USE_IT}" alt="{!$Label.TEMP_MAN_USE_IT}"/>
+                                <apex:param value="{!template.Survey__c}" name="baseTemplates"/>
+                            </apex:commandLink>
+                            <apex:image rendered="{!NOT(isUsable)}" value="{!URLFOR($Resource.IconPackage, '/icons/publish-24-gray.png')}" title="{!$Label.TEMP_MAN_USE_IT}" alt="{!$Label.TEMP_MAN_USE_IT}"/>
+
+                            <apex:outputText rendered="{!isDeletable}">
+                                <a href="#" onclick="deleteItLink('{!template.Survey__c}')">{!$Label.DELETE}</a>
+                            </apex:outputText>
+&nbsp;&nbsp;
+                            <apex:commandLink rendered="{!AND(NOT(template.Distributed__c), canDistribute)}" action="{!distributeIt}" onclick="blockPage('{!JSENCODE($Label.GENERAL_DISTRIBUTING)}...')" oncomplete="unblockPage()" value="{!$Label.SURVEY_MANAGER_ACTIONS_DISTRIBUTE}" rerender="{!$Component.page.tableForm.templatesPageBlock.tableContainer}, {!$Component.page.errorMessage}">
+                                <apex:param value="{!template.Survey__c}" name="baseTemplates"/>
+                            </apex:commandLink>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </c:Pagination>
+
+
+            </apex:outputPanel>
+
+
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

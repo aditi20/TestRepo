@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Tarea</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Tareas</value>
+    </caseValues>
+    <fields>
+        <help>Asociar una encuesta a esta tarea.</help>
+        <label>Encuesta</label>
+        <name>Form__c</name>
+        <relationshipLabel>Tareas</relationshipLabel>
+    </fields>
+    <fields>
+        <help>Ingrese instrucciones para la persona en campo.</help>
+        <label>Instructiones</label>
+        <name>Instructions__c</name>
+    </fields>
+    <fields>
+        <help>Seleccione el trabajo al que pertenece esta tarea.</help>
+        <label>Trabajo</label>
+        <name>JobTemplate__c</name>
+        <relationshipLabel>Tareas</relationshipLabel>
+    </fields>
+    <fields>
+        <help>Ingrese la descripción de la jerarquía.</help>
+        <label>Mapeo</label>
+        <name>Mapping__c</name>
+    </fields>
+    <fields>
+        <help>Este es el ID del objeto para la jerarquía.</help>
+        <label>Objeto</label>
+        <name>Object__c</name>
+    </fields>
+    <fields>
+        <help>Posición de orden para la lista de tareas</help>
+        <label>Posición</label>
+        <name>Position__c</name>
+    </fields>
+    <fields>
+        <help>Ver tarea de recurso, ID del recurso</help>
+        <label>ID del recurso</label>
+        <name>ResourceId__c</name>
+    </fields>
+    <fields>
+        <help>Seleccione un tipo de tarea.</help>
+        <label>Tipo</label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>data-view</masterLabel>
+            <translation>vista de datos</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>form</masterLabel>
+            <translation>formulario</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>list-view</masterLabel>
+            <translation>vista de lista</translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Task Template Layout</layout>
+        <sections>
+            <label>Enlaces personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nombre de la tarea</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Una vez que el tipo está definido previamente este valor no se puede cambiar.</errorMessage>
+        <name>AvoidChangeTypeWhenUpdateTask</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>El formulario no puede ser asignado a tareas que no sean de recolección de datos.</errorMessage>
+        <name>OnlySetFormWhenTypeIsForm</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Se requiere un formulario para tareas de recolección de datos.</errorMessage>
+        <name>SelectFormWhenTypeIsForm</name>
+    </validationRules>
+</CustomObjectTranslation>

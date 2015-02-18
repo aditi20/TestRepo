@@ -1,0 +1,14 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardController="Device__c" recordSetVar="devices" extensions="DeviceMassStatusUpdateController" showHeader="false" id="muopp" >
+<apex:includeScript value="{!$Resource.jquery}"/>
+	<apex:form>
+		<apex:actionFunction id="activateDevices" name="activateDevices"
+	                    action="{!activateDevices}">
+	    </apex:actionFunction>
+    </apex:form>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		activateDevices();
+	});
+	</script>
+</apex:page>

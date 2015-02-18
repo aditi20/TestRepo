@@ -1,0 +1,438 @@
+<!--
+ * Component to set the Contact lookup path and select the tracked object
+ *
+ * This component allows adding a hierarchies of objects, 
+ * so field path can be generated and a query can be performed against the
+ * last object, using all the path and also allows fetching of fields depending
+ * on the last object selected.
+ *
+ * (c) Copyright 2013 Grameen Foundation USA. All rights reserved
+ *
+ * @author - Ernesto Quesada
+ * @author - Aditi Satpute
+ -->
+<apex:component controller="TrackedObjectController">
+        <apex:attribute type="String" name="contactLookupPath" 
+            description="the lookup path" />
+        <apex:attribute type="String" name="trackedObject" 
+            description="the target object" />
+        <apex:attribute type="boolean" name="isEditing" 
+            description="the target object" />
+    <style type="text/css">
+        .disableLink {
+            color:grey;
+            font: italic;
+        }
+
+        .link {
+            font-weight: normal !important;
+            color:blue !important;
+        }
+
+        .selectRelationPopUp {
+            z-index:99999999;
+            border: 1px black solid;
+            position: absolute;
+            background-color : #F8F8F8;
+            right: 120px;
+            padding: 10px;
+            min-width: 160px;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-right: 60%;
+        }
+        #ContactLookupDiv {
+            margin-left: 18%;
+        }
+        .objectSelect {
+            width: 16%;
+            border-left: 3px solid #c00;
+        }
+        #deleteField {
+            margin-left: 7px;
+        }
+    </style>
+    <apex:inputHidden id="trackedSObjectContactField" value="{!contactLookupPath}" />
+    <apex:inputHidden id="trackedSObjectApi"  value="{!trackedObject}" />
+
+   <!--Action function for fetching field with respect to selected tracked object-->
+    <apex:actionFunction name="passStringToController"
+        rerender="displaySelectFieldList"
+        oncomplete="unblockPage();triggerChangeEvent();"
+    >
+        <apex:param name="trackedObjectName" value=""/>
+    </apex:actionFunction>
+
+    <div id="ContactLookupDiv" />
+    <script type="text/javascript">
+        var currentUpperLevel = 0;
+        var objectDataPerLevel = new Array(5);
+        
+        // an array with the object label as array (to order alphabetically)
+        var objectLabelPerLevel = new Array(5);
+        var selectedFieldPerLevel = new Array(5);
+        var orderObjectPerLevel = new Array(5);
+        
+        
+        /**
+         * Create the select for the object using the related objects
+         */
+        function getChildObjects(parentObject, level) {
+            blockPage();
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.TrackedObjectController.loadSerializedChildObjects}',
+                parentObject,
+                function(result, event) {
+                    if (event.status) {
+                        var newObject = $.parseJSON(result);
+                        if ($.isEmptyObject(newObject)) { 
+                            alert("{!JSENCODE($Label.INDICATOR_NO_RELATIONSHIP_ALERT)}");
+                        } else {
+                            currentUpperLevel = level;
+                            objectDataPerLevel[level] = newObject;
+                            objectLabelPerLevel[level] = getOrderedArray(newObject);
+                            createSelectListForLevel(level);
+                        }
+                        
+                        unblockPage();
+                    } else {
+                        unblockPage();
+                        alert("{!JSENCODE($Label.INDICATOR_NO_RELATIONSHIP_ALERT)}");
+                    }
+                },
+                {escape: false}
+            );
+        }
+        
+        /**
+         * Get the object from a path and an object
+         * and generate the selects from the result
+         */
+        function getObjectsFromPath(path, object) {
+            blockPage();
+            var wrapperData = JSON.stringify({path: changeRelationalFieldsToId(path), trackedObject : object});
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.TrackedObjectController.getSerializedObjectsFromPath}',
+                wrapperData,
+                function(result, event) {
+                    if (event.status) {
+                        var objectsSelects = $.parseJSON(result);
+                        createReadOnlySelects(objectsSelects);
+                        unblockPage(); 
+                    }
+                },
+                {escape: false}
+            );
+        }
+        
+        /**
+         * Create the read only selects for the object data
+         */
+        function createReadOnlySelects(objectData) {
+            for (var i = 0; i < objectData.length; i++) {
+                var selectDiv = $("<div />", {id : "divObjSel" + i});
+                var selectList = $("<select />", {
+                    id : "object_select" + i,
+                    name : "selectName",
+                    class : "objectSelect"
+                });
+                var relationFieldLink = $('<span />', {
+                    class : "disableLink",
+                    id    : "setFieldLink" + i,
+                    text  : objectData[i].fieldLabel + ' (' +objectData[i].relationType +')'
+                });
+                selectList.append($("<option>").attr(
+                                'value', objectData[i].objectLabel).text(objectData[i].objectLabel));
+                selectDiv.append(selectList);
+                $("#ContactLookupDiv").prepend(selectDiv);
+                $('#object_select' + i).after(relationFieldLink);
+            }
+            $(".objectSelect").prop('disabled', 'disabled');
+            $(".setFieldLink").prop('disabled', 'disabled');
+        }
+         
+        /**
+         * from an object list get an alphabetically ordered array
+         */
+        function getOrderedArray(objectData) {
+            var orderedArray = new Array();
+            for(var key in objectData) {
+                orderedArray.push({label : objectData[key].label, name : key});
+                
+            }
+            orderedArray.sort(function(a, b) {
+                if(a.label < b.label) return -1;
+                if(a.label > b.label) return 1;
+                return 0;
+            });
+            return orderedArray;
+        }
+        
+        /**
+         * Creates a select for a certain level
+         */
+        function createSelectListForLevel(level) {
+
+            //get the object data
+            var objectData = objectLabelPerLevel[level];
+            
+            // disable all the selects
+            $(".objectSelect").prop('disabled', 'disabled');
+            var selectDiv = $("<div />", {id : "divObjSel" + level});
+            var selectList = $("<select />", {
+                id : "object_select" + level,
+                name : "selectName",
+                class : "objectSelect"
+            });
+            selectList.append($("<option>").attr('value', '').text('-'));
+            for (var i = 0; i < objectData.length; i++) {
+                selectList.append($("<option>").attr(
+                                'value', objectData[i].name).text(objectData[i].label));
+            }
+            
+            selectDiv.append(selectList);
+            selectList.change(function() {
+                
+                // Remove the previous selected field and show the select field popup
+                $("input[name='fieldRadio" + level + "']").remove();
+                showSelectRelationPopUp($(this).val(), level)
+            });
+            $("#ContactLookupDiv").append(selectDiv);
+            $("#addLink").remove();
+            addDeleteLink(level, $('#object_select' + level));
+        }
+
+        /**
+         * Shows a popup to select the relation field
+         *
+         * @param selectedObject - The name of the selected object
+         */
+        function showSelectRelationPopUp(selectedObject, level) {
+            var selectRelationPopUp = $("<div />", {
+                                        id : "selectRelationPopUp" + level,
+                                        class : "selectRelationPopUp"
+                                    });
+            var fieldsObject = objectDataPerLevel[level][selectedObject]["fields"];
+            for (var fieldName in fieldsObject) {
+                // Add each field option
+                selectRelationPopUp.append(
+                    $('<input />', {
+                            name : "fieldRadio"  + level,
+                            value: fieldName,
+                            type : "radio"
+                        })
+                );
+                selectRelationPopUp.append(fieldsObject[fieldName].label + ' (' +fieldsObject[fieldName].relationType +')');
+                selectRelationPopUp.append($('<br>'))
+
+            }
+            
+            // Add the done button and set the onclick event
+            var buttonDone = $('<input />',{
+                                            type  : "button",
+                                            value : "{!JSENCODE($Label.DONE)}"
+                             });
+            buttonDone.click(function() {
+                                finishSelectingRelation(level, selectedObject)
+                                });
+
+            selectRelationPopUp.append(buttonDone);
+            $('#object_select' + level).after(selectRelationPopUp);
+            $("#block").show();
+        }
+
+        /**
+         * Save the selected field and close the popup
+         */
+        function finishSelectingRelation(level, selectedObject) {
+            if($("input[name='fieldRadio" + level + "']:checked").length == 0) {
+                alert("{!JSENCODE($Label.PERFORMANCE_TARGET_PLEASE_SELECT_FIELD)}");
+                return false;
+            }
+
+            $('#selectRelationPopUp' + level).hide();
+            $('#setFieldLink' + level).remove();
+            $("#block").hide();
+            var selectedField = getSelectedField(level, selectedObject);
+            selectedFieldPerLevel[level] = selectedField.name;
+            var relationFieldLink = $('<a />', {
+                                        href : "javascript:void(0)",
+                                        id   : "setFieldLink" + level,
+                                        text : selectedField.label + ' (' +selectedField.relationType + ')'    
+                                        }
+            );
+            relationFieldLink.click(function() {changeRelationField(level)});
+            $('#object_select' + level).after(relationFieldLink);
+
+            // Append the Add Link
+            if (level == currentUpperLevel && currentUpperLevel < 5) {
+                
+                appendAddLink(selectedObject, level);
+            }
+
+            // Update the object fields
+            setLookupFields();
+            blockPage();
+            passStringToController($('input[id*="trackedSObjectApi"]').val());
+        }
+        
+        /**
+         * get the selected field for a certain level and object
+         */
+        function getSelectedField(level, selectedObject) {
+            return objectDataPerLevel[level][selectedObject]["fields"][$(
+                                    "input[name='fieldRadio" + level + "']:checked").val()];
+        }
+         
+        /**
+         * Add link to the level
+         */
+        function appendAddLink(selectedObject, level) {
+            $("#addLink").remove();
+            var addLink = $('<a />', {href : "javascript:void(0)",
+                                      id   : "addLink",
+                                      text : "{!JSENCODE($Label.INDICATOR_ADD_RELATIONSHIP)}"    
+                                });
+            addLink.click(function() {
+                getChildObjects(selectedObject, level + 1);
+            });
+            $("#ContactLookupDiv").append(addLink);
+        }
+         
+        function addDeleteLink(level, selector) {
+            $("#deleteField").remove();
+            if (level!= 1){
+                var deleteFieldLink = $(
+                    '<a href="javascript:void(0)" id="deleteField">' + 
+                       '{!JSENCODE($Label.INDICATOR_DELETE_RELATIONSHIP)}' + '</a>'
+                );
+                deleteFieldLink.click(function() {
+                        $("#deleteField").remove();
+                        removeLevel(level);
+                });
+                selector.after(deleteFieldLink);
+            }
+        }
+         
+         function removeLevel(level) {
+            //remove select
+            $('#divObjSel' + level).remove();
+            currentUpperLevel = currentUpperLevel - 1;
+            
+            //create Add link
+            addDeleteLink(currentUpperLevel, $('#setFieldLink' + currentUpperLevel));
+            $("#addLink").remove();
+            appendAddLink($('#object_select' + currentUpperLevel).val(), currentUpperLevel);
+            
+            //enable last level
+            $("#object_select" + currentUpperLevel).prop('disabled', false);
+            passStringToController($('#object_select' + currentUpperLevel).val());
+         }
+         
+        /**
+         * Shows the popup to change the relation field
+         */
+        function changeRelationField(level) {
+             $('#selectRelationPopUp' + level).show();
+             $("#block").show();
+        }
+        
+        /**
+         * Set the relation field to the binded input
+         */
+        function setTrackedLookupField() {
+            $("input[id*='fieldLookup']").val($("input[name='fieldRadio']:checked").val());
+        }
+        
+        /**
+         * Get the last selected object
+         */
+        function getTrackedContactLookupField(){
+            
+            i = currentUpperLevel;
+            var lookupField = selectedFieldPerLevel[i];
+            i--;
+            while (i!=0) {
+                lookupField = lookupField + '.' + selectedFieldPerLevel[i];
+                i--;
+            }
+            return changeIdFieldsToRelational(lookupField);
+        }
+        
+        /**
+         * Get the last selected object
+         */
+        function getTrackedObject() {
+            return $('#object_select' + currentUpperLevel).val();
+        }
+        
+        /**
+         * Set the fields from the selected data
+         */
+        function setLookupFields() {
+                $('input[id*="trackedSObjectContactField"]').val(getTrackedContactLookupField());
+                $('input[id*="trackedSObjectApi"]').val(getTrackedObject());
+        }
+        
+        String.prototype.endsWith = function(suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+        
+        /**
+         * Change the lookup Contact Fields to be a relation path, in the custom objects
+         * replace the final __c with __r, and in the standard objects remove the final ID
+         * except in final fields as it must be an ID
+         * @param path The raw path
+         * @return The fixed lookup path
+         */
+        function changeIdFieldsToRelational(path) {
+            var fields = path.split('.');
+            var fixedRelationLookup = '';
+            for (var i = 0; i < (fields.length - 1); i++) {
+                if (fields[i].toUpperCase().endsWith('ID')) {
+                    fields[i] = fields[i].substring(0, fields[i].length - 2);
+                }else if (fields[i].toUpperCase().endsWith('__C')) {
+                    fields[i] = fields[i].substring(0, fields[i].length - 1) + 'r';
+                }
+                fixedRelationLookup += fields[i] + '.';
+            }
+            fixedRelationLookup += fields[fields.length - 1];
+            return fixedRelationLookup;
+        }
+        
+        /**
+         * The inverse function of changeIdFieldsToRelational, converts
+         * the Lookup fields in the id field name.
+         * except in final fields as it must be an ID
+         * @param path The raw path
+         * @return The fixed Id path
+         */
+        function changeRelationalFieldsToId(path) {
+            var fields = path.split('.');
+            var fixedRelationLookup = '';
+            for (var i = 0; i < (fields.length - 1); i++) {
+                if (fields[i].toUpperCase().endsWith('__R')) {
+                    fields[i] = fields[i].substring(0, fields[i].length - 1) + 'c';
+                } else {
+                    fields[i] = fields[i] + 'Id';
+                }
+                fixedRelationLookup += fields[i] + '.';
+            }
+            fixedRelationLookup += fields[fields.length - 1];
+            return fixedRelationLookup;
+        } 
+
+        var triggerChangeEvent = function() {
+            $("body").trigger("target-object-changed");
+        };
+
+        $(document).ready(function() {
+            if (!{!isEditing}){
+                getChildObjects('contact', 1);
+            } else {
+                getObjectsFromPath("{!contactLookupPath}", "{!trackedObject}");
+            }
+        });
+
+    </script>
+</apex:component >

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>ContactGroup__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>This report type connects the following:
+- Groups (primary object)
+-  Assigned Surveys</description>
+    <join>
+        <outerJoin>false</outerJoin>
+        <relationship>ContactGroupSurveyAssignment__r</relationship>
+    </join>
+    <label>Groups-Assigned Surveys</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Owner</displayNameOverride>
+            <field>Owner</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Description</displayNameOverride>
+            <field>Description__c</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Status</displayNameOverride>
+            <field>Status__c</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Member Count</displayNameOverride>
+            <field>MemberCount__c</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Group Survey Count</displayNameOverride>
+            <field>SurveyCount__c</field>
+            <table>ContactGroup__c</table>
+        </columns>
+        <masterLabel>Groups</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Assignment ID</displayNameOverride>
+            <field>Id</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Assignment Number</displayNameOverride>
+            <field>Name</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Assignment Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Assignment Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Assignment Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Assignment Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Assigned Survey</displayNameOverride>
+            <field>Survey__c</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DatePublishedToThisGroup__c</field>
+            <table>ContactGroup__c.ContactGroupSurveyAssignment__r</table>
+        </columns>
+        <masterLabel>Assigned Surveys</masterLabel>
+    </sections>
+</ReportType>

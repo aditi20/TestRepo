@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Condición de salto</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Condición de salto</value>
+    </caseValues>
+    <fields>
+        <label>Condición</label>
+        <name>Condition__c</name>
+        <picklistValues>
+            <masterLabel>Answered</masterLabel>
+            <translation>Esta respondida</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GreaterThan</masterLabel>
+            <translation>Mayor que</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>InRange</masterLabel>
+            <translation>En rango</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is</masterLabel>
+            <translation>Es</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LesserThan</masterLabel>
+            <translation>Menor que</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Negar</label>
+        <name>Negate__c</name>
+    </fields>
+    <fields>
+        <label>Pregunta afectada</label>
+        <name>Parent__c</name>
+        <relationshipLabel>Omitir condiciones</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Pregunta evaluada</label>
+        <name>SourceQuestion__c</name>
+        <relationshipLabel>Afectadas las condiciones omitidas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Valor</label>
+        <name>Value__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Número de la condición de salto</nameFieldLabel>
+</CustomObjectTranslation>

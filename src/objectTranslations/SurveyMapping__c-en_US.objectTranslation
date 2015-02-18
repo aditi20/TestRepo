@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Survey Mapping</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Survey Mappings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Interviewee Map Field --></label>
+        <name>IntervieweeApiField__c</name>
+    </fields>
+    <fields>
+        <help><!-- Set this field to prevent duplicated records. The system will check into the &quot;matching field&quot;, if the value for the &quot;matching field&quot; already exists it will update the record(not insert). --></help>
+        <label><!-- Matching Field --></label>
+        <name>MatchingField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object Api Name --></label>
+        <name>ObjectApiName__c</name>
+    </fields>
+    <fields>
+        <label><!-- PPI Score Mapping Field --></label>
+        <name>PPIScoreApiField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repeat --></label>
+        <name>Repeat__c</name>
+        <relationshipLabel><!-- Survey Mappings --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Submission Map Field --></label>
+        <name>SubmissionApiField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey Mapping Field --></label>
+        <name>SurveyApiField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey Version Mapping Field --></label>
+        <name>SurveyVersionApiField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey --></label>
+        <name>Survey__c</name>
+        <relationshipLabel><!-- Survey Mappings --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Surveyor Field --></label>
+        <name>SurveyorApiField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Use This Mapped Contact As Interviewee --></label>
+        <name>UseAsInterviewee__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- If the Mapping is use as Interviewee can&apos;t map an interviewee field --></errorMessage>
+        <name>IntervieweeMappingCheck</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the contact object can be used as interviewee --></errorMessage>
+        <name>onlyContactInteviewee</name>
+    </validationRules>
+</CustomObjectTranslation>
