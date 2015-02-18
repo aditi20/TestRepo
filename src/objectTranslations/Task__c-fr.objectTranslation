@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Task Activity --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Task Activity --></value>
+    </caseValues>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Location --></label>
+        <name>EndLocation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Job --></label>
+        <name>Job__c</name>
+        <relationshipLabel><!-- Tasks --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>StartDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Location --></label>
+        <name>StartLocation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission --></label>
+        <name>Submission__c</name>
+        <relationshipLabel><!-- Tasks --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Task --></label>
+        <name>TaskTemplate__c</name>
+        <relationshipLabel><!-- Task Activities --></relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel><!-- Task Activity Name --></nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

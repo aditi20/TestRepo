@@ -1,0 +1,69 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardController="CascadingSelect__c" extensions="CreateCascadingSelectController" sidebar="false" tabStyle="SurveyManager__tab">
+    <apex:sectionHeader title="New Cascade Select"/>
+    <apex:includeScript value="{!$Resource.jquery}" />
+    <c:blockOverlay label="{!$Label.LOADING}..."/>
+    <style type="text/css">
+        .uploadDiv{
+                padding-left:15%;
+        }
+        .uploadButton{
+                padding-left:5%;
+        }
+        #msgFooter{
+                color:red;
+                padding-right: 25%;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            var filePath = $("input[name*=':inputFile']").val();
+            if(filePath == ''){
+                $("#msgFooter").hide()
+            }
+        });
+
+        // Navigate to list when file upload finish
+        function goList(){
+           unblockPage();
+           window.location = '{!URLFOR($Action.CascadingSelect__c.List, $ObjectType.CascadingSelect__c)}';
+        }
+
+        // Show Message when user selects file
+        function showMessage(){
+            if ($("input[name*=':inputFile']").val() != ''){
+                $('#msgFooter').show();
+            }else {
+                $('#msgFooter').hide();
+            }
+        }
+    </script>
+    <apex:pageMessages />
+    <apex:pageBlock id="csvBlock" >
+        <apex:form>
+            <div id="saveDiv" align="center">
+                <apex:commandButton action="{!ReadFile}" value="{!$Label.SAVE}" id="uploadButtonUp" onclick="blockPage()" />
+                <apex:commandButton value="{!$Label.CANCEL}" id="cancelUp" immediate="true" action="{!URLFOR($Action.CascadingSelect__c.List, $ObjectType.CascadingSelect__c)}"/>
+            </div>
+            <apex:pageBlockSection columns="2" title="{!$Label.INFORMATION}" collapsible="false" id="informationBlock">
+                <apex:inputField id="name" value="{!cascadingSelect.Name}" required="true"/>
+                <apex:inputTextarea id="description" styleClass="descriptionInput" rows="4" cols="60" value="{!cascadingSelect.Description__c}"
+                rendered="{!$ObjectType.CascadingSelect__c.fields.Description__c.Createable && $ObjectType.CascadingSelect__c.fields.Description__c.Updateable}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" title="File" collapsible="false" id="uploadCsvBlock">
+                <apex:outputPanel >
+                <div class="uploadDiv">
+                    <apex:outputLabel for="inputFile">{!$Label.CASCADING_UPLOAD_MSG}</apex:outputLabel>
+                    <apex:inputFile id="inputFile" value="{!fileBinary}" filename="{!fileName}" onchange="showMessage()" />
+                </div>
+                </apex:outputPanel >
+            </apex:pageBlockSection>
+            <div id="saveDiv" align="center">
+                <apex:commandButton action="{!ReadFile}" value="{!$Label.SAVE}" id="uploadButtonDown" onclick="blockPage()" />
+                <apex:commandButton value="{!$Label.CANCEL}" id="cancelDown" immediate="true" action="{!URLFOR($Action.CascadingSelect__c.List, $ObjectType.CascadingSelect__c)}" />
+            </div>
+            <div><p id="msgFooter">{!$Label.CASCADING_UPLOAD_MSG_FOOTER}</p></div>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

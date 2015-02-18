@@ -1,0 +1,176 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page controller="IndicatorManagerController" tabstyle="PerformanceTargetManager__tab">
+    <apex:includeScript value="{!$Resource.jquery}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'utils.js')}" />
+    
+    <c:blockOverlay label="{!$Label.LOADING}..."/>
+    <style>
+        .disableLink {
+            color:grey;
+            font: italic;
+        }
+        .redirectJobTarget {
+            float:right;
+        }
+    </style>
+
+    <apex:sectionHeader id="homeSectionHeader" title="{!$Label.INDICATOR_MANAGER_TITLE}"/>
+
+    <apex:message id="errors" styleClass="apex_messages" />
+    <apex:form >
+        <input id="btnGoJobTarget" type="button" value="{!$Label.JOB_TARGET_MANAGER_TITLE}" 
+                class="btn, redirectJobTarget" 
+                onclick="redirect('{!$Page.PerformanceTargetManager}')"/>
+    </apex:form>
+
+    <br />
+
+
+    <apex:pageBlock id="tableTarget">
+        <apex:form >
+            <input id="btnNewTarget" type="button" value="{!$Label.INDICATOR_TARGET_NEW}" onclick="redirect('{!$Page.CreateIndicatorTarget}')" class="btn"/>
+        </apex:form>
+        <br />
+
+        <apex:form >
+            <apex:pageBlockTable value="{!targetList}" var="item">
+
+                <apex:column id="headerAction" title="{!$Label.ACTION}" styleClass="{!item.Id} actionColumn " >
+                    <apex:facet name="header">
+                        <apex:outputText value="{!$Label.ACTION}" />
+                    </apex:facet>
+
+                    <apex:commandLink id="closeActionLink" value="{!$Label.JOB_TARGET_CLOSE_ACTION}" 
+                            onclick="return confirm('{!JSENCODE($Label.INDICATOR_TARGET_CONFIRM_CLOSE)}')" 
+                            action="{!closeTarget}" 
+                            rendered="{!item.Status__c != closed}" styleClass="actionLink">
+                        <apex:param name="currentTarget" value="{!item.Id}" assignTo="{!currentTargetId}" />
+                    </apex:commandLink>
+
+                    <apex:outputText id="closeActionLabel" value="{!$Label.JOB_TARGET_CLOSE_ACTION}"
+                             styleClass="disableLink" rendered="{!item.Status__c == closed}"/>
+                    |&nbsp;
+                    <apex:outputPanel id="updateActionLink" rendered="{!item.Status__c != closed}" 
+                            styleClass="actionLink">
+                        <a href="#" class="actionLink" onclick="redirect('{!$Page.CreateIndicatorTarget}', '{!item.Id}')">
+                            {!$Label.JOB_TARGET_UPDATE_ACTION}
+                        </a>
+                    </apex:outputPanel>
+
+                    <apex:outputText id="updateActionLabel" value="{!$Label.JOB_TARGET_UPDATE_ACTION}" 
+                            styleClass="disableLink" rendered="{!item.Status__c == closed}"/>
+                </apex:column>
+                <apex:column id="headerStatus" 
+                        title="{!$ObjectType.PerformanceTarget__c.Fields.Status__c.Label}"  
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortStatusCommandLink" 
+                                value="{!$ObjectType.PerformanceTarget__c.Fields.Status__c.Label}" 
+                                action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="Status__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="statusField" value="{!item.Status__c}"/>
+                </apex:column>
+
+                <apex:column id="headerName" title="{!$Label.INDICATOR_TARGET_NAME_HEADER}"  
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortNameCommandLink" 
+                                value="{!$Label.INDICATOR_TARGET_NAME_HEADER}" 
+                                action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="Name" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="nameFieldLink" value="{!item.Name}"/>
+                </apex:column>
+
+                <apex:column id="headerTrackedSObject" 
+                        title="{!$Label.INDICATOR_TARGET_OBJ_HEADER}" 
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortJobNameCommandLink" 
+                                value="{!$Label.INDICATOR_TARGET_OBJ_HEADER}" 
+                                action="{!doSort}" rerender="tableTarget">
+                            <apex:param name="sortField" 
+                                    value="TrackedSObjectApiName__c" 
+                                    assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="jobnameFieldLink" value="{!item.TrackedSObjectApiName__c}"/>
+                </apex:column>
+
+                <apex:column id="headerTimeFrame" 
+                        title="{!$ObjectType.PerformanceTarget__c.Fields.Timeframe__c.Label}" 
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortTimeFrameCommandLing" 
+                                value="{!$ObjectType.PerformanceTarget__c.Fields.Timeframe__c.Label}" 
+                                action="{!doSort}" 
+                                rerender="tableTarget,errors">
+                            <apex:param name="sortField" value="Timeframe__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="timeframeField" value="{!item.Timeframe__c}"/>
+                </apex:column>
+
+                <apex:column id="headerCreatedBy" 
+                        title="{!$Label.INDICATOR_TARGET_CREATED_BY_HEADER}"  
+                        styleClass="{!item.Id}">
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortCreatedByCommandLink" 
+                                value="{!$Label.INDICATOR_TARGET_CREATED_BY_HEADER}" 
+                                action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="CreatedById" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="createdByIdField" value="{!item.CreatedById}"/>
+                </apex:column>
+
+                <apex:column id="headerCreatedDate" 
+                        title="{!$ObjectType.PerformanceTarget__c.Fields.CreatedDate.Label}" 
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortCreatedDateCommandLink" 
+                                value="{!$ObjectType.PerformanceTarget__c.Fields.CreatedDate.Label}" 
+                                action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="CreatedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText id="createdDateField" value="{0, date, medium}">
+                        <apex:param value="{!item.CreatedDate}" /> 
+                    </apex:outputText>
+                </apex:column>
+
+                <apex:column id="headerLastModifiedById" 
+                        title="{!$Label.INDICATOR_TARGET_LAST_MODIFIED_BY_HEADER}" 
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortLastModifiedByIdCommandLink" 
+                                value="{!$Label.INDICATOR_TARGET_LAST_MODIFIED_BY_HEADER}" 
+                                action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="LastModifiedById" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="LastModifiedByIdField" value="{!item.LastModifiedById}"/>
+                </apex:column>
+
+                <apex:column id="headerLastModifDate" 
+                        title="{!$ObjectType.PerformanceTarget__c.Fields.LastModifiedDate.Label}" 
+                        styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortModifDateCommandLink" 
+                                value="{!$ObjectType.PerformanceTarget__c.Fields.LastModifiedDate.Label}" 
+                                action="{!doSort}" rerender="tableTarget,errors">
+                            <apex:param name="sortField" value="LastModifiedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText id="lastModifDateField" value="{0, date, medium}">
+                        <apex:param value="{!item.LastModifiedDate}" /> 
+                    </apex:outputText>
+                </apex:column>
+
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

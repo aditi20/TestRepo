@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Holds the target and actual values for a specific (Target, Contact) pair</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ActualValueResult__c</fullName>
+        <description>If PerformanceTarget is a Job Target, return the Actual Value.
+Otherwise:
+If Target.AggregationOperation is COUNT, returns RecordCount.
+If it is SUM, it returns ActualValue.
+If it is AVG or PERCENT, it returns ActualValue/RecordCount
+If it is CUSTOM return ActualValue</description>
+        <externalId>false</externalId>
+        <formula>IF(
+    RecordCount__c = 0, 
+    CASE(PerformanceTarget__r.AggregationOperation__c,
+        &quot;SUM&quot;, ActualValue__c,
+        0
+    ),
+    CASE(PerformanceTarget__r.AggregationOperation__c,
+        &quot;AVG&quot;,  ActualValue__c/RecordCount__c ,
+        &quot;PERCENTAGE&quot;, (ActualValue__c/RecordCount__c)*100 ,
+        &quot;COUNT&quot;, RecordCount__c ,
+        ActualValue__c
+    )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual Value Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualValue__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The actual value that the Contact achieved so far</description>
+        <externalId>false</externalId>
+        <label>Actual Value</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The contact for which this assigned target applies</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Assigned Targets</relationshipLabel>
+        <relationshipName>AssignedTargets</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EndDate__c</fullName>
+        <description>The date when this Assigned Target stops tracking values and a new one is created for the next timeframe.</description>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PerformanceTarget__c</fullName>
+        <description>The target to which this object belongs to</description>
+        <externalId>false</externalId>
+        <label>Performance Target</label>
+        <referenceTo>PerformanceTarget__c</referenceTo>
+        <relationshipLabel>Assigned Targets</relationshipLabel>
+        <relationshipName>Assigned_Targets</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Progress__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TargetValue__c = 0, 1, (ActualValue__c / TargetValue__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Progress</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>RecordCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of records processed for an actual value</description>
+        <externalId>false</externalId>
+        <label>Record Count</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StartDate__c</fullName>
+        <description>The date when the Assigned Target starts tracking the values</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Active means in use, closed means old</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TargetValue__c</fullName>
+        <description>The target value for the Contact in the Target&apos;s time frame</description>
+        <externalId>false</externalId>
+        <label>Target Value</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Assigned Target</label>
+    <nameField>
+        <displayFormat>AT-{0000000}</displayFormat>
+        <label>Assigned Target Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Assigned Targets</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

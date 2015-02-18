@@ -1,0 +1,126 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page controller="PerformanceTargetManagerController" tabstyle="PerformanceTargetManager__tab">
+    <apex:includeScript value="{!$Resource.jquery}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'utils.js')}" />
+
+    <c:blockOverlay label="{!$Label.LOADING}..."/>
+
+    <apex:sectionHeader id="homeSectionHeader" title="{!$Label.JOB_TARGET_MANAGER_TITLE}" subtitle="{!$Label.HOME}"/>
+
+    <apex:message id="errors" styleClass="apex_messages" />
+    <apex:form >
+        <input id="btnGoJobTarget" type="button" value="{!$Label.INDICATOR_MANAGER_TITLE}" class="btn, redirectIndicatorTarget" onclick="redirect('{!$Page.PerformanceIndicatorManager}')"/>
+    </apex:form>
+    <br />
+    <style>
+        .disableLink {
+            color:grey;
+            font: italic;
+        }
+        .redirectIndicatorTarget{
+            float:right;
+        }
+    </style>
+
+    <apex:pageBlock id="tableTarget">
+        <apex:form >
+            <input id="btnNewTarget" type="button" onclick="redirect('{!$Page.CreateJobTarget}')" value="{!$Label.JOB_TARGET_NEW}" class="btn"/>&nbsp;|&nbsp;
+        </apex:form>
+        <br />
+
+        <apex:form >
+            <apex:pageBlockTable value="{!targetList}" var="item">
+
+                <apex:column id="headerAction" title="{!$Label.ACTION}" styleClass="{!item.Id} actionColumn " >
+                    <apex:facet name="header">
+                        <apex:outputText value="{!$Label.ACTION}" />
+                    </apex:facet>
+
+                    <apex:commandLink id="closeActionLink" value="{!$Label.JOB_TARGET_CLOSE_ACTION}" onclick="return confirm('{!JSENCODE($Label.JOB_TARGET_CONFIRM_CLOSE)}')" action="{!closeTarget}" rendered="{!item.Status__c != closed}" styleClass="actionLink">
+                        <apex:param name="currentTarget" value="{!item.Id}" assignTo="{!currentTargetId}" />
+                    </apex:commandLink>
+
+                    <apex:outputText id="closeActionLabel" value="{!$Label.JOB_TARGET_CLOSE_ACTION}" styleClass="disableLink" rendered="{!item.Status__c == closed}"/>
+                    |&nbsp;
+                    <apex:outputPanel id="updateActionLink" rendered="{!item.Status__c != closed}" styleClass="actionLink">
+                        <a href="#" class="actionLink" onclick="redirect('{!$Page.CreateJobTarget}', '{!item.Id}')">{!$Label.JOB_TARGET_UPDATE_ACTION}</a>
+                    </apex:outputPanel>
+
+                    <apex:outputText id="updateActionLabel" value="{!$Label.JOB_TARGET_UPDATE_ACTION}" styleClass="disableLink" rendered="{!item.Status__c == closed}"/>
+                </apex:column>
+                <apex:column id="headerStatus" title="{!$ObjectType.PerformanceTarget__c.Fields.Status__c.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortStatusCommandLink" value="{!$ObjectType.PerformanceTarget__c.Fields.Status__c.Label}" action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="Status__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="statusField" value="{!item.Status__c}"/>
+                </apex:column>
+
+                <apex:column id="headerName" title="{!$ObjectType.PerformanceTarget__c.Fields.Name.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortNameCommandLink" value="{!$ObjectType.PerformanceTarget__c.Fields.Name.Label}" action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="Name" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="nameFieldLink" value="{!item.Name}"/>
+                </apex:column>
+
+                <apex:column id="headerJobName" title="{!$ObjectType.JobTemplate__c.Fields.Name.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortJobNameCommandLink" value="{!$ObjectType.JobTemplate__c.Fields.Name.Label}" action="{!doSort}" rerender="tableTarget">
+                            <apex:param name="sortField" value="JobTemplate__r.Name" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="jobnameFieldLink" value="{!item.JobTemplate__r.Name}"/>
+                </apex:column>
+
+                <apex:column id="headerTimeFrame" title="{!$ObjectType.PerformanceTarget__c.Fields.Timeframe__c.Label}" styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortTimeFrameCommandLing" value="{!$ObjectType.PerformanceTarget__c.Fields.Timeframe__c.Label}" action="{!doSort}" rerender="tableTarget,errors">
+                            <apex:param name="sortField" value="Timeframe__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="timeframeField" value="{!item.Timeframe__c}"/>
+                </apex:column>
+
+                <apex:column id="headerCreatedBy" title="{!$ObjectType.PerformanceTarget__c.Fields.CreatedById.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortCreatedByCommandLink" value="{!$ObjectType.PerformanceTarget__c.Fields.CreatedById.Label}" action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="CreatedById" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="createdByIdField" value="{!item.CreatedById}"/>
+                </apex:column>
+
+                <apex:column id="headerCreatedDate" title="{!$ObjectType.PerformanceTarget__c.Fields.CreatedDate.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortCreatedDateCommandLink" value="{!$ObjectType.PerformanceTarget__c.Fields.CreatedDate.Label}" action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="CreatedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="createdDateField" value="{!item.CreatedDate}"/>
+                </apex:column>
+
+                <apex:column id="headerLastModifiedById" title="{!$ObjectType.PerformanceTarget__c.Fields.LastModifiedById.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortLastModifiedByIdCommandLink" value="{!$ObjectType.PerformanceTarget__c.Fields.LastModifiedById.Label}" action="{!doSort}" rerender="tableTarget, errors">
+                            <apex:param name="sortField" value="LastModifiedById" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="LastModifiedByIdField" value="{!item.LastModifiedById}"/>
+                </apex:column>
+
+                <apex:column id="headerLastModifDate" title="{!$ObjectType.PerformanceTarget__c.Fields.LastModifiedDate.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortModifDateCommandLink" value="{!$ObjectType.PerformanceTarget__c.Fields.LastModifiedDate.Label}" action="{!doSort}" rerender="tableTarget,errors">
+                            <apex:param name="sortField" value="LastModifiedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="lastModifDateField" value="{!item.LastModifiedDate}"/>
+                </apex:column>
+
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

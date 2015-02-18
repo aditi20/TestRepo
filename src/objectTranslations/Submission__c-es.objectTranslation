@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Encuesta Completa</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Encuestas Completas</value>
+    </caseValues>
+    <fields>
+        <label>Fecha</label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label>Dispositivo</label>
+        <name>Device__c</name>
+        <relationshipLabel>Entregas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Entrevistado</label>
+        <name>Interviewee__c</name>
+        <relationshipLabel>Encuestas completas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Puntuación PPI</label>
+        <name>PPIScore__c</name>
+    </fields>
+    <fields>
+        <label>Estado</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Uploaded</masterLabel>
+            <translation>Cargado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Uploading</masterLabel>
+            <translation>Cargando</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Hash MD5 del XML</label>
+        <name>SubmissionXMLMD5__c</name>
+    </fields>
+    <fields>
+        <label>Versión de la encuesta</label>
+        <name>SurveyVersion__c</name>
+        <relationshipLabel>Encuestas completas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Encuesta</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Entregas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Encuestador</label>
+        <name>Surveyor__c</name>
+        <relationshipLabel>Encuestas completas (Encuestador)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha de finalización</label>
+        <name>endDate__c</name>
+    </fields>
+    <fields>
+        <label>Aproximación de GPS</label>
+        <name>gps_approximation__c</name>
+    </fields>
+    <fields>
+        <label>GPS x</label>
+        <name>gps_x__c</name>
+    </fields>
+    <fields>
+        <label>GPS y</label>
+        <name>gps_y__c</name>
+    </fields>
+    <fields>
+        <label>Fecha de inicio</label>
+        <name>startDate__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de la Encuesta Completa</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Coordinadas del GPS inválidas</errorMessage>
+        <name>GPS_coordinates</name>
+    </validationRules>
+</CustomObjectTranslation>

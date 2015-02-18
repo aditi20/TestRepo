@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>MobileUserManager</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Contains information about a Field Officer&apos;s session in Salesforce</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <description>Id of the Field Officer</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Mobile Users</relationshipLabel>
+        <relationshipName>Mobile_Users</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Last_Activity__c</fullName>
+        <description>Timestamp of the last time the mobile app requested any service from Salesforce using the FO&apos;s credentials.
+This field is also used to estabilish if this session has expired.</description>
+        <externalId>false</externalId>
+        <label>Last Activity</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Last_Device__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Last Device</label>
+        <referenceTo>Device__c</referenceTo>
+        <relationshipName>Mobile_User</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Last_Login__c</fullName>
+        <description>Timestamp of the last time the mobile app logged in to Salesforce with the FO&apos;s credentials.</description>
+        <externalId>false</externalId>
+        <label>Last Login</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Password__c</fullName>
+        <externalId>false</externalId>
+        <label>Password</label>
+        <length>64</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Session_Token__c</fullName>
+        <externalId>false</externalId>
+        <label>Session Token</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blocked</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Username__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>false</externalId>
+        <label>Username</label>
+        <length>64</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Mobile User</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Username__c</columns>
+        <columns>Contact__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>MU-{0000}</displayFormat>
+        <label>Mobile User Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Mobile Users</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Contact__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Username__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Contact__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Contact__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Contact_With_Only_1_Mobile_User</fullName>
+        <active>true</active>
+        <description>Validaste that when creating a mobile user, the contact does not have any mobile user previously asociated.</description>
+        <errorConditionFormula>AND(ISNEW(), Contact__r.IsMobileUser__c  &gt; 0)</errorConditionFormula>
+        <errorDisplayField>Contact__c</errorDisplayField>
+        <errorMessage>Contact cannot have more than 1 mobile user</errorMessage>
+    </validationRules>
+</CustomObject>

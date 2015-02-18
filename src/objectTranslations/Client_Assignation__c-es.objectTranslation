@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Asignación de Cliente</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Asignaciones de Cliente</value>
+    </caseValues>
+    <fields>
+        <label>Asignación</label>
+        <name>Assignation__c</name>
+    </fields>
+    <fields>
+        <label>Cliente</label>
+        <name>Client__c</name>
+        <relationshipLabel>Usuarios Móviles asignados a este Contacto</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Usuario Móvil</label>
+        <name>Mobile_User__c</name>
+        <relationshipLabel>Clientes Asignados</relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Client Assignation Layout</layout>
+        <sections>
+            <label>Enlaces personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nombre de la asignación de cliente</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Debe seleccionar un contacto cliente.</errorMessage>
+        <name>Client_Validate</name>
+    </validationRules>
+</CustomObjectTranslation>

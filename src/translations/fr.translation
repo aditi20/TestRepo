@@ -1,0 +1,2886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customApplications>
+        <label>TaroWorks</label>
+        <name>Mobile_Surveys</name>
+    </customApplications>
+    <customLabels>
+        <label>Action</label>
+        <name>ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Actions</label>
+        <name>ACTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Activer</label>
+        <name>ACTIVATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Il ya au moins une enquête active. Voulez-vous continuer malgré tout?</label>
+        <name>ACTIVATE_SURVEY_CONFIRM_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>Ajouter</label>
+        <name>ADD</name>
+    </customLabels>
+    <customLabels>
+        <label>Ajouter Membre</label>
+        <name>ADD_MEMBER</name>
+    </customLabels>
+    <customLabels>
+        <label>Ajouter Enquête</label>
+        <name>ADD_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Tous</label>
+        <name>ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>Une</label>
+        <name>ANY</name>
+    </customLabels>
+    <customLabels>
+        <label>Travail et paramètres des tâches </label>
+        <name>APPLICATION_SETTINGS_JOB_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label>Paramètres mis à jour avec succès</label>
+        <name>APPLICATION_SETTINGS_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>Appliquer</label>
+        <name>APPLY_DEFAULT_TARGET_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label>Assigner</label>
+        <name>ASSIGN</name>
+    </customLabels>
+    <customLabels>
+        <label>Assigner enquêtes</label>
+        <name>ASSIGNED_SURVEYS</name>
+    </customLabels>
+    <customLabels>
+        <label>Période Actuelle: {0} - {1}</label>
+        <name>ASSIGNED_TARGET_CURRENT_PERIOD</name>
+    </customLabels>
+    <customLabels>
+        <label>Assigner à ce groupe</label>
+        <name>ASSIGNED_TO_THIS_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Auteur</label>
+        <name>AUTHOR</name>
+    </customLabels>
+    <customLabels>
+        <label>Le travail n'est pas en statut brouillon ; Les tâches ne peuvent pas être insérées, modifiées ou supprimées</label>
+        <name>AVOID_EDIT_DELETE_TASK_PUBLISHED_JOB_TEMPLATE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>Le travail ne peut pas être publié parce que toutes les enquêtes liées à des tâches doivent être publiées.</label>
+        <name>AVOID_PUBLISH_JOB_TEMPLATE_WITH_NONE_PUBLISHED_SURVEYS</name>
+    </customLabels>
+    <customLabels>
+        <label>Revenir en arrière et modifier</label>
+        <name>BACK_AND_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>Basé sur une valeur numérique de:</label>
+        <name>BASED_NUMERIC_FROM</name>
+    </customLabels>
+    <customLabels>
+        <label>Ces conditions sont utilisées à la fin de l'enquête sur {0}.</label>
+        <name>BUILDER_ALERT_USED_CONDITION</name>
+    </customLabels>
+    <customLabels>
+        <label>Ne peut pas être sauvegardé tant que {0} est {1}.</label>
+        <name>BUILDER_ERR_CANNOTSAVEWHILE</name>
+    </customLabels>
+    <customLabels>
+        <label>L'enquête a été modifiée par quelqu'un d'autre. Veuillez ré-initialiser la page et recommencer votre travail.</label>
+        <name>BUILDER_ERR_CONCURRENTSAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de publier une enquête dans un groupe inactif.</label>
+        <name>BUILDER_ERR_INACTIVEGROUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de définir plus q'une connexion Enquête personne interviewée</label>
+        <name>BUILDER_ERR_INTERVIEWEE_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>URL invalide</label>
+        <name>BUILDER_ERR_INVALIDURL</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible d'établir une connexion à un objet d'enquête par portable</label>
+        <name>BUILDER_ERR_MOBILESURVEY_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question ne peut pas être modifiée</label>
+        <name>BUILDER_ERR_NONEDITABLEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question ne peut pas être modifiée, et ne peut pas être suprimée</label>
+        <name>BUILDER_ERR_NONREMOVABLEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question ne peut pas être supprimée, et comprend des questions non modifiables</label>
+        <name>BUILDER_ERR_NONREMOVABLESECTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question ne peut pas être modifiée : l'enquête est en statut brouillon</label>
+        <name>BUILDER_ERR_QUESTION_NOTDRAFTSURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>L'enqête a déjà été publié ; Vous ne pouvez pas la sauvegarder</label>
+        <name>BUILDER_ERR_SURVEYALREADYPUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous ne pouvez pas modifier cet exemple de question</label>
+        <name>BUILDER_LBL_NONEDITABLEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Utiliser en tant que Interviewé</label>
+        <name>BUILDER_LBL_USEASINTERVIEWEE</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette enquête a été modifiée par quelqu'un d'autre. 
+Voulez-vous à présent ré-initialiser la page?</label>
+        <name>BUILDER_REFRESH_PAGE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>Annuler</label>
+        <name>CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible d'ajouter une fin d'une question d'enquête dans une section répétée</label>
+        <name>CANNOT_ADD_FINAL_TO_REPEATED</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de deplacer la fin d'une question d'enquête dans une section répétée</label>
+        <name>CANNOT_MOVE_FINAL_TO_REPEATED</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de deplacer des questions déjà connectées entre sections répétées</label>
+        <name>CANNOT_MOVE_MAPPED_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de deplacer cette question déjà connectées à un contact utilisé en tant que personne interviewée dans une sections répétée</label>
+        <name>CANNOT_MOVE_QUESTION_AS_INTERVIEWEE_IN_REPEATED_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de déplacer cette question numérotée connectée dans une sections répétée</label>
+        <name>CANNOT_MOVE_QUESTION_RELATED_IN_REPEATED_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de deplacer cette question numérotée car elle est connectée à {0}</label>
+        <name>CANNOT_MOVE_QUESTION_RELATED_REPEAT_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de déplacer cette question car elle est connectée à {0}</label>
+        <name>CANNOT_MOVE_REPEATED_RELATED_QUESTION_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de déplacer car cette question comprend {0} et est connectée à {1}</label>
+        <name>CANNOT_MOVE_SECTION_WITH_RELATED_QUESTION_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>La cellule {0} sur la ligne {1} est vide</label>
+        <name>CASCADING_BATCH_BLANK_CELL</name>
+    </customLabels>
+    <customLabels>
+        <label>Lwe titre de la cellule au niveau {0} ne contient pas de valeur</label>
+        <name>CASCADING_BATCH_BLANK_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>La cellule {0} sur la ligne {1} contient plus de 255 characters</label>
+        <name>CASCADING_BATCH_CELL_TOO_LONG</name>
+    </customLabels>
+    <customLabels>
+        <label>le fichier CSV ne contient que des titres. Les Selections Cascade ne contiennent pas de valeur</label>
+        <name>CASCADING_BATCH_CSV_ONLY_HEADERS</name>
+    </customLabels>
+    <customLabels>
+        <label>La ligne {0} est un doublon de la ligne {1}</label>
+        <name>CASCADING_BATCH_DUPLICATE_ROW</name>
+    </customLabels>
+    <customLabels>
+        <label>Le fichier téléchargé est vide</label>
+        <name>CASCADING_BATCH_EMPTY_CSV</name>
+    </customLabels>
+    <customLabels>
+        <label>Le titre de la cellule au niveau {0} comprend plus de  255 caracters</label>
+        <name>CASCADING_BATCH_HEADER_CELL_TOO_LONG</name>
+    </customLabels>
+    <customLabels>
+        <label>Le fichier n'est pas sous le format UTF-8 et contient des caractères spéciaux. Il doit être converti afin d'être téléchargé.</label>
+        <name>CASCADING_BATCH_NONUTF8FILE</name>
+    </customLabels>
+    <customLabels>
+        <label>La ligne {0} possède les valeurs {1} et devrait posséder les valeurs {2}</label>
+        <name>CASCADING_BATCH_ROW_DIFFERENT_LENGTH</name>
+    </customLabels>
+    <customLabels>
+        <label>Téléchargeur Sélection Cascade</label>
+        <name>CASCADING_BATCH_SENDER_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Cascade TaroWorks Erreur de sélection de fichier - {0}</label>
+        <name>CASCADING_BATCH_SUBJECT_LINE</name>
+    </customLabels>
+    <customLabels>
+        <label>Il y a seulement 6 nivaux dans la sélection de cascades. Le fichier téléchargé comprend {0}</label>
+        <name>CASCADING_BATCH_TOO_MANY_HEADERS</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n'êtes pas autorisé à modifier. Cet item de Selection de Cascades est en cours</label>
+        <name>CASCADING_ERR_DELETE_PROCESSING</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n'êtes pas autorisé à modifier. Cet item de Selection Cascades a déjà été utilisé dans une enquête.</label>
+        <name>CASCADING_ERR_DELETE_USED</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestionnaire de Selection de Cascades</label>
+        <name>CASCADING_SELECTS</name>
+    </customLabels>
+    <customLabels>
+        <label>Selection de Cascades</label>
+        <name>CASCADING_SELECT_OPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Le fichier CSV file a {0} valeurs differentes. Le maximum permis est {1}.</label>
+        <name>CASCADING_TOO_MANY_VALUES</name>
+    </customLabels>
+    <customLabels>
+        <label>Le titre de Selection de Cascades doit être unique</label>
+        <name>CASCADING_UNIQUE_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Télécharger un fichier CSV depuis votre ordinateur</label>
+        <name>CASCADING_UPLOAD_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>Une fois que vous aurez cliqué&quot;Sauvegardé&quot;, le fichier CSV file sera exécuté. Cela peut prendre quelques minutes. Veuillez vérifier son statut dans la page du Gestionnaire de Sélection. Si le status est &quot;prêt&quot; vous pourrez alors commencer à utiliser la Section de Cascades dans l'enquête. Si le statut est &quot;non valide&quot;, vous devrez le suprimer et técharger un autre fichier.</label>
+        <name>CASCADING_UPLOAD_MSG_FOOTER</name>
+    </customLabels>
+    <customLabels>
+        <label>CLONE</label>
+        <name>CLONE_SURVEY_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Collecter</label>
+        <name>COLLECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Etes-vous sûr</label>
+        <name>CONFIRMATION_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>Le groupe que vous allez suprimer possède au moins une enquête active. Etes-vous sûr de vouloir la suprimer?</label>
+        <name>CONFIRM_DELETE_CONTACT_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Continuer</label>
+        <name>CONTINUE</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer</label>
+        <name>CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Le titre est trop long. Veuillez en saisir un autre.</label>
+        <name>CREATESURVEY_ERR_NAMETOOLONG</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez sélectionner une bibliothèque à ouvir</label>
+        <name>CREATESURVEY_ERR_NOLIBRARYSELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez sélectionner une enquète à cloner</label>
+        <name>CREATESURVEY_ERR_NOSURVEYSELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer des modèles PPI</label>
+        <name>CREATESURVEY_FROM_PPI</name>
+    </customLabels>
+    <customLabels>
+        <label>Aucune bibliothèque définie</label>
+        <name>CREATESURVEY_LABEL_NOLIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélectionner une bibliothèque</label>
+        <name>CREATESURVEY_LABEL_SELECTLIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouveau travail</label>
+        <name>CREATE_JOB_TEMPLATE_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Enquête vide</label>
+        <name>CREATE_SURVEY_BLANK</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélectionner une enquête</label>
+        <name>CREATE_SURVEY_DEFAULT_VALUE_SELECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Cloner une  enquête existente</label>
+        <name>CREATE_SURVEY_FROM_EXISTING</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer une nouvelle enquête</label>
+        <name>CREATE_SURVEY_HEADER_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Enquête PPI</label>
+        <name>CREATE_SURVEY_PPI</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélectionner une</label>
+        <name>CREATE_SURVEY_SELECT_ONE</name>
+    </customLabels>
+    <customLabels>
+        <label>Démarrer avec</label>
+        <name>CREATE_SURVEY_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous ne pouvez ajouter qu'un modèle PPI par enquête. Veuillez selectionner à nouveau vos modèles à inclure dans cette enquête.</label>
+        <name>CREATE_SURVEY_TOO_MANY_PPI</name>
+    </customLabels>
+    <customLabels>
+        <label>Deactiver</label>
+        <name>DEACTIVATE</name>
+    </customLabels>
+    <customLabels>
+        <label>CIBLE DEFAUT</label>
+        <name>DEFAULT_TARGET_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label>SUPPRIMER</label>
+        <name>DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Voulez-vous vraiment supprimer cette tâche?</label>
+        <name>DELETE_TASK_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label>ANNULER</label>
+        <name>DISCARD</name>
+    </customLabels>
+    <customLabels>
+        <label>TERMINE</label>
+        <name>DONE</name>
+    </customLabels>
+    <customLabels>
+        <label>MODIFIER</label>
+        <name>EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>Ceci est la fin d'un champs  de type enquête</label>
+        <name>END_OF_SURVEY_INFO</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur de lecture de resources du serveur</label>
+        <name>ERROR_READING_RESOURCES</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur de lecture de tâches du serveur </label>
+        <name>ERROR_READING_TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur du serveur  lors de la récupération des items de la liste d'enquête for Survey List</label>
+        <name>ERROR_RETRIEVING_FORM_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur de lecture de questions connectées du serveur.</label>
+        <name>ERROR_RETRIEVING_MAPPING_QUESTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>L'état de l'enquête ne peut pas être modifié manuellement</label>
+        <name>ERR_AVOID_EDIT_SURVEY_STATUS_MANUALLY</name>
+    </customLabels>
+    <customLabels>
+        <label>Le travail ne peut pas être supprimé car ce n'est pas un brouillon.</label>
+        <name>ERR_DELETE_NON_DRAFT_JOB_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Privilèges insuffisants pour modifier la logique de l'enquête</label>
+        <name>ERR_EDIT_SURVEY_LOGIC_NO_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Les privilèges de l'utilisateur actuel ne permettent pas de traiter l'objet &quot;{0}&quot;. Veuillez contacter l'administrateur du système.</label>
+        <name>ERR_INSUFFICIENT_PERMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question ne peut pas être ajoutée à cause d'un problème de connexion. Veuillez essayer plus tard.</label>
+        <name>ERR_NETWORK_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question de peut pas être modifiée à cause d'un problème de connexion. Veuillez essayer plus tard.</label>
+        <name>ERR_NETWORK_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>Sauvegarder: Les changements ne peuvent pas être sauvegardés à cause d'un problème de connection. Veuillez essayer à nouveau ultérieurement.</label>
+        <name>ERR_NETWORK_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n'avez pas le niveau de permissions nécessaires pour cloner cette enquête</label>
+        <name>ERR_SURVEY_CLONE_NOT_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+     <label>Vous n'avez pas le niveau de permissions nécessaires pour fermer cette enquête</label>
+        <name>ERR_SURVEY_CLOSE_NOT_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+   <label>Vous n'avez pas le niveau de permissions nécessaires pour supprimer cette enquête</label>
+        <name>ERR_SURVEY_DELETE_NOT_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n'avez pas le niveau de permissions nécessaires pour distribuer cette enquête</label>
+        <name>ERR_SURVEY_DISTRIBUTE_NOT_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n'avez pas le niveau de permissions nécessaires pour modifier cette enquête</label>
+        <name>ERR_SURVEY_EDIT_NOT_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>La nouvelle enquête a des objets  des champs ou des relations connectés manquants; Pour réparer la nouvelle enquête, accédez à la page de Laision de Champ et réparez les connexions.</label>
+        <name>ERR_SURVEY_NONPUBLISHED_CLONE_WRONGMAP</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette enquête a été fermée car elle a des a des objets  des champs ou des relations connectés manquants</label>
+        <name>ERR_SURVEY_PREVIEW_WRONGMAP</name>
+    </customLabels>
+    <customLabels>
+        <label>L'ancienne enquête a été fermée car elle a des objets  des champs ou des relations connectés manquants; Pour réparer la nouvelle enquête, accédez à la page de Laision de Champ et réparez les connexions.</label>
+        <name>ERR_SURVEY_PUBLISHED_CLONE_WRONGMAP</name>
+    </customLabels>
+    <customLabels>
+        <label>L'enquête n'a pas pu être publiée car elle a des sections vides</label>
+        <name>ERR_SURVEY_PUBLISH_EMPTY_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n'avez pas le niveau de permissions nécessaires pour publier cette enquête</label>
+        <name>ERR_SURVEY_PUBLISH_NOT_PERMISSIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette enquête a des objets  des champs ou des relations connectés manquants; Pour réparer la nouvelle enquête, accédez à la page de Laision de Champ et réparez les connexions.</label>
+        <name>ERR_SURVEY_PUBLISH_WRONGMAP</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur pour récupérer les informations de la bibliothèque de l'enquête à partir du serveur</label>
+        <name>ERR_SURVEY_RETRIEVE_SURVEY_LIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous ne possédez pas les permissions pour mettre à jour les appareils</label>
+        <name>ERR_UPDATE_DEVICES_PERMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label>Fichier</label>
+        <name>FILE</name>
+    </customLabels>
+    <customLabels>
+        <label>Filtre</label>
+        <name>FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label>1er Niveau</label>
+        <name>FIRST_LEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Géneral</label>
+        <name>GENERAL</name>
+    </customLabels>
+    <customLabels>
+        <label>Fermer</label>
+        <name>GENERAL_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} relié à l'objet &quot;{1}&quot;, a les chmaps suivants supprimés: {2}</label>
+        <name>GENERAL_DELETED_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} est relié a un objet supprimé: &quot;{1}&quot;.</label>
+        <name>GENERAL_DELETED_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>En cours de suppression</label>
+        <name>GENERAL_DELETING</name>
+    </customLabels>
+    <customLabels>
+        <label>En cours de distribution</label>
+        <name>GENERAL_DISTRIBUTING</name>
+    </customLabels>
+    <customLabels>
+        <label>Modifié</label>
+        <name>GENERAL_EDITED</name>
+    </customLabels>
+    <customLabels>
+        <label>Il y a eu une erreur lors de la récupération de données</label>
+        <name>GENERAL_ERROR_RETRIEVING_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur:</label>
+        <name>GENERAL_ERR_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>Dernière Version</label>
+        <name>GENERAL_LATEST_VERSION</name>
+    </customLabels>
+    <customLabels>
+        <label>de</label>
+        <name>GENERAL_OF</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez sélectionner un(e)</label>
+        <name>GENERAL_PLEASE_SELECT_A</name>
+    </customLabels>
+    <customLabels>
+        <label>modèle PPI</label>
+        <name>GENERAL_PPI_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ré-initialiser</label>
+        <name>GENERAL_REFRESH</name>
+    </customLabels>
+    <customLabels>
+        <label>Voir tous</label>
+        <name>GENERAL_SHOW_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>Bibliothèque souce</label>
+        <name>GENERAL_SOURCE_LIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label>Modèle</label>
+        <name>GENERAL_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce groupe n'a pas d'enquête assignée. Pour ajouter les enquêtes, vous devez selectionner le groupe</label>
+        <name>GROUPEDIT_ERROR_NOT_ASSIGNED_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Au moins un groupe doit être sélectionner pour activer</label>
+        <name>GROUPLIST_ERR_ACTIVATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Au moins un groupe doit être dé-sélectionner pour dé-activer</label>
+        <name>GROUPLIST_ERR_DEACTIVATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Supprimer groupe</label>
+        <name>GROUP_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Modifier groupe</label>
+        <name>GROUP_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>Acceuil</label>
+        <name>HOME</name>
+    </customLabels>
+    <customLabels>
+        <label>Information</label>
+        <name>INFORMATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Insérer le nom de la tâche</label>
+        <name>INSERT_TASK_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question est liée à une section répétée ; si vous la supprimez, le lien sera également supprimé</label>
+        <name>INTEGER_RELATED_REPEAT_SECTION_MESSAGE_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Est répondu</label>
+        <name>IS_ANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label>N'est pas</label>
+        <name>IS_NOT</name>
+    </customLabels>
+    <customLabels>
+        <label>Types de travail</label>
+        <name>JOB_ACTIVITIES</name>
+    </customLabels>
+    <customLabels>
+        <label>Appliquer</label>
+        <name>JOB_ACTIVITIES_APPLY</name>
+    </customLabels>
+    <customLabels>
+        <label>Ré-initialiser / Enlever les filtres</label>
+        <name>JOB_ACTIVITIES_CLEAR_FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label>Client</label>
+        <name>JOB_ACTIVITIES_CLIENT</name>
+    </customLabels>
+    <customLabels>
+        <label>Recherche Client</label>
+        <name>JOB_ACTIVITIES_CLIENT_LOOKUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Terminé</label>
+        <name>JOB_ACTIVITIES_FINISHED</name>
+    </customLabels>
+    <customLabels>
+        <label>Client</label>
+        <name>JOB_ACTIVITIES_LIST_CLIENT</name>
+    </customLabels>
+    <customLabels>
+        <label>Durée</label>
+        <name>JOB_ACTIVITIES_LIST_DURATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Terminé</label>
+        <name>JOB_ACTIVITIES_LIST_FINISHED</name>
+    </customLabels>
+    <customLabels>
+        <label>Personnel</label>
+        <name>JOB_ACTIVITIES_LIST_STAFF</name>
+    </customLabels>
+    <customLabels>
+        <label>Démarré</label>
+        <name>JOB_ACTIVITIES_LIST_STARTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Nombre de tâches</label>
+        <name>JOB_ACTIVITIES_LIST_TASKS_NUMBER</name>
+    </customLabels>
+    <customLabels>
+        <label>l n'y a pas de type de travail</label>
+        <name>JOB_ACTIVITIES_NO_JOB_ACTIVITIES</name>
+    </customLabels>
+    <customLabels>
+        <label>Recherche</label>
+        <name>JOB_ACTIVITIES_SEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélectionner un travail</label>
+        <name>JOB_ACTIVITIES_SELECT_JOB</name>
+    </customLabels>
+    <customLabels>
+        <label>Personnel</label>
+        <name>JOB_ACTIVITIES_STAFF</name>
+    </customLabels>
+    <customLabels>
+        <label>Recherche Personnel</label>
+        <name>JOB_ACTIVITIES_STAFF_LOOKUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Démarré</label>
+        <name>JOB_ACTIVITIES_STARTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Tâches</label>
+        <name>JOB_ACTIVITIES_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label>Fermer</label>
+        <name>JOB_TARGET_CLOSE_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Le calcul pour cette cible de travail va s'interrompre et l'utilisateur du portable Mobile ne pourra plus voir cette cible dans TaroWorks. Pour ré-activer cette cible de travail dans le futur vous devrez en créer une nouvelle.</label>
+        <name>JOB_TARGET_CONFIRM_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label>Pour sélectionner un travail, il doit être publié. Veuillez en sélectionner un autre ou publier celui-ci</label>
+        <name>JOB_TARGET_ERR_JOB_NOT_PUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce travail ne peut pas être sélectionné car il est en cours d'utilisation par une autre cible de travail actif. Veuillez en sélectionner un autre.</label>
+        <name>JOB_TARGET_ERR_JOB_USED</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestionnaire de cible de travail</label>
+        <name>JOB_TARGET_MANAGER_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Nom de cible de travail</label>
+        <name>JOB_TARGET_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle cible de travail</label>
+        <name>JOB_TARGET_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle cible de travail</label>
+        <name>JOB_TARGET_NEW_TARGET_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Etablir durée et cible</label>
+        <name>JOB_TARGET_TIMEFRAME_AND_TARGET</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer cible</label>
+        <name>JOB_TARGET_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Mise à jour</label>
+        <name>JOB_TARGET_UPDATE_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Mise à jour de la cible de travail</label>
+        <name>JOB_TARGET_UPDATE_TARGET_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de supprimer  champs de détail car il est référencé dans une tâche</label>
+        <name>JOB_TEMPLATE_CANT_DELETE_DETAIL_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de modifier le premier objet car il est toujours un contact</label>
+        <name>JOB_TEMPLATE_CANT_MODIFY_BECAUSE_FIRST</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de modifier cet objet car une autre hierarchie est enfant de celle-ci</label>
+        <name>JOB_TEMPLATE_CANT_MODIFY_BECAUSE_PARENT</name>
+    </customLabels>
+    <customLabels>
+        <label>Ceci ne peut pas être modifié car il est référencé dans une tâche</label>
+        <name>JOB_TEMPLATE_CANT_MODIFY_BECAUSE_USED_BY_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label>Ne peut pas modifier le modèle de travail. Il a été modifié. Veuillez ré-initialiser la page</label>
+        <name>JOB_TEMPLATE_CANT_MODIFY_CONCURRENT_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette hierarchie est en cours d'utilisation par une tâche, et ne peut donc pas être supprimée</label>
+        <name>JOB_TEMPLATE_CANT_REMOVE_HIERARCHY</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette hierarchie ne peut pas être supprimée car elle n'est pas la dernière</label>
+        <name>JOB_TEMPLATE_CANT_REMOVE_HIERARCHY_BECAUSE_NOT_LAST</name>
+    </customLabels>
+    <customLabels>
+        <label>Fermé en raison de connexion des champs ou des objets qui ont été supprimés</label>
+        <name>JOB_TEMPLATE_CLOSE_JOB_BECAUSE_DELETED_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label>Voulez-vous vraiment supprimer cette hiérarchie d'objets?</label>
+        <name>JOB_TEMPLATE_CONFIRM_REMOVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce modèle de travail a été supprimé.</label>
+        <name>JOB_TEMPLATE_DELETED</name>
+    </customLabels>
+    <customLabels>
+        <label>Les objets et / ou chmaps suivants ont été supprimés dans votre instance de Salesforce. En conséquence, ce travail et ses tâches ont été mis à jour pour enlever toute référence. Si un des champs supprimé est recherché ou détaillé, les relations entre les 2 objets supprimés et les objets reliés seraient aussi affectés par ce travail.{0}Objets et/ou champ ont été supprimés de la hierachie Recherche Poussée, aucune vue de tâches de données référençant ces données ont été supprimées, et aucune Collecte de tâches de données qui les relient a été supprimée.Veuillez vérifier et mettre à jour toutes les tâches et les hierarchie Recherche Poussée soigneusement</label>
+        <name>JOB_TEMPLATE_DELETEDOBJECTSORFIELDS</name>
+    </customLabels>
+    <customLabels>
+        <label>Details Champs</label>
+        <name>JOB_TEMPLATE_DETAIL_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Modifier travail</label>
+        <name>JOB_TEMPLATE_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de modifier le champ DernièreDateModifiée</label>
+        <name>JOB_TEMPLATE_ERROR_LASTMODIFIEDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Voir les champs affichés en Vue Détaillée</label>
+        <name>JOB_TEMPLATE_FIELDS_DETAIL_DISPLAYED</name>
+    </customLabels>
+    <customLabels>
+        <label>Champs affichés en Recherche-avancée</label>
+        <name>JOB_TEMPLATE_FIELDS_LIST_DISPLAYED</name>
+    </customLabels>
+    <customLabels>
+        <label>Le Champ liste est un chmap requis</label>
+        <name>JOB_TEMPLATE_FIELD_LIST_REQUIRED</name>
+    </customLabels>
+    <customLabels>
+        <label>Il existe une liason dans laquelle l'objet lié ne fait pas partie de la hierarchie de la tâche</label>
+        <name>JOB_TEMPLATE_INCONSISTENT_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>l'objet lié ne fait pas partie de la hierarchie de la tâche:</label>
+        <name>JOB_TEMPLATE_INCONSISTENT_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Est-ce que ce travail sera lié à des données qui existent déjà dans salesforce.com? Sinon, aller à la section suivante (ex; dans le cas d'une enquête anonyme for anonymous surveys or registration surveys). If yes, this section allows you to define the order in which your mobile users drill down to select or view information while performing tasks. For example, if you select the &quot;Contact&quot; object below, your mobile user will first be prompted to select a Contact from a list. You can then specify multiple levels of hierarchy to drill down to any object that is related to &quot;Contacts&quot;.--></label>
+        <name>JOB_TEMPLATE_INFO_MAPPED_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Is this survey linked to records that already exist in Salesforce.com? If no, skip this section (e.g. for anonymous surveys or registration surveys). If yes, you must link this survey to the drill-down defined on the previous page. Please ensure the survey already contains a question that can be used to link the survey to last object in the drill down. Below, please specify the last object of your drill down and the survey question used to link to that object.--></label>
+        <name>JOB_TEMPLATE_INFO_TAKS_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Jobs can have an unlimited number of Tasks associated with them. Tasks allow mobile users to (1) view data from Salesforce.com on their mobile device, (2) collect data on the mobile device and push this data to Salesforce.com, or (3) view video resources uploaded onto the Salesforce library on their mobile device.--></label>
+        <name>JOB_TEMPLATE_INFO_TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Display on Drill-down--></label>
+        <name>JOB_TEMPLATE_LIST_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Hierarchy Drill-Down--></label>
+        <name>JOB_TEMPLATE_MAPPED_OBJECTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There are no objects in the hierarchy--></label>
+        <name>JOB_TEMPLATE_NOT_HIERARCHIES</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The parent object has no children to display--></label>
+        <name>JOB_TEMPLATE_NO_OBJECTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--At least two tasks are needed to be able to order--></label>
+        <name>JOB_TEMPLATE_NO_TASKS_TO_ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Object--></label>
+        <name>JOB_TEMPLATE_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Object is a required field--></label>
+        <name>JOB_TEMPLATE_OBJECT_REQUIRED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Order Tasks--></label>
+        <name>JOB_TEMPLATE_ORDER_TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Select Job--></label>
+        <name>JOB_TEMPLATE_SELECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Error: cannot publish, some task templates of this job are using unexisting questions.--></label>
+        <name>JOB_TEMPLATE_WITH_INVALID_TASKS_TEMPLATES_ERR</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Last modified--></label>
+        <name>LAST_MODIFICATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Level--></label>
+        <name>LEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--th Level--></label>
+        <name>LEVEL_SUFFIX</name>
+    </customLabels>
+    <customLabels>
+        <label><!--List View--></label>
+        <name>LIST_VIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Loading--></label>
+        <name>LOADING</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Loading Group Details--></label>
+        <name>LOADING_GROUP_DETAILS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Some value for location cannot be parsed to Double:--></label>
+        <name>LOCATION_ERR_CANTPARSEVALUES</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Wrong number of values for the location:--></label>
+        <name>LOCATION_ERR_WRONGNUMBEROFVALUES</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Hide this when all of the following conditions are satisfied--></label>
+        <name>LOGIC_MESSAGE_HIDE_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Hide this when any of the following conditions are satisfied--></label>
+        <name>LOGIC_MESSAGE_HIDE_ANY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Show this when all of the following conditions are satisfied--></label>
+        <name>LOGIC_MESSAGE_SHOW_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Show this when any of the following conditions are satisfied--></label>
+        <name>LOGIC_MESSAGE_SHOW_ANY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is an error at column {0} of line {1}: {2}. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_ERRORATCOLLINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The file exceeds the maximum size allowed--></label>
+        <name>LOOKUP_ERR_FILE_SIZE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is an error in the file. {0} is too long for a table name. The max length is {1}. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_NAMETOOLONG</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The file is not in UTF-8 format and contains special characters. It must be converted to be able upload it.--></label>
+        <name>LOOKUP_ERR_NONUTF8FILE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--You don&apos;t have permissions to create LookupTables--></label>
+        <name>LOOKUP_ERR_PERMISSIONS_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--You don&apos;t have permissions to delete LookupTables--></label>
+        <name>LOOKUP_ERR_PERMISSIONS_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The range from {0} to {1} is intersected with a previous one. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_RANGEINTERSECTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is an error in the file. Some table names are repeated. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_REPEATEDTABLENAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Please select a file to upload.--></label>
+        <name>LOOKUP_ERR_SELECTFILE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is an error in the file. The value at column {0} of line {1} cannot be converted to integer. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_VALUECANTBECONVERTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is an error in the file. Wrong column count at line {0}. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_WRONGCOLUMNCOUNTAT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is an error in the file. Wrong field specified at line {0}. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_WRONGFIELD</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The range from {0} to {1} is wrong. Fix the error and try again.--></label>
+        <name>LOOKUP_ERR_WRONGRANGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--File format or extension is not valid. Please upload another Cascading Select--></label>
+        <name>LOOKUP_ERR_WRONG_FILE_EXTENSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Lookup--></label>
+        <name>LOOKUP_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Upload a Poverty Line Table:--></label>
+        <name>LOOKUP_UPLOAD_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Master-Detail--></label>
+        <name>MASTER_DETAIL_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Member--></label>
+        <name>MEMBER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--MOBILE USERS--></label>
+        <name>MOBILE_USERS_SELECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Modified By--></label>
+        <name>MODIFY_BY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Moved--></label>
+        <name>MOVED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--You cannot map the same question multiple times--></label>
+        <name>MULTIPLE_QUESTION_MAP</name>
+    </customLabels>
+    <customLabels>
+        <label><!--New--></label>
+        <name>NEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!--New Group--></label>
+        <name>NEW_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Add Object to Drill Down Hierarchy--></label>
+        <name>NEW_MAPPED_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Next Page&gt;--></label>
+        <name>NEXT_PAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Non member--></label>
+        <name>NON_MEMBER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--not--></label>
+        <name>NOT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--n/a--></label>
+        <name>NOT_APPLICABLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--It is not saved yet.--></label>
+        <name>NOT_SAVED_YET</name>
+    </customLabels>
+    <customLabels>
+        <label><!--You don&apos;t have permissions to delete contact groups--></label>
+        <name>NO_PERMISSIONS_DELETE_CONTACT_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Off--></label>
+        <name>OFF</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Ok--></label>
+        <name>OK</name>
+    </customLabels>
+    <customLabels>
+        <label><!--On--></label>
+        <name>ON</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Order--></label>
+        <name>ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--First Page--></label>
+        <name>PAGINATION_FIRSTPAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Getting First Page--></label>
+        <name>PAGINATION_GETTINGFIRST</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Getting Last Page--></label>
+        <name>PAGINATION_GETTINGLAST</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Getting Next Page--></label>
+        <name>PAGINATION_GETTINGNEXT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Getting Previous Page--></label>
+        <name>PAGINATION_GETTINGPREVIOUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Last Page--></label>
+        <name>PAGINATION_LASTPAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Next Page--></label>
+        <name>PAGINATION_NEXTPAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Previous Page--></label>
+        <name>PAGINATION_PREVIOUSPAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Please be aware that any update takes effect immediately in the current time period and Mobile Users will see the changes the next time they sync.--></label>
+        <name>PERFORMANCE_TARGET_EDITION_SAVE_POPUP_TEXT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--You must enter a value--></label>
+        <name>PERFORMANCE_TARGET_ERROR_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Monthly--></label>
+        <name>PERFORMANCE_TARGET_MONTHLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Monthly Calendar.--></label>
+        <name>PERFORMANCE_TARGET_MONTHLY_PERIOD</name>
+    </customLabels>
+    <customLabels>
+        <label><!--When you save this Target, it will be applied immediately for the current time period.--></label>
+        <name>PERFORMANCE_TARGET_SAVE_POPUP_TEXT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Weekly--></label>
+        <name>PERFORMANCE_TARGET_WEEKLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Weekly Calendar.--></label>
+        <name>PERFORMANCE_TARGET_WEEKLY_PERIOD</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Please type the filter--></label>
+        <name>PLEASE_TYPE_FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Please type the number--></label>
+        <name>PLEASE_TYPE_NUMBER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Preview--></label>
+        <name>PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!--&lt;Previous Page--></label>
+        <name>PREV_PAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Publish--></label>
+        <name>PUBLISH</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Questions--></label>
+        <name>QUESTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Add another option--></label>
+        <name>QUESTION_ADD_OPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Question and Section--></label>
+        <name>QUESTION_AND_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Change question type--></label>
+        <name>QUESTION_BUILDER_CHANGE_QUESTION_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--A question with id &quot;{0}&quot; already exists.--></label>
+        <name>QUESTION_BUILDER_ERR_DUPLICATE_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!--A question with name &quot;{0}&quot; already exists.--></label>
+        <name>QUESTION_BUILDER_ERR_DUPLICATE_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Attempted to perform an invalid operation: {0}--></label>
+        <name>QUESTION_BUILDER_ERR_INVALID_OPERATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Required field is missing: {0}--></label>
+        <name>QUESTION_BUILDER_ERR_MISSING_REQ_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The survey has been published already, you cannot save it.--></label>
+        <name>QUESTION_BUILDER_ERR_SURVEY_ALREADY_PUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--No survey was specified for this question yet.--></label>
+        <name>QUESTION_BUILDER_ERR_SURVEY_NOT_SPECIFIED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Could not find question with id &quot;{0}&quot;--></label>
+        <name>QUESTION_BUILDER_ERR_UNKNOWN_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Cascading Selects--></label>
+        <name>QUESTION_BUILDER_SELECT_CASCADING</name>
+    </customLabels>
+    <customLabels>
+        <label><!--This is not an editable question--></label>
+        <name>QUESTION_ERR_CANTEDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--An error was found while saving this survey. Please check that all questions you have added are still in the survey--></label>
+        <name>QUESTION_ERR_WRONGORDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Question {0} Id = {1} and Question {2} Id = {3} Share parent Id= {4} and Position {5}. To fix this error go to Question Builder tab--></label>
+        <name>QUESTION_ERR_WRONGORDERTRIGGER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Hide--></label>
+        <name>QUESTION_SKIPLOGIC_BEHAVIOR_HIDE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Show--></label>
+        <name>QUESTION_SKIPLOGIC_BEHAVIOR_SHOW</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Barcode--></label>
+        <name>QUESTION_TYPE_BARCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Cascading Selects--></label>
+        <name>QUESTION_TYPE_CASCADING_SELECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Cascading Selects are not allowed in a Repeat section.--></label>
+        <name>QUESTION_TYPE_CASCADING_SELECT_INTO_REPEAT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Selected cascading select library is invalid, please refresh or select another valid library--></label>
+        <name>QUESTION_TYPE_CASCADING_SELECT_INVALID_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Cascading select is required for this type of question--></label>
+        <name>QUESTION_TYPE_CASCADING_SELECT_NULL_LIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Multiple select--></label>
+        <name>QUESTION_TYPE_CHECKBOX</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Date only--></label>
+        <name>QUESTION_TYPE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Date and time--></label>
+        <name>QUESTION_TYPE_DATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Picture--></label>
+        <name>QUESTION_TYPE_MEDIA</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Number--></label>
+        <name>QUESTION_TYPE_NUMBER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Cannot change the type to decimal because this question is related to a repeated section--></label>
+        <name>QUESTION_TYPE_NUMBER_CANNOT_BE_CHANGED_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Decimal number--></label>
+        <name>QUESTION_TYPE_NUMBER_DECIMAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Whole number--></label>
+        <name>QUESTION_TYPE_NUMBER_INTEGER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Single select--></label>
+        <name>QUESTION_TYPE_RADIO</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Repeat--></label>
+        <name>QUESTION_TYPE_REPEAT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Section--></label>
+        <name>QUESTION_TYPE_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Signature--></label>
+        <name>QUESTION_TYPE_SIGNATURE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Static content--></label>
+        <name>QUESTION_TYPE_STATIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Long--></label>
+        <name>QUESTION_TYPE_TEXT_LONG</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Short--></label>
+        <name>QUESTION_TYPE_TEXT_SHORT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Quick Save--></label>
+        <name>QUICK_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Remove--></label>
+        <name>REMOVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--This section is related to a number question if you remove it, the relationship will be removed too--></label>
+        <name>REPEAT_RELATED_INTEGER_QUESTION_MESSAGE_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Cannot delete a resource referenced by a task--></label>
+        <name>RESOURCE_CANT_BE_REMOVED_REFERENCED_BY_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Resource Id {0} is not available--></label>
+        <name>RESOURCE_ERROR_INVALID_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The resourceId header was either missing from the request or was an empty string--></label>
+        <name>RESOURCE_ERROR_MISSING_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The type of the requested resource content is not supported--></label>
+        <name>RESOURCE_TYPE_NOT_SUPPORTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Save--></label>
+        <name>SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Save and Apply--></label>
+        <name>SAVE_AND_APPLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Save and Continue--></label>
+        <name>SAVE_AND_CONTINUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Save and new--></label>
+        <name>SAVE_AND_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Saving--></label>
+        <name>SAVING</name>
+    </customLabels>
+    <customLabels>
+        <label><!--PPI score cannot be edited in a distributed survey--></label>
+        <name>SCORE_ERR_CANTEDITDISTRUBUTEDPPISCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--nd Level--></label>
+        <name>SECOND_LEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Section--></label>
+        <name>SECTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Repeated section--></label>
+        <name>SECTION_REPEAT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Based on numeric value from--></label>
+        <name>SECTION_REPEAT_BASED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Set Repeat Times--></label>
+        <name>SECTION_REPEAT_SET_TIMES</name>
+    </customLabels>
+    <customLabels>
+        <label><!--times--></label>
+        <name>SECTION_REPEAT_SPECIFIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Nest this section under--></label>
+        <name>SECTION_REPEAT_UNDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Unlimited--></label>
+        <name>SECTION_REPEAT_UNLIMITED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--This section contains a number question related to a repeated section if you remove it, the relationship will be removed too--></label>
+        <name>SECTION_WITH_RELATED_INTEGER_QUESTION_MESSAGE_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Select--></label>
+        <name>SELECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Available Fields--></label>
+        <name>SELECT_FIELDS_AVAILABLE_FIELDS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Down--></label>
+        <name>SELECT_FIELDS_DOWN</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Selected Fields--></label>
+        <name>SELECT_FIELDS_SELECTED_FIELDS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Up--></label>
+        <name>SELECT_FIELDS_UP</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The selected resource has been deleted, please check the file or select another resource--></label>
+        <name>SELECT_RESOURCE_DELETED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--What type of Task do you want to create?--></label>
+        <name>SELECT_TASK_TYPE_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Select a Type of Task--></label>
+        <name>SELECT_TYPE_OF_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Settings--></label>
+        <name>SETTINGS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Set to Default--></label>
+        <name>SET_TO_DEFAULT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is logic dependence among questions in this section.--></label>
+        <name>SHOW_ALL_QUESTIONS_DISABLE_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--No, wait!--></label>
+        <name>SIMPLE_CANCEL_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Yes, I&apos;m sure--></label>
+        <name>SIMPLE_CANCEL_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!--You will lose all unsaved changes.--></label>
+        <name>SIMPLE_CANCEL_UNSAVED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Size--></label>
+        <name>SIZE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Is--></label>
+        <name>SKIPLOGIC_CONDITION_EQUAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Greater than--></label>
+        <name>SKIPLOGIC_CONDITION_GREATER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Answered--></label>
+        <name>SKIPLOGIC_CONDITION_ISANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Lesser than--></label>
+        <name>SKIPLOGIC_CONDITION_LESSER</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Is Not Answered--></label>
+        <name>SKIPLOGIC_CONDITION_NOT_ANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Is not Greater than--></label>
+        <name>SKIPLOGIC_CONDITION_NOT_GREATER_THAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Is not Lesser Than--></label>
+        <name>SKIPLOGIC_CONDITION_NOT_LESSER_THAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Question: {0} {1}--></label>
+        <name>SKIP_CONDITION_INVALID_SOURCEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--, cannot be source of any skip condition, please fix it and save again--></label>
+        <name>SKIP_CONDITION_INVALID_SOURCEQUESTIONFINALMESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Current user has not enough privileges--></label>
+        <name>SOBJECT_INSUFFICIENT_PRIVILEGES</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The selected type of task requires to specify the survey for this task.--></label>
+        <name>SPECIFY_FORM_FOR_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label><!--The selected type of task requires to specify the object for this task.--></label>
+        <name>SPECIFY_OBJECT_FOR_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label><!--PPI Score--></label>
+        <name>SUBMISSION_PPISCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!--PPI Library--></label>
+        <name>SURVEYLIBRARY_GRAMEEN_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There are errors in the page. Please check and save again.--></label>
+        <name>SURVEYMAPPING_ERR_PAGEERRORS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--A version cannot be back to Draft after it has been published.--></label>
+        <name>SURVEYVERSION_ERR_CANNOTGOBACKTODRAFT</name>
+    </customLabels>
+    <customLabels>
+        <label><!--There is at least one job in this survey that is not closed, Survey cannot be closed--></label>
+        <name>SURVEYVERSION_ERR_CLOSEWITHOPENJOBS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--failed to clone options--></label>
+        <name>SURVEY_CLONE_FAIL_OPTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Failed to clone PPI Data--></label>
+        <name>SURVEY_CLONE_FAIL_PPI_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label><!--Failed to clone questions--></label>
+        <name>SURVEY_CLONE_FAIL_QUESTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Le clonage des groupes de résultats a échoué</label>
+        <name>SURVEY_CLONE_FAIL_SCORE_GROUPS</name>
+    </customLabels>
+    <customLabels>
+        <label>Le clonage des valeurs de résultats a échoué</label>
+        <name>SURVEY_CLONE_FAIL_SCORE_VALUES</name>
+    </customLabels>
+    <customLabels>
+        <label>Le clonage des conditions d&quot;omission a échoué</label>
+        <name>SURVEY_CLONE_FAIL_SKIP_CONDITIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de traiter les données. Trop de réponses par soumission.</label>
+        <name>SURVEY_CSV_BATCHSIZEERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>Le fichier joint inclut l&quot;export de {0} Réponses {1}-{2}. Un ou plusieurs fichiers au format CSV vous seront envoyés avec les réponses restantes.</label>
+        <name>SURVEY_CSV_EMAILBODY</name>
+    </customLabels>
+    <customLabels>
+        <label>Export au format CSV TaroWorks</label>
+        <name>SURVEY_CSV_EMAILSENDERNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Merci, \néquipe TaroWorks</label>
+        <name>SURVEY_CSV_EMAILSIGNATURE</name>
+    </customLabels>
+    <customLabels>
+        <label>Export au format CSV TaroWorks - {0} - Réponses {1}-{2}</label>
+        <name>SURVEY_CSV_EMAILSUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Une erreur est survenue lors de l&quot;export de la soumission sélectionnée.</label>
+        <name>SURVEY_CSV_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>Le fichier joint inclut l&quot;export de {0} Réponses {1}-{2}. L&quot;export au format CSV est terminé.</label>
+        <name>SURVEY_CSV_LASTEMAILBODY</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur à l&quot;export au format CSV TaroWorks: trop proche des limites</label>
+        <name>SURVEY_CSV_LIMITSEMAILSUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Un ou plusieurs e-mails avec fichiers CSV attachés seront envoyés à{0} avec l&quot;export CSV.</label>
+        <name>SURVEY_CSV_POPUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de supprimer une enquête publiée</label>
+        <name>SURVEY_ERR_CANNOTDELETEPUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de supprimer une enquête référencée par une tâche</label>
+        <name>SURVEY_ERR_CANNOTDELETERELATEDTOTASK</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de publier une enquête si statut: {0}</label>
+        <name>SURVEY_ERR_CANTPUBLISHWITHSTATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreur: L&quot;alias de l&quot;enquête doit être unique. Veuillez entrer un autre alias</label>
+        <name>SURVEY_ERR_DUPLICATE_ALIAS</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n&quot;êtes pas autorisé à créér des assignements de groupe</label>
+        <name>SURVEY_ERR_GROUP_ASSIGN_PERMISSIONS_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n&quot;êtes pas autorisé à supprimer des assignements d&quot;enquête</label>
+        <name>SURVEY_ERR_GROUP_ASSIGN_PERMISSIONS_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;enquête n&quot;existe pas ou a été supprimée</label>
+        <name>SURVEY_ERR_ID_NOT_FOUND</name>
+    </customLabels>
+    <customLabels>
+        <label>Code pays non valide: {0}</label>
+        <name>SURVEY_ERR_INVALIDCOUNTRYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>Code langue non valide: {0}</label>
+        <name>SURVEY_ERR_INVALIDLANGUAGECODE</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez sélectionner une enquête existante</label>
+        <name>SURVEY_ERR_NOSURVEYSELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Enquête non référencée.</label>
+        <name>SURVEY_ERR_NULLREFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label>Le titre de l&quot;enquête doit être unique. Veuillez entrer un autre titre.</label>
+        <name>SURVEY_ERR_UNIQUETITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;identifiant de l&quot;enquête sélectionnée n&quot;est pas valide.</label>
+        <name>SURVEY_ERR_WRONGSURVEYID</name>
+    </customLabels>
+    <customLabels>
+        <label>Selection du groupe</label>
+        <name>SURVEY_GROUP_SELECT_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Affectation groupe de contact</label>
+        <name>SURVEY_GROUP_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Retour vers le gestionnaire d&quot;enquêtes</label>
+        <name>SURVEY_HEADER_BACKTOMANAGER</name>
+    </customLabels>
+    <customLabels>
+        <label>ASSOCIATION CHAMP</label>
+        <name>SURVEY_HEADER_FIELD_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>LOGIQUE</label>
+        <name>SURVEY_HEADER_LOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label>TABLES DE CORRESPONDANCES</label>
+        <name>SURVEY_HEADER_LOOKUP_TABLES</name>
+    </customLabels>
+    <customLabels>
+        <label>APERÇU</label>
+        <name>SURVEY_HEADER_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>GÉNÉRATEUR DE QUESTIONS</label>
+        <name>SURVEY_HEADER_QUESTION_BUILDER</name>
+    </customLabels>
+    <customLabels>
+        <label>NOTATION</label>
+        <name>SURVEY_HEADER_SCORING</name>
+    </customLabels>
+    <customLabels>
+        <label>PARAMÈTRE</label>
+        <name>SURVEY_HEADER_SETTING</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n&quot;avez pas enregistré vos modifications, que souhaitez vous faire ?</label>
+        <name>SURVEY_HEADER_UNSAVED_CHANGES</name>
+    </customLabels>
+    <customLabels>
+        <label>Infos Enquête</label>
+        <name>SURVEY_INFO_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Livré à la bibliothèque:</label>
+        <name>SURVEY_LABEL_RELEASEDTOLIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label>Toutes les bibliothèques</label>
+        <name>SURVEY_LIBRARY_ALL_LIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label>Actions</label>
+        <name>SURVEY_LIBRARY_COLUMN_HEADER_ACTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Date de création</label>
+        <name>SURVEY_LIBRARY_COLUMN_HEADER_CREATED_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Une erreur est survenue au téléchargement de l&quot;enquête. Si cette erreur persiste, contactez le support</label>
+        <name>SURVEY_LIBRARY_ERR_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label>La re-génération de l&quot;enquête à partir du serveur distant a échoué</label>
+        <name>SURVEY_LIBRARY_ERR_FAILEDREBUILD</name>
+    </customLabels>
+    <customLabels>
+        <label>Le contenu demandé n&quot;existe plus sur le serveur distant</label>
+        <name>SURVEY_LIBRARY_ERR_NOCONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label>La bibliothèque n&quot;existe plus</label>
+        <name>SURVEY_LIBRARY_ERR_NOEXIST</name>
+    </customLabels>
+    <customLabels>
+        <label>La ressource demandée n&quot;a pas été trouvée sur le serveur distant</label>
+        <name>SURVEY_LIBRARY_ERR_NOTFOUND</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette enquête dépasse la taille limite et ne peut pas être téléchargée. Téléchargement annulé</label>
+        <name>SURVEY_LIBRARY_ERR_TOOBIG</name>
+    </customLabels>
+    <customLabels>
+        <label>Créé par</label>
+        <name>SURVEY_LIBRARY_LABEL_CREATED_BY</name>
+    </customLabels>
+    <customLabels>
+        <label>Téléchargement</label>
+        <name>SURVEY_LIBRARY_LABEL_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label>Téléchargement de l&quot;enquête en cours...</label>
+        <name>SURVEY_LIBRARY_LABEL_DOWNLOADING</name>
+    </customLabels>
+    <customLabels>
+        <label>Retourner à la bibliothèque</label>
+        <name>SURVEY_LIBRARY_LABEL_LIBRARYLINK</name>
+    </customLabels>
+    <customLabels>
+        <label>Retourner à la bibliothèque d&quot;enquêtes</label>
+        <name>SURVEY_LIBRARY_LABEL_MANAGERLINK</name>
+    </customLabels>
+    <customLabels>
+        <label>Paramètres de l&quot;enquête</label>
+        <name>SURVEY_LIBRARY_LABEL_SURVEYSETTINGS</name>
+    </customLabels>
+    <customLabels>
+        <label>Bibliothèque distante</label>
+        <name>SURVEY_LIBRARY_LABEL_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous pouvez maintenant utiliser {0}. Cette enquête sera disponible et accessible à partir du gestionnaire d&quot;enquêtes. Vous pouvez changer l&quot;ordre des questions mais pas en rajouter ou en enlever. Veuillez vérifier régulièrement s&quot;il n&quot;y a pas de mise à jour</label>
+        <name>SURVEY_LIBRARY_MSG_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>Le téléchargement du modèle {0} a réussi</label>
+        <name>SURVEY_LIBRARY_MSG_SUCCESS_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ajouter une condition</label>
+        <name>SURVEY_LOGIC_ADD_CONDITION</name>
+    </customLabels>
+    <customLabels>
+        <label>Toujours afficher</label>
+        <name>SURVEY_LOGIC_ALWAYS_SHOW</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez entrer une valeur valide</label>
+        <name>SURVEY_LOGIC_ERR_INVALID</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez entrer une valeur numérique !</label>
+        <name>SURVEY_LOGIC_ERR_NOT_NUM</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;apostrophe n&quot;est pas prise en charge.</label>
+        <name>SURVEY_LOGIC_ERR_QUOTES</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce champ est obligatoire</label>
+        <name>SURVEY_LOGIC_ERR_REQUIRED</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} lorsque {1} des éléments suivants est/sont vrai(s).</label>
+        <name>SURVEY_LOGIC_WHEN_CONDITIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestionnaire d&quot;enquête</label>
+        <name>SURVEY_MANAGER</name>
+    </customLabels>
+    <customLabels>
+        <label>Clonage</label>
+        <name>SURVEY_MANAGER_ACTIONS_CLONE</name>
+    </customLabels>
+    <customLabels>
+        <label>Livraison à la bibliothèque</label>
+        <name>SURVEY_MANAGER_ACTIONS_DISTRIBUTE</name>
+    </customLabels>
+    <customLabels>
+        <label>Plus d&quot;actions...</label>
+        <name>SURVEY_MANAGER_ACTIONS_DO_MORE</name>
+    </customLabels>
+    <customLabels>
+        <label>Éditer XForm</label>
+        <name>SURVEY_MANAGER_ACTIONS_EDIT_XFORM</name>
+    </customLabels>
+    <customLabels>
+        <label>Exporter au format CSV</label>
+        <name>SURVEY_MANAGER_ACTIONS_EXPORT_CSV</name>
+    </customLabels>
+    <customLabels>
+        <label>Afficher XForm</label>
+        <name>SURVEY_MANAGER_ACTIONS_VIEW_XFORM</name>
+    </customLabels>
+    <customLabels>
+        <label>Cloner cette enquête ?</label>
+        <name>SURVEY_MANAGER_ALERT_CLONE_ALERT</name>
+    </customLabels>
+    <customLabels>
+        <label>Clonage des Assignments de groupe</label>
+        <name>SURVEY_MANAGER_ALERT_CLONE_ASSIGNMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label>Clonage de l&quot;enquête</label>
+        <name>SURVEY_MANAGER_ALERT_CLONE_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Fermer</label>
+        <name>SURVEY_MANAGER_CLOSE_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Créé par</label>
+        <name>SURVEY_MANAGER_COL_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette enquête comprend un XForm personnalisé. La personnalisation sera perdue si l&quot;enquête est éditée. Voulez-vous éditer l&quot;enquête ?</label>
+        <name>SURVEY_MANAGER_CONFIRM_EDIT_CUSTOM</name>
+    </customLabels>
+    <customLabels>
+        <label>Éditer</label>
+        <name>SURVEY_MANAGER_EDIT_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Une erreur est survenue lors du clonage de {0}</label>
+        <name>SURVEY_MANAGER_FAILED_CLONE</name>
+    </customLabels>
+    <customLabels>
+        <label>Une erreur est survenue lors de la distribution de {0} {1}</label>
+        <name>SURVEY_MANAGER_FAILED_DISTRIBUTION</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;enquête {0} est en cours de fermeture. 
+
+IMPORTANT: Une fois l&quot;enquête fermée, personne ne pourra plus y répondre !</label>
+        <name>SURVEY_MANAGER_MSG_CONFIRM_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous aller supprimer l&quot;enquête. Vous confirmez ?</label>
+        <name>SURVEY_MANAGER_MSG_CONFIRM_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous allez publier {0}. &lt;br\&gt; &lt;br\&gt; IMPORTANT : Une fois ce document publié vous ne pourrez plus l&quot;éditer. Il est fortement recommandé de vérifier l&quot;ordre des questions, leur formulation, leur logique, la notation et l&quot;association avant la publication.</label>
+        <name>SURVEY_MANAGER_MSG_CONFIRM_PUBLISH</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle enquête</label>
+        <name>SURVEY_MANAGER_NEW_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Publier</label>
+        <name>SURVEY_MANAGER_PUBLISH_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Une autre relation est déjà définie sur ce champ.</label>
+        <name>SURVEY_MAPPING_ANOTHER_RELATION_IS_SETTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Utilisez la colonne vide existante, ou supprimez-la pour en créer une autre</label>
+        <name>SURVEY_MAPPING_CANT_ADD_COLUMN</name>
+    </customLabels>
+    <customLabels>
+        <label>Cet objet est associé à des questions dans une section différente qui se répète (ou section parente)</label>
+        <name>SURVEY_MAPPING_CANT_MAP_REPEATED</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de définir cette relation car l&quot;objet parent est associé pour se répéter, et l&quot;objet enfant est parent d&quot;un objet associé à une répétition différente</label>
+        <name>SURVEY_MAPPING_CANT_RELATE_BECAUSE_PARENT_OF_REPEAT</name>
+    </customLabels>
+    <customLabels>
+        <label>Cocher ceci reviendrait à créer une relation dans laquelle l&quot;objet parent est associé pour se répéter, et l&quot;objet enfant est parent d&quot;un objet associé à une répétition différente</label>
+        <name>SURVEY_MAPPING_CANT_RELATE_BECAUSE_PARENT_OF_REPEAT_PARTICULAR_CASE</name>
+    </customLabels>
+    <customLabels>
+        <label>Un objet de référence ne peut pas être une personne interrogée</label>
+        <name>SURVEY_MAPPING_CANT_SET_INTERVIEWEE</name>
+    </customLabels>
+    <customLabels>
+        <label>Un champ autonuméroté est associé mais n&quot;est pas défini en tant que champ ID, erreur de validation coté client.</label>
+        <name>SURVEY_MAPPING_CANT_USE_AN_IF_NOT_IDFIELD_EXCEPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Échec de la sauvegarde dû aux champs à autonumérotation non définis en tant que champs ID : 
+        
+ {0}</label>
+        <name>SURVEY_MAPPING_CANT_USE_AUTONUMBER_IF_NOT_IDFIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Modifier</label>
+        <name>SURVEY_MAPPING_CHANGE</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;objet enfant de cette relation est Référence</label>
+        <name>SURVEY_MAPPING_CHILD_IS_REFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;utilisation de ce contact comme personne interrogée créerait une dépendance circulaire</label>
+        <name>SURVEY_MAPPING_CIRCULAR_CASE_CHECKBOX</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association d&quot;une personne intérrogée à cet objet créerait une dépendance circulaire</label>
+        <name>SURVEY_MAPPING_CIRCULAR_CASE_REPEATED</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de définir cette relation car cela créerait une dépendance circulaire</label>
+        <name>SURVEY_MAPPING_CIRCULAR_DEPENDENCY</name>
+    </customLabels>
+    <customLabels>
+        <label>Voulez-vous vraiment supprimer cette colonne ?</label>
+        <name>SURVEY_MAPPING_CONFIRM_REMOVE_COL</name>
+    </customLabels>
+    <customLabels>
+        <label>Les objets ou champs suivants ont été supprimés de votre instance SalesForce. En conséquence, il se peut que l&quot;association de tous les champs dans ces objets ou la relation entre objets ait été supprimé(e). Veuillez ré-associer vos champs et vérifier vos associations.</label>
+        <name>SURVEY_MAPPING_DELETEDOBJECTSORFIELDS</name>
+    </customLabels>
+    <customLabels>
+        <label>Définir ce contact en tant que personne interrogée créerait une relation entre objets associés à des sections répétées différentes.</label>
+        <name>SURVEY_MAPPING_DIFFERENT_REPEAT_INTERVIEWEE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ces objets sont associés à des sections répétées différentes.</label>
+        <name>SURVEY_MAPPING_DIFFERENT_REPEAT_SECTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association de ce champ créerait une relation entre objets associés à des sections répétées différentes.</label>
+        <name>SURVEY_MAPPING_DIFFERENT_REPEAT_SPECIAL</name>
+    </customLabels>
+    <customLabels>
+        <label>Les champs suivants sont obligatoires pour: 
+{0}Il se pourrait que le champ manquant ne soit pas disponible si aucune question ne correspond à sa catégorie.</label>
+        <name>SURVEY_MAPPING_ERROR_REQUIRED_NOT_PRESENT</name>
+    </customLabels>
+    <customLabels>
+        <label>une relation avec {0}</label>
+        <name>SURVEY_MAPPING_FIELD_ALREADY_ON_RELATION</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association de champ n&quot;est pas permise pour les questions en fin d&quot;enquête</label>
+        <name>SURVEY_MAPPING_FIELD_MAPPING_FOR_END_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association de champ n&quot;est pas permise pour les questions au contenu statique</label>
+        <name>SURVEY_MAPPING_FIELD_MAPPING_FOR_STATIC</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association de champ permet à Taroworks de créer ou mettre à jour un enregistrement pour n&quot;importe quel(s) objet(s) de votre choix au moment de la soumission de chaque enquête. Exemple simple : Si dans votre formulaire, la question #3 porte sur la date de naissance, cette information sera insérée dans le champ date de naissance du formulaire de contact de votre choix lors de la soumission réussie de votre enquête depuis votre appareil.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_1</name>
+    </customLabels>
+    <customLabels>
+        <label>En sélectionnant un champ spécifique comme champ ID, TaroWorks vérifiera que la valeur associée à ce champ correspond à la valeur dans les enregistrements. S&quot;il y a correspondance, les champs associés pour cet enregistrement seront mis à jour avec toute donnée non vide. S&quot;il n&quot;y a pas de correspondance, un nouvel enregistrement sera créé.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_10</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association aux sections répétées ou aux questions contrôlées par la logique est soumise à un certain nombre de restrictions.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_11</name>
+    </customLabels>
+    <customLabels>
+        <label>Pour plus d&quot;informations sur l&quot;association d&quot;objets reliés, la logique, les sections répétées et conseils généraux - référez-vous aux pages de didacticiel</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_12</name>
+    </customLabels>
+    <customLabels>
+        <label>Cliquez sur le bouton Ajouter à droite de l&quot;écran. Deux boites déroulantes, &quot;Objet&quot; et &quot;Champ ID&quot; apparaitront.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_2</name>
+    </customLabels>
+    <customLabels>
+        <label>Cliquez l&quot;&quot;Objet&quot; boite déroulante et choisissez l&quot;objet (par exemple Contact) avec lequel vous désirez créer une association. Une colonne de boites déroulantes s&quot;affichera en regard de chaque question qui s&quot;y prête après que vous ayez fait votre sélection.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_3</name>
+    </customLabels>
+    <customLabels>
+        <label>Déplacez-vous vers la question que vous désirez associer (par exemple question 3 Date de naissance) et sélectionnez &quot;Date de naissance&quot; (dans la boite déroulante située à gauche) comme champ dans Contact avec lequel vous désirez créer une association. Répétez ceci pour les autres champs que vous désirez associer.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_4</name>
+    </customLabels>
+   <customLabels>
+        <label>IMPORTANT : Vous devez identifier le contact en associant également une question au champ &quot;Nom de famille&quot; afin que l’équipe commercial puisse identifier le contact qui correspond à la date de naissance.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_5</name>
+    </customLabels>
+    <customLabels>
+        <label>Répétez les étapes 2 à 4 pour les autres types d’objets que vous désirez associer avec cette enquête.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_6</name>
+    </customLabels>
+    <customLabels>
+        <label>N’oubliez pas de sauvegarder quand votre association est terminée. Il se peut que vous receviez une notification vous demandant de fixer certaines erreurs avant de réussie à sauvegarder.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_7</name>
+    </customLabels>
+    <customLabels>
+        <label>Il existe un certain nombre de restrictions relatives au association des questions et des champs. Par exemple une question Date peut s&quot;associer à un champ Date, Texte ou Long Texte.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_8</name>
+    </customLabels>
+    <customLabels>
+        <label>Si vous laissez vide le champ ID de la boite déroulante d’un objet, un nouvel enregistrement sera créé à chaque submission.</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_9</name>
+    </customLabels>
+   <customLabels>
+        <label>ici</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_HERE</name>
+    </customLabels>
+    <customLabels>
+        <label>Introduction</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_TITLE_1</name>
+    </customLabels>
+    <customLabels>
+        <label>Étapes de base</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_TITLE_2</name>
+    </customLabels>
+    <customLabels>
+        <label>Conseils et rappels de base</label>
+        <name>SURVEY_MAPPING_HELP_TEXT_TITLE_3</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce champ ID ne peut pas être défini car un ancêtre de cet objet est associé à une section répétée </label>
+        <name>SURVEY_MAPPING_ID_FIELD_CANNOT_BE_SET</name>
+    </customLabels>
+    <customLabels>
+        <label>Champ ID obligatoire pour les objets de référence</label>
+        <name>SURVEY_MAPPING_ID_FIELD_IS_REQUIRED</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de définir cet objet en tant que personne interrogée car il est associé à une section répétée.</label>
+        <name>SURVEY_MAPPING_INTERVIEWEE_ON_REPEAT</name>
+    </customLabels>
+    <customLabels>
+        <label>Est objet de référence</label>
+        <name>SURVEY_MAPPING_IS_REFERENCE_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Champ ID :</label>
+        <name>SURVEY_MAPPING_MATCHING_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Objet :</label>
+        <name>SURVEY_MAPPING_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} Objet : ({1}) </label>
+        <name>SURVEY_MAPPING_OBJECT_REQ_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label>Les objets de référence ne permettent l&quot;association qu&quot;à un champ unique</label>
+        <name>SURVEY_MAPPING_REFERENCE_ALLOW_ONE_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Les objets de référence doivent être reliés à un autre objet</label>
+        <name>SURVEY_MAPPING_REFERENCE_MUST_BE_RELATED</name>
+    </customLabels>
+    <customLabels>
+        <label>Supprimer cette colonne</label>
+        <name>SURVEY_MAPPING_REMOVE_COL</name>
+    </customLabels>
+    <customLabels>
+        <label>Le champ &quot;{0}&quot; est déjà sélectionné en {1}</label>
+        <name>SURVEY_MAPPING_REPEATED_FIELDS</name>
+    </customLabels>
+    <customLabels>
+        <label>Répétitions en</label>
+        <name>SURVEY_MAPPING_REPEAT_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association de cet objet va réinitialiser les champs ID des descendants ; continuer ?</label>
+        <name>SURVEY_MAPPING_REPEAT_OBJECT_WILL_UNSET_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce champ est obligatoire. La question sera obligatoire également</label>
+        <name>SURVEY_MAPPING_REQ_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Le type de relation est Master-Detail ou correspondance obligatoire, de ce fait la question sera rendue obligatoire</label>
+        <name>SURVEY_MAPPING_REQ_FIELD_ON_RELATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélectionner les objets et les champs</label>
+        <name>SURVEY_MAPPING_SELECT_OBJECTS_AND_FIELDS</name>
+    </customLabels>
+    <customLabels>
+        <label>Définir cet objet en tant que personne interrogée va supprimer les champs ID de ses descendants. Désirez-vous continuer ?</label>
+        <name>SURVEY_MAPPING_SET_INTERVIEWEE_WILL_UNSET_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>Définir cet objet en tant que personne interrogée va réinitialiser le champ du même nom. Désirez-vous continuer ?</label>
+        <name>SURVEY_MAPPING_SET_INTERVIEWEE_WILL_UNSET_RESPONDENT</name>
+    </customLabels>
+    <customLabels>
+        <label>Définir la relation</label>
+        <name>SURVEY_MAPPING_SET_RELATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Le champ ID de l&quot;objet enfant ne serait plus valide et sera réinitialisé. Désirez-vous continuer ?</label>
+        <name>SURVEY_MAPPING_SET_RELATION_WILL_UNSET_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;association de la personne interrogée à cet objet supprimera le champ ID de l&quot;objet et/ou ses descendants. Désirez-vous continuer ?</label>
+        <name>SURVEY_MAPPING_SET_RESPONDENT_WILL_UNSET_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>Données soumises</label>
+        <name>SURVEY_MAPPING_SUBMISSION_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label>Association des champs</label>
+        <name>SURVEY_MAPPING_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ceci va supprimer le ID en cours, désirez-vous continuer ?</label>
+        <name>SURVEY_MAPPING_WILL_REMOVE_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;enquête est actuellement affectée aux groupes suivants. Cliquez sur l&quot;onglet &quot;Groupes&quot; pour éditer cette affectation.</label>
+        <name>SURVEY_MSG_PUBLISHINGSURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette enquête n&quot;a été affectée à aucun groupe</label>
+        <name>SURVEY_MSG_PUBLISHINGSURVEY_NOGROUPS</name>
+    </customLabels>
+    <customLabels>
+        <label>Imprimer</label>
+        <name>SURVEY_PREVIEW_PRINT</name>
+    </customLabels>
+    <customLabels>
+        <label>Aperçu de l&quot;enquête</label>
+        <name>SURVEY_PREVIEW_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Condition: Lorsque {0} {1} {2} en {3}</label>
+        <name>SURVEY_QUESTION_CONDITION_DISPLAY</name>
+    </customLabels>
+    <customLabels>
+        <label>Supprimer cette question va rendre un certain nombre de conditions non valides qui seront supprimées à leur tour. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_AFFECTEDLOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une valeur score, une valeur score PPI et une logique de saut assignées précédemment. Supprimer l’option va supprimer ses valeur de score, valeur de score PPI and sa logique de saut également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_ALLCONDITIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une logique de saut assignée précédemment. Supprimer l’option va supprimer sa logique de saut également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_LOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une valeur score PPI et une logique de saut assignées précédemment. Supprimer l’option va supprimer sa valeur de score PPI et sa logique de saut également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_LOGICNPPISCORE</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une valeur score PPI assignée précédemment. Supprimer l’option va supprimer sa valeur de score PPI également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_PPISCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une valeur score et une logique de saut assignées précédemment. Supprimer l’option va supprimer sa valeur de scores and sa logique de saut également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_SCORELOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une valeur score et une valeur score PPI assignées précédemment. Supprimer l’option va supprimer sa valeur de scores et sa valeur de score PPI également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_SCORENPPISCORE</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette option a au moins une valeur score assignée précédemment. Supprimer l’option va supprimer sa valeur de score également. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Supprimer cette question va rendre certaines options de score PPI invalides et elles seront supprimées également.</label>
+        <name>SURVEY_QUESTION_DELETE_QUESTION_WITH_PPISCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Supprimer cette question va rendre certaines options de score invalides et elles seront supprimées également.</label>
+        <name>SURVEY_QUESTION_DELETE_QUESTION_WITH_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette section a au moins une question avec la valeur de score PPI assignée précédemment.</label>
+        <name>SURVEY_QUESTION_DELETE_SECTION_WITH_PPISCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette section a au moins une question avec  la valeur de score assignée précédemment.</label>
+        <name>SURVEY_QUESTION_DELETE_SECTION_WITH_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible d’ajouter/de mettre à jour la cascade de question car la section parente a défini comme vrai &quot;tout afficher sur la même page&quot;.</label>
+        <name>SURVEY_QUESTION_ERR_CANNOT_CASCADING_SHOWSAMEPAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>Doit être plus grand ou égal à {0}.</label>
+        <name>SURVEY_QUESTION_ERR_GREATER</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélection de cascade non valide, veuillez en sélectionner une autre en statut prêt.</label>
+        <name>SURVEY_QUESTION_ERR_INVALID_CASCADINGSELECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Nom non valide. Le nom doit commencer par une lettre et ne contenir que des lettres, des chiffres et des traits de soulignement</label>
+        <name>SURVEY_QUESTION_ERR_INVALID_QUESTION_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez entrer une valeur valide !</label>
+        <name>SURVEY_QUESTION_ERR_INVALID_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label>La dernière option ne peut pas être supprimée.</label>
+        <name>SURVEY_QUESTION_ERR_LAST_OPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Ne doit pas être en dessous du minimum.</label>
+        <name>SURVEY_QUESTION_ERR_LOWER_THAN_MINIMUN</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette question est associée à un champ obligatoire et ne peut donc pas être supprimée.</label>
+        <name>SURVEY_QUESTION_ERR_MAPPED_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label> Cette question est associée à un champ ID et ne peut donc pas être supprimée.</label>
+        <name>SURVEY_QUESTION_ERR_MAPPED_QUESTION_IDFIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous ne pouvez pas définir une question associée à un champ ID comme optionnelle. Veuillez cocher la case obligatoire pour toutes les questions associées à un champ ID.</label>
+        <name>SURVEY_QUESTION_ERR_MAPPED_QUESTION_IDFIELD_REQUIRED</name>
+    </customLabels>
+    <customLabels>
+        <label>Cette questions ne peut pas être supprimée car elle appartient à un objet de référence, et l’objet a une relation Master-Detail ou correspondance obligatoire.</label>
+        <name>SURVEY_QUESTION_ERR_MAPPED_QUESTION_REFERENCE_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>La question est associé à un champ obligatoire et ne peut être qu’obligatoire.</label>
+        <name>SURVEY_QUESTION_ERR_MAPPED_REQUIREDCANNOTBEFALSE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous devez préalablement créer une section.</label>
+        <name>SURVEY_QUESTION_ERR_NO_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label>La question doit être obligatoire car elle est associée à un objet de référence, et l’objet a une relation Master-Detail ou correspondance obligatoire.</label>
+        <name>SURVEY_QUESTION_ERR_RELATION_REQUIRED_CANNOT_BE_FALSE</name>
+    </customLabels>
+    <customLabels>
+        <label>Les options ne doivent pas être répétées.</label>
+        <name>SURVEY_QUESTION_ERR_REP_OPTION</name>
+    </customLabels>
+    <customLabels>
+        <label> Les noms de questions et de sections ne doivent pas être répétées.</label>
+        <name>SURVEY_QUESTION_ERR_REP_QUESTION_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de sauvegarder tant que la section &quot;{0}&quot; n’a pas de question.</label>
+        <name>SURVEY_QUESTION_ERR_SECTION_WITHOUT_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Entrer du texte supplémentaire</label>
+        <name>SURVEY_QUESTION_HINT_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label>Déplacer cette question va rendre certaines conditions non valides et entrainer sa suppression. Désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_MOVE_AFFECTEDLOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label>Le déplacement n’est pas permis pour cette question car une autre question non éditable en est logiquement dépendante.</label>
+        <name>SURVEY_QUESTION_MOVE_NONEDITABLE_AFFECTEDLOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label>Entrer le titre de la question</label>
+        <name>SURVEY_QUESTION_NAME_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle section</label>
+        <name>SURVEY_QUESTION_NEW_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Une section minimum est obligatoire.</label>
+        <name>SURVEY_QUESTION_ONE_SECTION_REQ</name>
+    </customLabels>
+    <customLabels>
+        <label>Nom</label>
+        <name>SURVEY_QUESTION_SECTION_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Contenu</label>
+        <name>SURVEY_QUESTION_STATIC_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label>Entrer le contenu</label>
+        <name>SURVEY_QUESTION_STATIC_HINT_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label>Le code de question est utilisé comme référence et ne sera pas affiché sur l&quot;appareil. Le nom doit être unique, commencer par une lettre et ne contenir que des lettres, des chiffres et des traits de soulignement. Le nom ne peut pas se terminer avec un trait de soulignement ni contenir deux traits de soulignement consécutifs</label>
+        <name>SURVEY_QUESTION_TIP_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Code-barres</label>
+        <name>SURVEY_QUESTION_TYPE_BARCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>Date Heure</label>
+        <name>SURVEY_QUESTION_TYPE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Fin de l&quot;enquête</label>
+        <name>SURVEY_QUESTION_TYPE_FINAL</name>
+    </customLabels>
+    <customLabels>
+        <label>Texte libre</label>
+        <name>SURVEY_QUESTION_TYPE_FREE</name>
+    </customLabels>
+    <customLabels>
+        <label>Photo</label>
+        <name>SURVEY_QUESTION_TYPE_MEDIA</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélection Multiple</label>
+        <name>SURVEY_QUESTION_TYPE_MULTI</name>
+    </customLabels>
+    <customLabels>
+        <label>Nombre</label>
+        <name>SURVEY_QUESTION_TYPE_NUMBER</name>
+    </customLabels>
+    <customLabels>
+        <label>Répétition</label>
+        <name>SURVEY_QUESTION_TYPE_REPEAT</name>
+    </customLabels>
+    <customLabels>
+        <label>Régulier</label>
+        <name>SURVEY_QUESTION_TYPE_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Signature</label>
+        <name>SURVEY_QUESTION_TYPE_SIGNATURE</name>
+    </customLabels>
+    <customLabels>
+        <label>Sélection unique</label>
+        <name>SURVEY_QUESTION_TYPE_SINGLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Contenu statique</label>
+        <name>SURVEY_QUESTION_TYPE_STATIC</name>
+    </customLabels>
+    <customLabels>
+        <label>Erreurs dans l&quot;ordre des questions, ces erreurs doivent être corrigées avant toute action d&quot;édition, désirez-vous continuer ?</label>
+        <name>SURVEY_QUESTION_UPDATE_POSITIONS</name>
+    </customLabels>
+    <customLabels>
+        <label>Utiliser la date du jour (extraite de l&quot;appareil) comme valeur initiale</label>
+        <name>SURVEY_QUESTION_USE_CURRENT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Utiliser la date du jour et l&quot;heure actuelle (extraites de l&quot;appareil) comme valeurs initiales</label>
+        <name>SURVEY_QUESTION_USE_CURRENT_DATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label>Une réponse au moins doit être sélectionnée pour pouvoir exporter</label>
+        <name>SURVEY_RESULT_ERR_NO_RESULT_SELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label>Exporter toutes les réponses au format CSV</label>
+        <name>SURVEY_RESULT_EXPORT_ALL_CSV</name>
+    </customLabels>
+    <customLabels>
+        <label>Exporter les réponses sélectionnées au format CSV</label>
+        <name>SURVEY_RESULT_EXPORT_CSV</name>
+    </customLabels>
+    <customLabels>
+        <label>Passer à une autre enquête :</label>
+        <name>SURVEY_RESULT_JUMP_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Les {0} soumissions les plus récentes sont affichées. Si vous désirez voir tous les résultats, veuillez sélectionner {1}</label>
+        <name>SURVEY_RESULT_MOREROWSTOVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>Non</label>
+        <name>SURVEY_RESULT_NUMBER_COLUMN</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} lignes récupérées sur {1}</label>
+        <name>SURVEY_RESULT_ROWS_RETRIEVED</name>
+    </customLabels>
+    <customLabels>
+        <label>Soumis</label>
+        <name>SURVEY_RESULT_SUBMITTED_COLUMN</name>
+    </customLabels>
+    <customLabels>
+        <label>Résultats de l&quot;enquête</label>
+        <name>SURVEY_RESULT_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible d&quot;assigner un score à ce type de question</label>
+        <name>SURVEY_SCORING_CANNOT_ASSIGN_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label>Voulez-vous vraiment supprimer ce groupe ?</label>
+        <name>SURVEY_SCORING_CONFIRM_GROUP_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Score de l&quot;enquête</label>
+        <name>SURVEY_SCORING_DEFAULT_GROUP_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>La notation (ou évaluation) consiste à assigner une valeur numérique à chaque option de réponse correspondant à une question. En affectant un score à chaque option de réponse, il est possible d&quot;obtenir des résultats chiffrés après soumission des réponses à l&quot;enquête. Vous pouvez créer plus d&quot;un groupe d&quot;enquête pour calculer des scores multiples.</label>
+        <name>SURVEY_SCORING_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de sauver tant que des groupes de score sont en cours d&quot;édition.</label>
+        <name>SURVEY_SCORING_ERR_GROUPS_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>Le nom d&quot;un groupe de score est limité à 40 caractères maximum (1 minimum).</label>
+        <name>SURVEY_SCORING_ERR_GROUP_LENGTH</name>
+    </customLabels>
+    <customLabels>
+        <label>Une erreur est survenue lors de la sauvegarde du groupe de score, vérifiez les données du groupe</label>
+        <name>SURVEY_SCORING_ERR_SAVING</name>
+    </customLabels>
+    <customLabels>
+        <label>La valeur doit être un nombre entre -100 et 100</label>
+        <name>SURVEY_SCORING_ERR_SCOREVALUEOUTOFRANGE</name>
+    </customLabels>
+    <customLabels>
+        <label>Ce nom est déjà utilisé pour un autre groupe de calcul de scores</label>
+        <name>SURVEY_SCORING_ERR_USED_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Groupes de score</label>
+        <name>SURVEY_SCORING_GROUPS</name>
+    </customLabels>
+    <customLabels>
+        <label>Appliquer les scores</label>
+        <name>SURVEY_SCORING_SCORES_VALUES</name>
+    </customLabels>
+    <customLabels>
+        <label>Cloner l&quot;enquête</label>
+        <name>SURVEY_SETTINGS_SUBTITLE_CLONE_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle Enquête</label>
+        <name>SURVEY_SETTINGS_SUBTITLE_NEW_BLANK_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle enquête PPI</label>
+        <name>SURVEY_SETTINGS_SUBTITLE_NEW_PPI_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label>Créez un alias si vous désirez que la personne interrogée voit un titre différent </label>
+        <name>SURVEY_SETTING_ALIAS_INFO</name>
+    </customLabels>
+    <customLabels>
+        <label>Enregistrer emplacement automatiquement</label>
+        <name>SURVEY_SETTING_AUTOMATIC_LOCATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Merci d&quot;avoir pris le temps de répondre à cette enquête !</label>
+        <name>SURVEY_SETTING_CLOSE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer un alias de titre</label>
+        <name>SURVEY_SETTING_CREATE_ALIAS</name>
+    </customLabels>
+    <customLabels>
+        <label>- Ne pas demander de personne interrogée -</label>
+        <name>SURVEY_SETTING_NO_INTERVIEWEE</name>
+    </customLabels>
+    <customLabels>
+        <label>Titre et Alias</label>
+        <name>SURVEY_SETTING_TITLE_AND_ALIAS</name>
+    </customLabels>
+    <customLabels>
+        <label>Fermée</label>
+        <name>SURVEY_STATUS_CLOSED</name>
+    </customLabels>
+    <customLabels>
+        <label>Fermée automatiquement</label>
+        <name>SURVEY_STATUS_CLOSED_AUTO</name>
+    </customLabels>
+    <customLabels>
+        <label>Obsolète</label>
+        <name>SURVEY_STATUS_DEPRECATED</name>
+    </customLabels>
+    <customLabels>
+        <label>Brouillon</label>
+        <name>SURVEY_STATUS_DRAFT</name>
+    </customLabels>
+    <customLabels>
+        <label>Non valide</label>
+        <name>SURVEY_STATUS_INVALID</name>
+    </customLabels>
+    <customLabels>
+        <label>Publié</label>
+        <name>SURVEY_STATUS_PUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous n&quot;avez pas les autorisations requises pour créer une enquête ppi</label>
+        <name>SYSTEM_ERR_NOLICENSEPERMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label>Tâches</label>
+        <name>TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label>Cocher le fichier à sélectionner. Vous ne pouvez en sélectionner qu&quot;un.</label>
+        <name>TASK_CHECK_FILE_TO_SELECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Question dupliquée </label>
+        <name>TASK_COLLECT_DUPLICATE_QUESTION_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>Association non valide pour cette tâche</label>
+        <name>TASK_COLLECT_INVALID_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>Il n&quot;y a pas d&quot;objet à associer</label>
+        <name>TASK_COLLECT_NO_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>Obligatoire</label>
+        <name>TASK_COLLECT_REQUIRED_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>Editer la tâche</label>
+        <name>TASK_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>La tâche est associée à un type de question qui ne peut pas être associé.</label>
+        <name>TASK_INCORRECT_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label>Instruction</label>
+        <name>TASK_INSTRUCTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Champ enquête</label>
+        <name>TASK_MAPPING_FORM_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Champ objet</label>
+        <name>TASK_MAPPING_OBJECT_FIELD</name>
+    </customLabels>
+    <customLabels>
+        <label>Nom de tâche</label>
+        <name>TASK_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Nouvelle tâche</label>
+        <name>TASK_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label>Ressources introuvables dans la bibliothèque &quot;TaroWorks&quot;</label>
+        <name>TASK_NO_RESOURCE_FOUND</name>
+    </customLabels>
+    <customLabels>
+        <label>Titre</label>
+        <name>TASK_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestionnaire de modèles</label>
+        <name>TEMPLATE_MANAGER</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous allez supprimer le modèle. Désirez vous continuer ?</label>
+        <name>TEMPLATE_MANAGER_MSG_CONFIRM_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Vous avez supprimé le modèle {0}</label>
+        <name>TEMPLATE_MAN_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer un nouveau modèle</label>
+        <name>TEMP_MAN_CREATE_NEW_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Créer un nouveau PPI</label>
+        <name>TEMP_MAN_CREATE_PPI</name>
+    </customLabels>
+    <customLabels>
+        <label>Télécharger un modèle</label>
+        <name>TEMP_MAN_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label>Échec de la ré-initialisation de la liste des modèles</label>
+        <name>TEMP_MAN_FAILED_REFRESH</name>
+    </customLabels>
+    <customLabels>
+        <label>Obtenir PPI</label>
+        <name>TEMP_MAN_GETPPI</name>
+    </customLabels>
+    <customLabels>
+        <label>Obtenir un nouveau modèle</label>
+        <name>TEMP_MAN_GET_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label>L&quot;action sélectionnée n&quot;est pas valide. Ré-essayez</label>
+        <name>TEMP_MAN_INVALID_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Statut local</label>
+        <name>TEMP_MAN_LOCAL_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>Réinitialisation des modèles</label>
+        <name>TEMP_MAN_REFRESH</name>
+    </customLabels>
+    <customLabels>
+        <label>Statut distant</label>
+        <name>TEMP_MAN_REMOTE_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>Afficher PPI</label>
+        <name>TEMP_MAN_SHOW_PPI</name>
+    </customLabels>
+    <customLabels>
+        <label>Afficher modèles</label>
+        <name>TEMP_MAN_SHOW_TEMP</name>
+    </customLabels>
+    <customLabels>
+        <label>Utiliser</label>
+        <name>TEMP_MAN_USE_IT</name>
+    </customLabels>
+    <customLabels>
+        <label>Il n&quot;y a pas de tâche</label>
+        <name>THERE_IS_NO_TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label>Troisième niveau</label>
+        <name>THIRD_LEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} ceci lorsque {1} des conditions suivantes sont remplies.</label>
+        <name>THIS_WHEN</name>
+    </customLabels>
+    <customLabels>
+        <label>Type</label>
+        <name>TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>Collecte des données</label>
+        <name>TYPE_COLLECT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Afficher les données</label>
+        <name>TYPE_VIEW_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label>Voir les ressources</label>
+        <name>TYPE_VIEW_RESOURCE</name>
+    </customLabels>
+    <customLabels>
+        <label>Non affectée à ce groupe</label>
+        <name>UNASSIGNED_TO_THIS_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label>Les affectations à ce groupe vont être supprimées. {0} 
+
+ Désirez-vous continuer ?</label>
+        <name>UNASSIGN_ANY_GROUP_CONFIRMATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Ces groupes {0} ont déjà des soumissions pour cette enquête, qui sera dissociée de ces groupes.</label>
+        <name>UNASSIGN_GROUP_AFFECTED_SUBMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label>Charger fichier</label>
+        <name>UPLOAD_FILE</name>
+    </customLabels>
+    <customLabels>
+        <label>Afficher</label>
+        <name>VIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>Ceci capture votre emplacement actuel</label>
+        <name>XFORM_ODK_CURRENTLOCATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Emplacement GPS</label>
+        <name>XFORM_ODK_GPSLOCATION</name>
+    </customLabels>
+    <customLabels>
+        <label>Qui interrogez-vous ?</label>
+        <name>XFORM_ODK_INTERVIEWEELABEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez entrer l&quot;ID de la personne interrogée, ou laisser vide pour conserver l&quot;anonymat.</label>
+        <name>XFORM_ODK_INTERVIEWEE_HINT_ANONYMOUS</name>
+    </customLabels>
+    <customLabels>
+        <label>Veuillez entrer l&quot;ID de la personne interrogée</label>
+        <name>XFORM_ODK_INTERVIEWEE_HINT_DEFAULT</name>
+    </customLabels>
+    <customTabs>
+        <label> Groupes </label>
+        <name>ContactGroups</name>
+    </customTabs>
+    <customTabs>
+        <label> Activités Métier </label>
+        <name>JobActivitiesList</name>
+    </customTabs>
+    <customTabs>
+        <label> Performance </label>
+        <name>PerformanceTargetManager</name>
+    </customTabs>
+    <customTabs>
+        <label> Enquêtes </label>
+        <name>SurveyManager</name>
+    </customTabs>
+    <reportTypes>
+        <description> Contacts - groupes de contact </description>
+        <label> Contacts - groupes de contact </label>
+        <name>Contacts_ContactGroups</name>
+        <sections>
+            <label> Groupes de contact </label>
+            <name>Contact Groups</name>
+        </sections>
+        <sections>
+            <label> Contacts </label>
+            <name>Contacts</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description> Enquêtes affectées à groupes </description>
+        <label> Enquêtes affectées à groupes  </label>
+        <name>Groups_Assigned_Surveys</name>
+        <sections>
+            <columns>
+                <label> Enquête affectée </label>
+                <name>Assigned Survey</name>
+            </columns>
+            <columns>
+                <label> Affectation créée par </label>
+                <name>Assignment Created By</name>
+            </columns>
+            <columns>
+                <label> Date de création de l&quot;affectation </label>
+                <name>Assignment Created Date</name>
+            </columns>
+            <columns>
+                <label> ID de l&quot;affectation </label>
+                <name>Assignment ID</name>
+            </columns>
+            <columns>
+                <label> Affectation modifiée par </label>
+                <name>Assignment Last Modified By</name>
+            </columns>
+            <columns>
+                <label> Date de modification de l&quot;affectation </label>
+                <name>Assignment Last Modified Date</name>
+            </columns>
+            <columns>
+                <label> Numéro de l&quot;affectation </label>
+                <name>Assignment Number</name>
+            </columns>
+            <label> Enquêtes affectées </label>
+            <name>Assigned Surveys</name>
+        </sections>
+        <sections>
+            <columns>
+                <label> Groupe Créé par </label>
+                <name>Group Created By</name>
+            </columns>
+            <columns>
+                <label> Date de création du groupe </label>
+                <name>Group Created Date</name>
+            </columns>
+            <columns>
+                <label> Description du groupe </label>
+                <name>Group Description</name>
+            </columns>
+            <columns>
+                <label> Groupe modifié par </label>
+                <name>Group Last Modified By</name>
+            </columns>
+            <columns>
+                <label> Date de modification du groupe </label>
+                <name>Group Last Modified Date</name>
+            </columns>
+            <columns>
+                <label> Nombre de membres du groupe </label>
+                <name>Group Member Count</name>
+            </columns>
+            <columns>
+                <label> Propriétaire du groupe </label>
+                <name>Group Owner</name>
+            </columns>
+            <columns>
+                <label> Statut du groupe </label>
+                <name>Group Status</name>
+            </columns>
+            <columns>
+                <label> Nombre d&quot;enquêtes du groupe </label>
+                <name>Group Survey Count</name>
+            </columns>
+            <label> Groupes </label>
+            <name>Groups</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description> Rapport PPI  </description>
+        <label> Rapport PPI </label>
+        <name>PPIReport</name>
+        <sections>
+            <columns>
+                <label> Légende de la table de correspondances </label>
+                <name>Lookup Table Legend</name>
+            </columns>
+            <columns>
+                <label> Table de correspondances PPI </label>
+                <name>PPI Lookup Table</name>
+            </columns>
+            <columns>
+                <label> Plage de scores de </label>
+                <name>Score Range From</name>
+            </columns>
+            <columns>
+                <label> Plage de scores à </label>
+                <name>Score Range To</name>
+            </columns>
+            <label> Table PPI </label>
+            <name>PPI Table</name>
+        </sections>
+        <sections>
+            <columns>
+                <label> Probabilité </label>
+                <name>Likelihood</name>
+            </columns>
+            <columns>
+                <label> Score PPI </label>
+                <name>PPI Score</name>
+            </columns>
+            <label> Soumission </label>
+            <name>Submission</name>
+        </sections>
+        <sections>
+            <columns>
+                <label> Code pays </label>
+                <name>Country Code</name>
+            </columns>
+            <columns>
+                <label> Année des données </label>
+                <name>Data Year</name>
+            </columns>
+            <columns>
+                <label> Personne interrogée </label>
+                <name>Interviewee</name>
+            </columns>
+            <columns>
+                <label> Age de la personne interrogée </label>
+                <name>Interviewee Age</name>
+            </columns>
+            <columns>
+                <label> Nombre de réponses </label>
+                <name>Response Count</name>
+            </columns>
+            <columns>
+                <label> Titre de l&quot;enquête </label>
+                <name>Survey Title</name>
+            </columns>
+            <columns>
+                <label> Sondeur </label>
+                <name>Surveyor</name>
+            </columns>
+            <label> Enquête </label>
+            <name>Survey</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description> Performances - Cible affectée </description>
+        <label> Performances - Cible affectée </label>
+        <name>Performance_Assigned_Target</name>
+        <sections>
+            <label> Cibles affectées </label>
+            <name>Assigned Targets</name>
+        </sections>
+        <sections>
+            <label> Performances cible </label>
+            <name>Performance Target</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description> Soumission </description>
+        <label> Soumission </label>
+        <name>Submission</name>
+        <sections>
+            <label> Soumissions </label>
+            <name>Submissions</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description> Enquêtes affectées - Soumissions </description>
+        <label> Enquêtes affectées - Soumissions </label>
+        <name>Submissions_Assigned_Surveys</name>
+        <sections>
+            <label> Enquêtes affectées </label>
+            <name>Assigned Surveys</name>
+        </sections>
+        <sections>
+            <label> Soumissions </label>
+            <name>Submissions</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description> Enquêtes - Soumissions </description>
+        <label> Enquêtes - Soumissions </label>
+        <name>Surveys</name>
+        <sections>
+            <label> Soumissions </label>
+            <name>Submissions</name>
+        </sections>
+        <sections>
+            <label> Enquêtes </label>
+            <name>Surveys</name>
+        </sections>
+    </reportTypes>
+</Translations>

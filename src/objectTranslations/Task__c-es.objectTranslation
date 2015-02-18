@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Tarea</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Tarea</value>
+    </caseValues>
+    <fields>
+        <label>Fecha final</label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label>Trabajo</label>
+        <name>Job__c</name>
+        <relationshipLabel>Tareas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha inicial</label>
+        <name>StartDate__c</name>
+    </fields>
+    <fields>
+        <label>Envío</label>
+        <name>Submission__c</name>
+        <relationshipLabel>Tareas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Plantilla de tarea</label>
+        <name>TaskTemplate__c</name>
+        <relationshipLabel>Tareas</relationshipLabel>
+    </fields>
+        <fields>
+        <label>Ubicación inicial</label>
+        <name>StartLocation__c</name>
+    </fields>
+        <fields>
+        <label>Ubicación final</label>
+        <name>EndLocation__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de la tarea</nameFieldLabel>
+</CustomObjectTranslation>

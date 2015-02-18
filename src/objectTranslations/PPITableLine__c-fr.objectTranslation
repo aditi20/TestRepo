@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Ligne de table PPI</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Ligne de table PPI</value>
+    </caseValues>
+    <fields>
+        <label>de</label>
+        <name>From__c</name>
+    </fields>
+    <fields>
+        <label>Données de Ligne de table PPI</label>
+        <name>PPITableDataSet__c</name>
+        <relationshipLabel>Lignes de table PPI</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Probabilité</label>
+        <name>Probability__c</name>
+    </fields>
+    <fields>
+        <label>De</label>
+        <name>To__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de lignes de table PPI</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

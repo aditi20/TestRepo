@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>29.0</apiVersion>
+    <description>Component to set the object path to the contact</description>
+    <label>Performance Target Tracked Object Select</label>
+</ApexComponent>

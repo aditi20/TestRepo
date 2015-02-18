@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Valor de selección en cascada</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Valor de selección en cascada</value>
+    </caseValues>
+    <fields>
+        <label>Nivel de cascada</label>
+        <name>CascadingLevel__c</name>
+        <relationshipLabel>Valores seleccionados en cascada</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Valor de control de selección</label>
+        <name>ControllingSelectValue__c</name>
+        <relationshipLabel>Valores de selección en cascada</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Valor</label>
+        <name>Value__c</name>
+    </fields>
+    <fields>
+        <label>posición</label>
+        <name>Position__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre del Valor de Selección en Cascada</nameFieldLabel>
+</CustomObjectTranslation>

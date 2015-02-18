@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Set de Datos de Tabla PPI</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Set de Datos de Tabla PPI</value>
+    </caseValues>
+    <fields>
+        <label>Alfa</label>
+        <name>Alpha__c</name>
+    </fields>
+    <fields>
+        <label>Definición del gasto</label>
+        <name>ExpenditureDefinition__c</name>
+    </fields>
+    <fields>
+        <label>Identificador</label>
+        <name>Identifier__c</name>
+    </fields>
+    <fields>
+        <label>Línea de definición</label>
+        <name>LineDefinition__c</name>
+    </fields>
+    <fields>
+        <label>Tabla PPI</label>
+        <name>PPITable__c</name>
+        <relationshipLabel>Datos de tabla PPI</relationshipLabel>
+    </fields>
+    <fields>
+        <label>PPP</label>
+        <name>PPP__c</name>
+    </fields>
+    <fields>
+        <label>Tasa de pobreza</label>
+        <name>PovertyRate__c</name>
+    </fields>
+    <fields>
+        <label>Informe leyenda</label>
+        <name>ReportLegend__c</name>
+    </fields>
+    <fields>
+        <label>Encuesta</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Datos de tabla PPI</relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Número de Set de Datos de Tabla PPI</nameFieldLabel>
+</CustomObjectTranslation>

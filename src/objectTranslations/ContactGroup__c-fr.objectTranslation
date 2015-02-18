@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Groupe</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Groupe</value>
+    </caseValues>
+    <fields>
+        <label>Description</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Nombre de Membres</label>
+        <name>MemberCount__c</name>
+    </fields>
+    <fields>
+        <label>Statut</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Actif</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation>Inactif</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Nbd'Enquêtes</label>
+        <name>SurveyCount__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Contact Group Custom Layout</layout>
+        <sections>
+            <label>Liens personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nom de Groupe</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage>Il existe déjà un autre groupe qui porte le même nom. Changer le nom et essayer à nouveau</errorMessage>
+        <name>Unique_name</name>
+    </validationRules>
+    <webLinks>
+        <label>ActiverGroupe</label>
+        <name>ActivateGroup</name>
+    </webLinks>
+    <webLinks>
+        <label>DéactiverGroupe</label>
+        <name>DeactivateGroup</name>
+    </webLinks>
+    <webLinks>
+        <label>Supprimer</label>
+        <name>Delete</name>
+    </webLinks>
+</CustomObjectTranslation>

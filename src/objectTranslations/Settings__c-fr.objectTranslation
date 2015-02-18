@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Paramètres</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Paramètres</value>
+    </caseValues>
+    <fields>
+        <label>Filtrer le travail par utlisateur Salesforce</label>
+        <name>FilterJobsBySalesforceUser__c</name>
+    </fields>
+    <fields>
+        <label>Version Majeure</label>
+        <name>MajorVersion__c</name>
+    </fields>
+    <fields>
+        <label>Version Mineure</label>
+        <name>MinorVersion__c</name>
+    </fields>
+    <fields>
+        <label>Version Corrective</label>
+        <name>PatchVersion__c</name>
+    </fields>
+    <fields>
+        <label>Recalculer les objectifs de travail Job Targets</label>
+        <name>ReCalculateJobTargets__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

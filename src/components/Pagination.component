@@ -1,0 +1,46 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:component >
+    <apex:attribute name="paginator"
+        type="ApexPages.StandardSetController"
+        required="true"
+        description="The paginator controller"
+    />
+
+    <apex:outputPanel id="tableWrapper">
+        <apex:outputPanel id="otpNav2" layout="block" styleClass="bNext">
+            <div class="withFilter">
+                <div class="next">
+                    <span>
+                        <apex:variable var="from" value="{!IF(paginator.resultSize==0, 0, (paginator.pageNumber-1) * paginator.pageSize + 1)}"/>
+                        <apex:variable var="to" value="{!MIN(paginator.resultSize, paginator.pageNumber * paginator.pageSize)}"/>
+                        <apex:outputText value="{0,number,0}">
+                            <apex:param value="{!from}"/>
+                        </apex:outputText>
+                        &nbsp;-&nbsp;
+                        <apex:outputText value="{0,number,0}">
+                            <apex:param value="{!to}"/>
+                        </apex:outputText>
+                        &nbsp;{!$Label.GENERAL_OF}&nbsp;
+                        <apex:outputText value="{0,number,0}">
+                            <apex:param value="{!paginator.resultSize}"/>
+                        </apex:outputText>
+                    </span>
+                    &nbsp;&nbsp;
+                    <apex:commandLink action="{!paginator.first}" onclick="blockPage('{!JSENCODE($Label.PAGINATION_GETTINGFIRST)}')" oncomplete="unblockPage()" title="{!$Label.PAGINATION_FIRSTPAGE}" value="<<{!$Label.PAGINATION_FIRSTPAGE}" rendered="{!NOT(paginator.pageNumber == 1)}" rerender="tableWrapper"/>
+                    <apex:outputPanel styleClass="greyedLink" style="color:grey" rendered="{!paginator.pageNumber == 1}">&lt;&lt;{!$Label.PAGINATION_FIRSTPAGE}</apex:outputPanel>
+                    <apex:outputText value=" | "/>
+                    <apex:commandLink action="{!paginator.previous}" onclick="blockPage('{!JSENCODE($Label.PAGINATION_GETTINGPREVIOUS)}')" oncomplete="unblockPage()" title="{!$Label.PAGINATION_PREVIOUSPAGE}" value="<{!$Label.PAGINATION_PREVIOUSPAGE}" rendered="{!paginator.hasPrevious}" rerender="tableWrapper"/>
+                    <apex:outputPanel styleClass="greyedLink" style="color:grey" rendered="{!NOT(paginator.hasPrevious)}">&lt;{!$Label.PAGINATION_PREVIOUSPAGE}</apex:outputPanel>
+                    <apex:outputText value=" | "/>
+                    <apex:commandLink action="{!paginator.next}" onclick="blockPage('{!JSENCODE($Label.PAGINATION_GETTINGNEXT)}')" oncomplete="unblockPage()" title="{!$Label.PAGINATION_NEXTPAGE}" value="{!$Label.PAGINATION_NEXTPAGE}>" rendered="{!paginator.hasNext}" rerender="tableWrapper"/>
+                    <apex:outputPanel styleClass="greyedLink" style="color:grey" rendered="{!NOT(paginator.hasNext)}">{!$Label.PAGINATION_NEXTPAGE}&gt;</apex:outputPanel>
+                    <apex:outputText value=" | "/>
+                    <apex:commandLink action="{!paginator.last}" onclick="blockPage('{!JSENCODE($Label.PAGINATION_GETTINGLAST)}')" oncomplete="unblockPage()" title="{!$Label.PAGINATION_LASTPAGE}" value="{!$Label.PAGINATION_LASTPAGE}>>" rendered="{!NOT(to == paginator.resultSize)}" rerender="tableWrapper"/>
+                    <apex:outputPanel styleClass="greyedLink" style="color:grey" rendered="{!to == paginator.resultSize}">{!$Label.PAGINATION_LASTPAGE}&gt;&gt;</apex:outputPanel>
+                </div>
+            </div>
+        </apex:outputPanel>
+
+        <apex:componentBody />
+    </apex:outputPanel>
+</apex:component>

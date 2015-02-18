@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Versión de Encuesta</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Versiones de Encuestas</value>
+    </caseValues>
+    <fields>
+        <label>Distribuido</label>
+        <name>Distributed__c</name>
+    </fields>
+    <fields>
+        <label>Fecha de distribución</label>
+        <name>DistributionDate__c</name>
+    </fields>
+    <fields>
+        <label>Estado</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation>Cerrado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deprecated</masterLabel>
+            <translation>Depreciado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation>Borrador</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invalid</masterLabel>
+            <translation>Inválido</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Published</masterLabel>
+            <translation>Publicado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Encuesta</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Versiones de la encuesta</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Versión</label>
+        <name>Version__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de la versión de la encuesta</nameFieldLabel>
+</CustomObjectTranslation>

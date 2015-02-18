@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>NiveaudeCascades</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>NiveaudeCascades</value>
+    </caseValues>
+    <fields>
+        <label>NiveaudeCascades</label>
+        <name>CascadingSelect__c</name>
+        <relationshipLabel>Niveau de Cascades</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Niveau de Contrôle</label>
+        <name>ControllingLevel__c</name>
+        <relationshipLabel>Niveau de Cascades</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Titre</label>
+        <name>Name__c</name>
+    </fields>
+    <fields>
+        <label>Emplacement</label>
+        <name>Position__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de Niveaux de Cascades</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

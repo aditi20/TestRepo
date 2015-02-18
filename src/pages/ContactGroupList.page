@@ -1,0 +1,343 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardController="ContactGroup__c"
+    extensions="ContactGroupListController" tabstyle="ContactGroups__tab">
+    <apex:includeScript value="{!$Resource.jquery}" />
+
+    <c:blockOverlay label="{!$Label.LOADING}..."/>
+
+
+    <!--
+    ---------------------------------------------------
+     Style classes
+    --------------------------------------------------- -->
+    <style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 99999999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            /* These are the properties to set the actual popup size*/
+            width: 350px;
+            margin-left: -150px;
+            top:200px;
+        }
+        .custPopup td, th{
+            padding-right:10px;
+        }
+        .valResponseCount{
+            text-align: center;
+        }
+
+    </style>
+
+
+    <!--
+    ---------------------------------------------------
+     Javascript functions
+    --------------------------------------------------- -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Set the action for the filter
+            $('.filterSelectList').change(function(){
+                var filter = $(this).val();
+                blockPage();
+                doFilter(filter);
+            });
+        });
+
+        // Set the action for record checkboxes
+        function changeCheckbox(){
+            if(!$(this).is(':checked')){
+                $('.selectAllGroups').attr('checked', false);
+            }
+        }
+
+        // Change the status of all checkboxes
+        function changeAllCheckboxes(){
+            var checked = $('.selectAllGroups').is(':checked');
+            $('.checkbox').attr('checked', checked);
+        }
+
+        // Return the id of the selected groups
+        function getSelectedContactGroupIds(){
+            // Contains all the Ids of the selected groups
+            var contactsGroupsIds = '';
+
+            // Get the checked groups
+            $('.checkbox:checked').each(function(){
+                contactsGroupsIds += (contactsGroupsIds == '' ? '' : ',') + $(this).attr('id');
+            });
+            return contactsGroupsIds;
+        }
+
+        function activateSelectedGroups(){
+            var groupIds = getSelectedContactGroupIds();
+            if(groupIds == ''){
+                alert('{!JSENCODE($Label.GROUPLIST_ERR_ACTIVATE)}');
+            }
+            else{
+                blockPage();
+                massActivateGroup(getSelectedContactGroupIds(), true);
+            }
+        }
+
+        function deactivateSelectedGroups(){
+            var groupIds = getSelectedContactGroupIds();
+            if(groupIds == ''){
+                alert('{!JSENCODE($Label.GROUPLIST_ERR_DEACTIVATE)}');
+            }
+            else {
+                blockPage();
+                massDeactivateGroup(getSelectedContactGroupIds(), true, true);
+            }
+        }
+
+        function hidePopUp(){
+            $('.confirmationPopUp').hide();
+            $('#popup').show();
+        }
+
+    </script>
+
+
+    <!--
+    ---------------------------------------------------
+     Apex functions
+    --------------------------------------------------- -->
+    <apex:form >
+        <apex:actionFunction id="doFilterAction" name="doFilter" action="{!doFilter}" reRender="table, otpNav2" oncomplete="unblockPage()">
+            <apex:param name="filter" value="" assignTo="{!filter}"/>
+        </apex:actionFunction>
+
+        <apex:actionFunction id="inactivateGroupAction" name="inactivateGroup" action="{!inactivateGroup}" rerender="confirmationPopUp, table" oncomplete="unblockPage()"/>
+
+        <apex:actionFunction id="massActivateGroupAction" name="massActivateGroup" action="{!activateGroup}" rerender="table" oncomplete="unblockPage()">
+            <apex:param name="selectedGroupIds" value="" assignTo="{!selectedGroupIds}"/>
+            <apex:param name="targetIsSelection" value="" assignTo="{!targetIsSelection}"/>
+        </apex:actionFunction>
+
+        <apex:actionFunction id="massDeactivateGroupAction" name="massDeactivateGroup" action="{!showPopUp}" rerender="confirmationPopUp" oncomplete="unblockPage()">
+            <apex:param name="selectedGroupIds" value="" assignTo="{!selectedGroupIds}"/>
+            <apex:param name="targetIsSelection" value="" assignTo="{!targetIsSelection}"/>
+        </apex:actionFunction>
+    </apex:form>
+
+
+    <!--
+    ---------------------------------------------------
+     PopUp panel
+    --------------------------------------------------- -->
+    <apex:form >
+        <apex:outputPanel id="confirmationPopUp" styleClass="confirmationPopUp">
+
+            <apex:panelGroup rendered="{!displayConfirmationPopUp && NOT(activeSurvey.size > 0)}">
+                <script type="text/javascript">
+                    $('#popup').hide();
+                    if(confirm('{!JSENCODE($Label.CONFIRMATION_MSG)}')){
+                        $('#popup').show();
+                        inactivateGroup();
+                    }
+                    else{
+                        unblockPage();
+                    }
+                </script>
+            </apex:panelGroup>
+
+            <apex:outputPanel id="activateSurveyOutputPanel" layout="block" rendered="{!displayConfirmationPopUp && activeSurvey.size > 0}" styleClass="custPopup">
+
+                <script type="text/javascript">
+                    $('#popup').hide();
+                </script>
+
+                <apex:panelGroup id="activateSurveyPanelGroup" rendered="{!activeSurvey.size > 0}">
+                    <apex:outputText >{!$Label.ACTIVATE_SURVEY_CONFIRM_MSG}</apex:outputText>
+                    <br/>
+                    <br/>
+                    <apex:dataTable id="activateSurveyDataTable" var="item" value="{!activeSurvey}" width="100%">
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:outputText id="lblSurveyName" value="{!$ObjectType.Survey__c.Fields.Name.Label}" />
+                            </apex:facet>
+                            <apex:outputText id="valSurveyName" value="{!item.Survey__r.Name}"/>
+                        </apex:column>
+
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:outputText id="lblPublishedDate" value="{!$ObjectType.Survey__c.Fields.PublishedDate__c.Label}" />
+                            </apex:facet>
+                            <apex:outputText id="valPublishedDate" value="{0,date,medium}">
+                                <apex:param value="{!item.Survey__r.PublishedDate__c}" />
+                            </apex:outputText>
+                        </apex:column>
+
+                        <apex:column styleClass="valResponseCount">
+                            <apex:facet name="header">
+                                <apex:outputText id="lblResponseCount" value="{!$ObjectType.Survey__c.Fields.ResponseCount__c.Label}" />
+                            </apex:facet>
+                            <apex:outputText id="valResponseCount" value="{!FLOOR(item.Survey__r.ResponseCount__c)}"/>
+                        </apex:column>
+
+                    </apex:dataTable>
+                    <br/>
+                </apex:panelGroup>
+
+                <div style="text-align: right;">
+                    <apex:commandButton id="lblOKActivate" value="{!$Label.OK}" action="{!inactivateGroup}" rerender="confirmationPopUp, table" onclick="hidePopUp()" oncomplete="unblockPage()"/>&nbsp;
+                    <apex:commandButton id="lblCANCELActivate" value="{!$Label.CANCEL}" action="{!closeGroupPopup}" rerender="confirmationPopUp" onclick="hidePopUp()" oncomplete="unblockPage()"/>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+
+
+    <!--
+    ---------------------------------------------------
+     Page code
+    --------------------------------------------------- -->
+    <apex:sectionHeader id="homeSectionHeader" title="{!$ObjectType.ContactGroup__c.LabelPlural}" subtitle="{!$Label.HOME}"/>
+
+    <apex:message styleClass="apex_messages" />
+
+    <apex:form id="formFilterView">
+        <label id="lblView" for="filterSelectList" style="font-weight: bold">{!$Label.VIEW}: </label>
+        <apex:selectList id="filterSelectList" styleClass="filterSelectList" value="{!filter}" multiselect="false" size="1">
+            <apex:selectOptions value="{!filterList}" />
+        </apex:selectList>
+    </apex:form>
+
+    <apex:form >
+        <apex:outputPanel layout="block" styleClass="bNext" id="otpNav2">
+            <div class="withFilter">
+                <div class="next">
+                    <span>
+
+                        <apex:variable var="from" value="{!IF(paginator.resultSize==0,0,(paginator.pageNumber-1) * paginator.pageSize + 1)}"/>
+                        <apex:variable var="to" value="{!MIN(paginator.resultSize,paginator.pageNumber * paginator.pageSize)}"/>
+                        <apex:outputText id="pagFrom" value="{0,number,0}"><apex:param value="{!from}"/></apex:outputText>-
+                        <apex:outputText id="pagTo" value="{0,number,0}"><apex:param value="{!to}"/></apex:outputText>&nbsp;{!$Label.GENERAL_OF}&nbsp;
+                        <apex:outputText id="pagResultSize" value="{0,number,0}"><apex:param value="{!paginator.resultSize}"/></apex:outputText>
+                    </span>
+                    <apex:commandLink id="linkPrevPage" action="{!paginator.previous}" title="{!$Label.PREV_PAGE}" value="{!$Label.PREV_PAGE}" rendered="{!paginator.hasPrevious}"/>
+                    <apex:outputPanel id="lblPrevPage" styleClass="greyedLink" style="color:grey" rendered="{!NOT(paginator.hasPrevious)}">{!$Label.PREV_PAGE}</apex:outputPanel>
+                    <apex:outputText value=" | "/>
+                    <apex:outputPanel id="lblNextPage" styleClass="greyedLink" style="color:grey" rendered="{!NOT(paginator.hasNext)}">{!$Label.NEXT_PAGE}</apex:outputPanel>
+                    <apex:commandLink id="linkNextPage" title="{!$Label.NEXT_PAGE}" value="{!$Label.NEXT_PAGE}" rendered="{!paginator.hasNext}" action="{!paginator.next}"/>&nbsp;
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:form>
+
+    <br />
+
+    <apex:pageBlock id="table">
+        <apex:form >
+            <input id="btnNewGroup" type="button" onclick="window.location='{!URLFOR($Action.ContactGroup__c.New)}'" value="{!$Label.NEW_GROUP}" class="btn"/>&nbsp;|&nbsp;
+            <input id="btnActivateSelGroups" type="button" onclick="activateSelectedGroups()" value="{!$Label.ACTIVATE}" class="btn"/>
+            <input id="btnDeactivateSelGroups" type="button" onclick="deactivateSelectedGroups()" value="{!$Label.DEACTIVATE}" class="btn"/>
+        </apex:form>
+        <br />
+
+        <apex:form >
+            <apex:pageBlockTable value="{!groupList}" var="item">
+                <apex:column id="chkColumn" title="{!$Label.SELECT}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:inputCheckbox id="chkAll" onchange="changeAllCheckboxes()" styleClass="selectAllGroups"/>
+                    </apex:facet>
+                    <input type="checkbox" id="{!item.Id}" onchange="changeCheckbox()" class="checkbox"/>
+                </apex:column>
+
+                <apex:column id="headerAction" title="{!$Label.ACTION}" styleClass="{!item.Id} actionColumn " >
+                    <apex:facet name="header">
+                        <apex:outputText value="{!$Label.ACTION}" />
+                    </apex:facet>
+
+                    <apex:commandLink id="editActionLink" value="{!$Label.EDIT}" action="{!URLFOR($Action.ContactGroup__c.Edit, item.Id)}" styleClass="actionLink">
+                    </apex:commandLink> |&nbsp;
+
+                    <apex:commandLink id="deleteActionLink" value="{!$Label.DELETE}" onclick="if(!confirm('{!JSENCODE($Label.CONFIRMATION_MSG)}')) return false;" action="{!deleteGroupDirectly}" styleClass="actionLink">
+                        <apex:param name="currentGroup" value="{!item.Id}" assignTo="{!currentGroupId}"/>
+                        <apex:param name="targetIsSelection" value="false" assignTo="{!targetIsSelection}"/>
+                    </apex:commandLink> |&nbsp;
+
+                    <apex:commandLink id="activateActionLink" value="{!$Label.ACTIVATE}" action="{!activateGroup}" rendered="{!item.Status__c == 'Inactive'}" styleClass="actionLink" rerender="table" onclick="blockPage()" oncomplete="unblockPage()">
+                        <apex:param name="currentGroup" value="{!item.Id}" assignTo="{!currentGroupId}"/>
+                        <apex:param name="targetIsSelection" value="false" assignTo="{!targetIsSelection}"/>
+                    </apex:commandLink>
+
+                    <apex:commandLink id="deActivateActionLink" value="{!$Label.DEACTIVATE}" action="{!showPopUp}" rendered="{!item.Status__c == 'Active'}" styleClass="actionLink" rerender="confirmationPopUp" onclick="blockPage()">
+                        <apex:param name="currentGroup" value="{!item.Id}" assignTo="{!currentGroupId}"/>
+                        <apex:param name="targetIsSelection" value="false" assignTo="{!targetIsSelection}"/>
+                    </apex:commandLink>
+                </apex:column>
+
+                <apex:column id="headerStatus" title="{!$ObjectType.ContactGroup__c.Fields.Status__c.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortStatusCommandLink" value="{!$ObjectType.ContactGroup__c.Fields.Status__c.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="Status__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="statusField" value="{!item.Status__c}"/>
+                </apex:column>
+
+                <apex:column id="headerName" title="{!$ObjectType.ContactGroup__c.Fields.Name.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortNameCommandLink" value="{!$ObjectType.ContactGroup__c.Fields.Name.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="Name" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:commandLink id="nameFieldLink" value="{!item.Name}"  action="{!URLFOR($Action.ContactGroup__c.View, item.Id)}"/>
+                </apex:column>
+
+                <apex:column id="headerMemberCount" title="{!$ObjectType.ContactGroup__c.Fields.MemberCount__c.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortMemberCountCommandLink"
+                        value="{!$ObjectType.ContactGroup__c.Fields.MemberCount__c.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="MemberCount__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="memberCountField" value="{!item.MemberCount__c}"/>
+                </apex:column>
+
+                <apex:column id="headerSurveyCount" title="{!$ObjectType.ContactGroup__c.Fields.SurveyCount__c.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortSurveyCountCommandLink" value="{!$ObjectType.ContactGroup__c.Fields.SurveyCount__c.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="SurveyCount__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.SurveyCount__c}"/>
+                </apex:column>
+
+                <apex:column id="headerLastModifDate" title="{!$ObjectType.ContactGroup__c.Fields.LastModifiedDate.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortModifDateCommandLink" value="{!$ObjectType.ContactGroup__c.Fields.LastModifiedDate.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="LastModifiedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="lastModifDateField" value="{!item.LastModifiedDate}"/>
+                </apex:column>
+
+                <apex:column id="headerCreatedDate" title="{!$ObjectType.ContactGroup__c.Fields.CreatedDate.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortCreatedDateCommandLink" value="{!$ObjectType.ContactGroup__c.Fields.CreatedDate.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="CreatedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="createdDateField" value="{!item.CreatedDate}"/>
+                </apex:column>
+
+                <apex:column id="headerCreatedBy" title="{!$ObjectType.ContactGroup__c.Fields.CreatedById.Label}"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink id="sortCreatedByCommandLink" value="{!$ObjectType.ContactGroup__c.Fields.CreatedById.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="CreatedById" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField id="createdByIdField" value="{!item.CreatedById}"/>
+                </apex:column>
+
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,1568 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardController="JobTemplate__c" extensions="CreateJobTemplateController" id="page">
+    <apex:sectionHeader title="{!$Label.JOB_TEMPLATE_EDIT}"
+        subtitle="{!IF(JobTemplate__c.Id != null, JobTemplate__c.Name, $Label.CREATE_JOB_TEMPLATE_TITLE)}"/>
+
+    <!-- Components -->
+    <c:blockOverlay label="{!$Label.LOADING}..."/>
+    <c:selectFields />
+    <c:orderComponent />
+
+    <style type="text/css">
+        #newMappedTable, .salesforcePopup{
+            width: 67%;
+            background: #f8f8f8;
+            opacity: 1;
+            -webkit-opacity: 1;
+            position: fixed;
+            top: 35%;
+            left: 14%;
+            z-index: 999;
+            padding: 10px 0px 10px 35px;
+            border: solid grey 1px;
+            border-top: 3px solid #FC8744;
+            -webkit-border-radius: 7px;
+            -moz-border-radius: 7px;
+            border-radius: 7px;
+        }
+        .salesforcePopup{
+            width: 50% !important;
+            top: 39% !important;
+            left: 23% !important;
+            padding-right: 15px !important;
+        }
+        .salesforceStandardTable{
+            width: 100%;
+            border: 1px solid #ddd !important;
+        }
+
+        .hierarchyLevel{
+            width: 7%;
+        }
+
+        .actionSection{
+            width: 8%;
+        }
+        .objectSection{
+            width: 11%;
+        }
+        .listFieldSection{
+            width: 8%;
+        }
+        .detailFieldSection{
+            width: 22%;
+        }
+        .modifiedBySection{
+            width: 15%;
+        }
+        .salesforceStandardTable td{
+            word-break: break-word;
+            padding: 4px 5px;
+            border-top: solid 1px #eee;
+        }
+        .salesforceStandardTable td.headerTable, .salesforceStandardTable th{
+            font-weight: bold;
+            border: none;
+            border-right: 1px solid #e0e3e5;
+            font-size: .9em;
+            background: #f2f3f3;
+            padding-left: 8px !important;
+        }
+        .salesforceStandardTable tr {
+            background: #FDFDFD;
+        }
+        .salesforceStandardTable tr .noHierarchiesTr{
+            background: #f8f8f8 !important;
+            border: none !important;
+        }
+        #mappingTableDiv {
+            max-height: 250px;
+            overflow: auto;
+        }
+        #mappingTableDetail th {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        #mappingTableDetail td {
+            vertical-align: top;
+        }
+        #mappingTableDetail td>select {
+            width: 137px;
+            font-size: 11px;
+        }
+
+        .disabledLink {
+            color:#D3D3D3;
+            text-decoration: none;
+        }
+        .disabledLink:hover {
+            color:#D3D3D3;
+            text-decoration: none;
+        }
+
+        #lnkNewMapping {
+            float:right;
+        }
+
+        #popupBlock{
+            position: fixed;
+            _position: fixed;
+            height: 100%;
+            width: 100%;
+            top: -0.1%;
+            left: -0.1%;
+            background: #000000;
+            border: 1px solid #cecece;
+            z-index: 998;
+            opacity: 0.6;
+            -moz-opacity: 0.6;
+            -webkit-opacity: 0.6;
+            filter: alpha(opacity=0.6);
+        }
+        #objectPicker, #fieldPicker{
+            width: 215px;
+        }
+
+        .objectHierarchyItemContainer .deletedDataError, select.deletedDataError {
+            border: 2px red solid !important;
+        }
+
+        div.taskFormWindow .sectionTaskForm label.mappingErrorMsg {
+            color:red;
+            font-size:11px;
+            font-weight: bold;
+            margin: 1px;
+            text-align: left;
+        }
+
+        .buttonsPopupSection{
+            float: right;
+            padding-right: 75px;
+        }
+        .closeButtonContainer{
+            width:100%;
+        }
+
+        .popupTitle{
+            font-weight: bold;
+            color: #4a4a56;
+        }
+        .editObjectHierarchy, .deleteObjectHierarchy{
+            cursor: pointer;
+            color: rgb(1, 91, 167) !important;
+        }
+        .popupSingleField{
+            border-left: solid 3px #C00;
+        }
+        .popupMainTitle{
+            height: 60px;
+        }
+        .popupMainTitleTd, #orderTaskPopupHeader{
+            padding-bottom: 30px;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 15px;
+        }
+        .hrDelimiter{
+            position: absolute;
+            top: 45px;
+            width: 90%;
+        }
+        .fakeAnchor{
+            color: #777 !important;
+        }
+        #orderTaskPopupContainer{
+            height: 120px;
+        }
+        #orderButtonContainer{
+            float:right;
+            padding-right: 9%;
+        }
+        #cancelOrderTaskButton{
+            padding-right: 5px;
+            cursor: pointer;
+        }
+
+        .requiredErrorSpan{
+            color: red;
+            padding-left: 3%;
+            display:none;
+            word-break: break-word;
+        }
+
+        div.text_explanation{
+            border-radius: 5px;
+            padding: 8px;
+            border: 1px solid #999;
+            background-color:#fcf8f7;
+            color: #333;
+            margin-bottom: 10px
+        }
+
+        div.text_explanation p{
+            margin: 0;
+        }
+
+        tr.taskWithError td{
+            border-top:2px solid red !important;
+            border-bottom:2px solid red !important;
+        }
+
+        tr.taskWithError td:first-child{
+            border-left:2px solid red !important;
+        }
+
+        tr.taskWithError td:last-child{
+            border-right:2px solid red !important;
+        }
+
+        table.tableCollapsed{
+            border-spacing: 0;
+        }
+
+        .resourceListSection table#resourceListContainerTable{
+            width: 100%;
+            border: solid grey 2px;
+            border-collapse:collapse;
+        }
+
+        .resourceListSection table#resourceListContainerTable td
+        {
+            border-color:#444444;
+            border-style:solid;
+            border-width:1px;
+        }
+
+        .resourceListSection table#resourceListContainerTable th
+        {
+            border-color:#444444;
+            border-style:solid;
+            border-width:1px;
+            background-color: #aaaaaa;
+        }
+
+        .resourceListSection table#resourceListContainerTable tr:nth-child(even) {
+            background-color: #eeeeee;
+        }
+        .resourceListSection table#resourceListContainerTable tr:nth-child(odd) {
+            background-color: #dddddd;
+        }
+        .resourceListSection #resourceListContainer{
+            margin-top: 5px;
+            overflow-y: auto;
+            max-height: 150px;
+        }
+        #resourceListSelectHeader, .resourceSelect input{
+            width: 32px !important;
+        }
+        #resourceListContainerTable th, #resourceListContainerTable td{
+            padding: 0px 3px;
+            word-break: break-word;
+        }
+        #resourceListContainer #noResourceFoundContainer{
+            text-align: center;
+        }
+        .missingDataError{
+            border: 2px solid red !important;
+        }
+        .deletedResourceContainer{
+            text-align: center;
+            margin-top: 5px;
+            color: red;
+        }
+        .hiddenElement{
+            display:none;
+        }
+    </style>
+
+    <apex:stylesheet value="{!URLFOR($Resource.css, 'taskTemplate.css')}" />
+
+    <apex:includeScript value="{!$Resource.jquery}" />
+    <apex:includeScript value="{!$Resource.underscore}" />
+    <apex:includeScript value="{!$Resource.backbone}" />
+    <apex:includeScript value="{!$Resource.js_utils}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'jquerySimpleModal.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'jobTemplateBackboneModels.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'jobTemplateBackboneViews.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'dateFormat.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'taskTemplateBackboneModels.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'taskTemplateBackboneViews.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'taskTemplateBackboneController.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.js, 'taskTemplateMapping.js')}" />
+
+    <script type="text/javascript">
+    
+        // Get general data used for details
+        var allResources;
+        var allSurveys;
+        
+        /**
+         * Get the detail data (surveys and resources)
+         */
+        function getTaskDetailData() {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CreateJobTemplateController.generateTaskDetailData}',
+                function(result, event) {
+                    if (event.status) {
+                        allResources = result.resources;
+                        allSurveys = result.surveys;
+                        refreshTasksTable();
+                        if (isJobTemplatePublishedOrClosed) {
+                            viewPageAsReadOnly();
+                        }
+                    } else {
+                        unblockPage();
+                        alert(errorReadingResources);
+                    }
+                },
+                {escape: false}
+            );
+        }
+        
+        /**
+         * Generate a resource map per id
+         */
+        function setResourcesMap(resources) {
+            allResources = new Object();
+            resources.forEach(function (video) {
+                            allResources[video.id] = video;
+            });
+        }
+        
+        /**
+         * Generate a surveys map per id
+         */
+        function setSurveysMap(surveys) {
+            allSurveys = new Object();
+            surveys.forEach(function (item) {
+                allSurveys[item.id] = item.name;
+            });
+        }
+
+        getTaskDetailData()
+        // Import Salesforce labels to make them accessible to JS libraries
+        var specifyTypeTaskMsg = '{!JSENCODE($Label.SELECT_TYPE_OF_TASK)}';
+        var insertTaskNameMsg = '{!JSENCODE($Label.INSERT_TASK_NAME)}';
+        var specifyFormTaskMsg = '{!JSENCODE($Label.SPECIFY_FORM_FOR_TASK)}';
+        var specifyObjectTaskMsg = '{!JSENCODE($Label.SPECIFY_OBJECT_FOR_TASK)}';
+        var deleteTaskConfirmMsg = '{!JSENCODE($Label.DELETE_TASK_CONFIRM)}';
+        var errorReadingTaskMsg = '{!JSENCODE($Label.ERROR_READING_TASKS)}';
+        var errorReadingResources = '{!JSENCODE($Label.ERROR_READING_RESOURCES)}';
+        var errorRetrievingFormListMsg = '{!JSENCODE($Label.ERROR_RETRIEVING_FORM_LIST)}';
+        var errorRetrievingMappingQuestions = '{!JSENCODE($Label.ERROR_RETRIEVING_MAPPING_QUESTIONS)}';
+        var deleteMsg = '{!JSENCODE($Label.DELETE)}';
+        var multipleQuestionMapMsg = '{!JSENCODE($Label.MULTIPLE_QUESTION_MAP)}';
+        var requiredMapping = '{!JSENCODE($Label.TASK_COLLECT_REQUIRED_MAPPING)}';
+        var duplicateQuestionMapping = '{!JSENCODE($Label.TASK_COLLECT_DUPLICATE_QUESTION_MAPPING)}';
+        var invalidMappingTask = '{!JSENCODE($Label.TASK_COLLECT_INVALID_MAPPING)}';
+        var firstObjectLevel = '{!JSENCODE($Label.FIRST_LEVEL)}';
+        var secondObjectLevel = '{!JSENCODE($Label.SECOND_LEVEL)}';
+        var thirdObjectLevel = '{!JSENCODE($Label.THIRD_LEVEL)}';
+        var objectLevelSuffix = '{!JSENCODE($Label.LEVEL_SUFFIX)}';
+        var cannotModifyBecauseOfParent = '{!JSENCODE($Label.JOB_TEMPLATE_CANT_MODIFY_BECAUSE_PARENT)}';
+        var cannotModifyBecauseUsedByTask = '{!JSENCODE($Label.JOB_TEMPLATE_CANT_MODIFY_BECAUSE_USED_BY_TASK)}';
+
+
+    </script>
+
+    <apex:pageMessages id="messages" escape="false" />
+
+    <apex:form onSubmit="serializeTasks();">
+        <apex:pageBlock id="jobData" mode="edit" title="{!$Label.JOB_TEMPLATE_EDIT}">
+
+            <apex:pageBlockSection columns="1" title="{!$Label.GENERAL}" collapsible="false"
+                    id="generalData">
+                <apex:outputText id="last_modified_date_id" rendered="false"
+                        value="{!JobTemplate__c.LastModifiedDate}"/>
+                <apex:inputField styleClass="job_temp_name" id="name" value="{!JobTemplate__c.Name}"
+                        required="true"/>
+                <apex:inputTextarea id="instructions" styleClass="job_temp_instructions" rows="4"
+                        cols="60" value="{!JobTemplate__c.Instructions__c}"
+                        rendered="{!$ObjectType.JobTemplate__c.fields.Instructions__c.Createable &&
+                            $ObjectType.JobTemplate__c.fields.Instructions__c.Updateable}"/>
+                <apex:inputField id="status" styleClass="job_temp_status" required="true"
+                        value="{!JobTemplate__c.Status__c}"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="{!$Label.JOB_TEMPLATE_MAPPED_OBJECTS}"
+                    collapsible="false" id="mappedObjectSection">
+                <div class="text_explanation">
+                    <p>{!$Label.JOB_TEMPLATE_INFO_MAPPED_OBJECT}</p>
+                </div>
+                <div class="list_buttons">
+                    <input type="button" class="btn" id="btnNewMappedObject" value="{!$Label.NEW}"
+                        onclick="displayPopupView()" />
+                </div>
+                <table class="salesforceStandardTable" id="createdObjectHierarchiesTable"
+                        cellpadding="0" cellspacing="0" border="0" >
+                    <tr/>
+                </table>
+                <apex:inputHidden id="hierarchyInputHidden" value="{!JobTemplate__c.Hierarchy__c}" required="false"
+                    rendered="{!$ObjectType.JobTemplate__c.fields.Hierarchy__c.Createable &&
+                        $ObjectType.JobTemplate__c.fields.Hierarchy__c.Updateable}"/>
+            </apex:pageBlockSection>
+
+             <apex:pageBlockSection columns="1" title="{!$Label.TASKS}" collapsible="false" id="taskList_wrapper">
+                <div class="text_explanation">
+                    <p>{!$Label.JOB_TEMPLATE_INFO_TASKS}</p>
+                </div>
+                <div class="list_buttons">
+                    <input type="button" value="{!$Label.NEW}" id="btnNewTask" name="btnNewTask"
+                        class="btn" onclick="loadTaskForm(null, false);"/>
+                    <input type="button" id="btnOrderTasks" value="{!$Label.ORDER}" class="btn"
+                        name="btnOrderTasks" onclick="initializeOrderComponent()" />
+                </div>
+                <div id="taskList_container"></div>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton id="btnListTop" styleClass="btnGoToList disableIfClosed"
+                    value="{!$Label.GENERAL_CLOSE}"
+                    action="{!URLFOR($Action.JobTemplate__c.List, $ObjectType.JobTemplate__c)}"
+                    disabled="{!shouldButtonsBeDisabled}"
+                />
+                <apex:commandButton id="btnSaveTop" action="{!save}" styleClass="disableIfClosed"
+                    value="{!$Label.SAVE}" reRender="messages" disabled="{!shouldButtonsBeDisabled}"
+                    onclick="blockPage();" oncomplete="unblockPage();"
+                />
+                <apex:commandButton id="btnSaveAndNewTop" styleClass="disableIfClosed"
+                    action="{!saveAndNew}" value="{!$Label.SAVE_AND_NEW}"
+                    disabled="{!shouldButtonsBeDisabled}" onclick="blockPage();"
+                    oncomplete="unblockPage();"
+                />
+                <apex:commandButton id="btnCloneTop" styleClass="btnClone"
+                    onclick="return confirm('{!JSENCODE($Label.JOB_TEMPLATE_CONFIRM_CLONE)}') ? cloneBlockPage() : false"
+                    value="Clone" action="{!cloneJob}"
+                />
+                <apex:commandButton id="btnCancelTop" value="{!$Label.CANCEL}" immediate="true"
+                    action="{!URLFOR($Action.JobTemplate__c.List, $ObjectType.JobTemplate__c)}"
+                    styleClass="disableIfClosed" disabled="{!shouldButtonsBeDisabled}"
+                />
+            </apex:pageBlockButtons>
+
+            <!-- Had to make two block buttons because it doesn't want to rerender both sections. -->
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton id="btnList" styleClass="btnGoToList disableIfClosed"
+                    value="{!$Label.GENERAL_CLOSE}"
+                    action="{!URLFOR($Action.JobTemplate__c.List, $ObjectType.JobTemplate__c)}"
+                    disabled="{!shouldButtonsBeDisabled}"
+                />
+                <apex:commandButton id="btnSave" action="{!save}" styleClass="disableIfClosed"
+                    value="{!$Label.SAVE}" reRender="messages" disabled="{!shouldButtonsBeDisabled}"
+                    onclick="blockPage();" oncomplete="unblockPage();"
+                />
+                <apex:commandButton id="btnSaveAndNew" action="{!saveAndNew}"
+                    value="{!$Label.SAVE_AND_NEW}" styleClass="disableIfClosed"
+                    disabled="{!shouldButtonsBeDisabled}" onclick="blockPage();"
+                    oncomplete="unblockPage();"
+                />
+                <apex:commandButton id="btnCloneBot" styleClass="btnClone"
+                    onclick="return confirm('{!JSENCODE($Label.JOB_TEMPLATE_CONFIRM_CLONE)}') ? cloneBlockPage() : false"
+                    value="Clone" action="{!cloneJob}"
+                />
+                <apex:commandButton id="btnCancel" value="{!$Label.CANCEL}" immediate="true"
+                    action="{!URLFOR($Action.JobTemplate__c.List, $ObjectType.JobTemplate__c)}"
+                    styleClass="disableIfClosed" disabled="{!shouldButtonsBeDisabled}"
+                />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:inputHidden value="{!jsonTasksList}" id="jsonTasksList"/>
+    </apex:form>
+
+    <div id="modalPopupContainer">
+
+    </div>
+
+     <apex:form >
+        <!-- Action functions -->
+        <apex:actionFunction name="retrievesFieldsFromObject" action="{!getDataFromObject}"
+                onComplete="currentObjectHierarchy.setFields({!selectedObjectFieldsJson});unblockPage();" >
+            <apex:param id="nameObject" name="nameObject" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="getChildrenOfParentObject" action="{!getChildrenOfObject}"
+                rerender="refreshChildrenContainer" oncomplete="createAndDisplayPopup();unblockPage();">
+            <apex:param id="parentObject" name="parentObject" value="" />
+        </apex:actionFunction>
+
+        <!-- Had to rerender all those Ids, because using an Id for the pageBlockButtons did not work -->
+        <apex:actionFunction name="enableStandardButtons" action="{!hasNotDeletedData}"
+            rerender="btnListTop, btnList, btnSaveTop, btnSave, btnCancelTop, btnCancel, btnSaveAndNewTop, btnSaveAndNew, messages"
+            oncomplete="unblockPage()" />
+
+        <apex:actionFunction name="closeJobBecauseOfDeletedData"
+            action="{!closeJobBecauseOfDeletedData}" rerender="messages"
+            oncomplete="setClosedAndReadOnly()" />
+
+        <apex:outputPanel id="refreshChildrenContainer" >
+            <script>
+                var childrenOfObject = {!childrenOfCurrentObject};
+            </script>
+        </apex:outputPanel>
+    </apex:form>
+
+    <script id="objectHierarchyPopup-template" type="text/template">
+        <table id="newMappedTable">
+            <tr class="popupMainTitle" >
+                <td class="popupMainTitleTd" >
+                    <hr class="hrDelimiter" />
+                    <div> {!$Label.NEW_MAPPED_OBJECT} </div>
+                 </td>
+            </tr>
+            <tr id="objectSection" >
+                <td class="popupTitle">
+                    {!$Label.JOB_TEMPLATE_OBJECT}
+                </td>
+                <td class="popupSingleField" >
+                    <%= buildObjectSelectList(data) %>
+                     <span class="requiredErrorSpan" >
+                        {!$Label.JOB_TEMPLATE_OBJECT_REQUIRED}
+                     </span>
+                </td>
+            </tr>
+            <tr id="fieldListSection" >
+                <td class="popupTitle" >
+                    {!$Label.JOB_TEMPLATE_FIELDS_LIST_DISPLAYED}
+                </td>
+                <td class="popupSingleField" >
+                    <%= buildFieldSelectList(data) %>
+                    <span class="requiredErrorSpan" >
+                        {!$Label.JOB_TEMPLATE_FIELD_LIST_REQUIRED}
+                    </span>
+                </td>
+            </tr>
+            <tr id="fieldDetailSection">
+                <td class="popupTitle">
+                    {!$Label.JOB_TEMPLATE_FIELDS_DETAIL_DISPLAYED}
+                </td>
+                <td id="detailContainer" />
+            </tr>
+            <tr>
+                <td />
+                <td class="buttonsPopupSection" >
+                    <input type="button" value="{!$Label.CANCEL}" id="cancelNewMappedObject" />
+                    <input type="button" value="{!$Label.SAVE}" id="saveNewMappedObject" />
+                </td>
+            </tr>
+        </table>
+        <div id="popupBlock" />
+
+    </script>
+
+    <script id="objectHierarchyTr-template" type="text/template">
+
+        <td class="actionSection actionColumn" >
+            <a class="editObjectHierarchy" >{!$Label.SURVEY_MANAGER_EDIT_SURVEY}</a> |
+
+            <% if (isLastObject) { %>
+                <a class="deleteObjectHierarchy" >{!$Label.DELETE}</a>
+            <% } else { %>
+                <span class="fakeAnchor" title="{!$Label.JOB_TEMPLATE_CANT_REMOVE_HIERARCHY_BECAUSE_NOT_LAST}" >
+                     {!$Label.DELETE}
+                </span>
+            <% } %>
+        </td>
+        <td class="hierarchyLevel">
+            <span><%- hierarchyLevel %></span>
+        </td>
+        <td class="objectSection
+                <%= (isNotUndefined(dataErrorType) && _.contains(dataErrorType, OBJECT_DELETED))
+                    ? ' deletedDataError'
+                    : '' %>" >
+            <%- selectedObject.label %>
+        </td>
+        <td class="listFieldSection
+                <%= (isNotUndefined(dataErrorType) && _.contains(dataErrorType, FIELD_LIST_DELETED))
+                    ? ' deletedDataError'
+                    : '' %> " >
+            <%- (listFields.length > 0) ? listFields[0].label : '' %>
+        </td>
+        <td class="detailFieldSection
+                <%= (isNotUndefined(dataErrorType) && _.contains(dataErrorType, FIELD_DETAIL_DELETED))
+                ? ' deletedDataError'
+                : '' %> " >
+            <% _.each(detailFields, function(field, index) {
+                if (field.isSelected) { %>
+                    <span name="<%- field.name %>"><%=(index > 0) ? DETAIL_FIELD_SEPARATOR : '' %>
+                        <%-field.label%>
+                    </span><%
+                }
+            }); %>
+        </td>
+
+    </script>
+
+    <!-- List of Tasks (Related: IDALMSA-2629) -->
+
+    <script type="text/template" id="taskList_template">
+
+        <%
+        var tableColumnCaptions = [
+            '{!JSENCODE($Label.ACTION)}',
+            "{!JSENCODE($Label.ORDER)}",
+            "{!JSENCODE($Label.TYPE)}",
+            "{!JSENCODE($Label.TASK_NAME)}",
+            '{!JSENCODE($Label.CREATE_JOB_TEMPLATE_TASK_DETAIL_COLUMN )}',
+            "{!JSENCODE($Label.MODIFY_BY)}"];
+
+        if (data.taskListModel.length == 0) {%>
+            <div id="tableMessages" class="errMsg">{!$Label.THERE_IS_NO_TASKS}</div><%
+        } else {
+            var hasAnyTaskDeletedData = data.taskListModel.isAnyTaskWithError();
+            %>
+            <table class="salesforceStandardTable
+                    <%= (hasAnyTaskDeletedData) ? 'tableCollapsed' : '' %>"
+                    id="tblTaskTemplates" width="100%">
+                <tr>
+                    <%  var firstColumn = true;
+                        _.each(tableColumnCaptions, function(item) { %>
+                            <th <% if (firstColumn) {%> class="actionColumn" <% firstColumn = false; } %> >
+                                <%- item %>
+                            </th>
+                        <%});
+                    %>
+                </tr>
+                <%
+                var taskNumber = data.taskListModel.length;
+
+                for (i = 0; i < taskNumber; i++) {
+                    var taskType = data.taskListModel.at(i).get("Type");
+                    var mappingElements = $.parseJSON(data.taskListModel.at(i).get('Mapping'));
+                    var formId = data.taskListModel.at(i).get('Form');
+                    var hasDeletedData = data.taskListModel.at(i).hasAnyError();
+
+                    if (taskType == TYPE_FORM) {
+                        loadQuestionsFromServerAndMappings(
+                            mappingElements,
+                            formId,
+                            data.taskListModel.at(i).get('id')
+                        );
+                    } %>
+                    <tr class="taskRow_<%=data.taskListModel.at(i).get('id')%>
+                            <%= (hasDeletedData) ? 'taskWithError' : '' %>">
+                        <td class="actionColumn">
+                            <a class="lnkEdit editObjectHierarchy" href="javascript:void(0);"
+                                    onClick="loadTaskForm('<%= data.taskListModel.at(i).get('id') %>', false);">
+                                Edit
+                            </a> |
+                            <a href="javascript:void(0);" class="lnkDelete deleteObjectHierarchy"
+                                    onClick="deleteTask('<%= data.taskListModel.at(i).get('id') %>');">
+                                Delete
+                            </a>
+                        </td>
+                        <td> <%- data.taskListModel.at(i).get("Position") %> </td>
+                        <td> <%
+                            switch (taskType) {
+                                case TYPE_LIST_VIEW: %>
+                                    <%- '{!JSENCODE($Label.LIST_VIEW)}' %> <%
+                                    break;
+                                case TYPE_DATA_VIEW: %>
+                                    <%- '{!JSENCODE($Label.VIEW)}' %> <%
+                                    break;
+                                case TYPE_FORM: %>
+                                    <%- '{!JSENCODE($Label.COLLECT)}' %> <%
+                                    break;
+                                case TYPE_RESOURCE: %>
+                                    <%- '{!JSENCODE($Label.TYPE_VIEW_RESOURCE)}' %> <%
+                                    break;
+                            } %>
+                        </td>
+                        <td> <%= data.taskListModel.at(i).get("Name") %> </td>
+                        <td> <%
+                            switch (taskType) {
+                                case TYPE_LIST_VIEW: %>
+                                    <%- '{!JSENCODE($Label.LIST_VIEW)}' %> <%
+                                    break;
+                                case TYPE_DATA_VIEW: %>
+                                    <%- '{!JSENCODE($Label.CREATE_JOB_TEMPLATE_TASK_DETAIL_VIEW )} ' + data.objectIdToLabel[data.taskListModel.at(i).get('objectId')]  %> <%
+                                    break;
+                                case TYPE_FORM: %>
+                                    <%- '{!JSENCODE($Label.CREATE_JOB_TEMPLATE_TASK_DETAIL_COLLECT )} ' + ((data.surveyMap != undefined) ? data.surveyMap[data.taskListModel.at(i).get("Form")].name:'') %> <%
+                                    break;
+                                case TYPE_RESOURCE: %>
+                                    <%- '{!JSENCODE($Label.CREATE_JOB_TEMPLATE_TASK_DETAIL_RESOURCE )} ' +
+                                        ((data.resourceMap != undefined) ?
+                                        data.resourceMap[data.taskListModel.at(i).get("selectedResourceId")].file +
+                                        ' / ' + bytesToSize(data.resourceMap[data.taskListModel.at(i).get("selectedResourceId")].contentSize):'')  %> <%
+                                    break;
+                            } %>
+                        </td>
+                        <td> <%
+                            if (data.taskListModel.at(i).get("LastModifiedByName") != '') {%>
+                                <%- data.taskListModel.at(i).get("LastModifiedByName") %> &nbsp; <%=
+                                dateFormat(
+                                    data.taskListModel.at(i).get("LastModifiedDate"),
+                                    'm/d/yyyy hh:MM TT'
+                                ) %> <%
+                            } else { %>
+                                ({!$Label.NOT_SAVED_YET}) <%
+                            }%>
+                        </td>
+                    </tr><%
+                }%>
+            </table>
+        <%}%>
+    </script>
+
+    <!-- Window PopUp of Task for Collect Type (Related: IDALMSA-2629) -->
+
+    <script type="text/template" id="taskCollectPopUp">
+
+        <div id="taskCollectWindow" class="taskFormWindow">
+            <div class="title_bar">
+                <%= (taskModel.get('id') != null)
+                        ? '{!JSENCODE($Label.TASK_EDIT)}'
+                        : '{!JSENCODE($Label.TASK_NEW)}'
+                %>
+            </div>
+            <div class="taskCollect_wrapper">
+                <form name="frmTaskCollect" id="frmTaskCollect">
+                    <div class="sectionTaskType">
+                        <h3>{!$Label.SELECT_TASK_TYPE_QUESTION}</h3>
+
+                        <input type="radio" name="radioTaskType" id="radioTaskType_data-view" value="data-view"
+                            <% if (taskModel.get('Type') == TYPE_DATA_VIEW) { %> checked="checked" <% } %> />
+                        <label>{!$Label.TYPE_VIEW_DATA}</label>
+                        <br/><br/>
+
+                        <input type="radio" name="radioTaskType" id="radioTaskType_form" value="form"
+                            <% if (taskModel.get('Type') == TYPE_FORM) { %> checked="checked" <% } %> />
+                        <label>{!$Label.TYPE_COLLECT_DATE}</label>
+                        <br/><br/>
+
+                        <input type="radio" name="radioTaskType" id="radioTaskType_resource" value="resource"
+                            <% if (taskModel.get('Type') == TYPE_RESOURCE) { %> checked="checked" <% } %> />
+                        <label>{!$Label.TYPE_VIEW_RESOURCE}</label>
+                    </div>
+                    <div class="bar_divider"></div>
+                    <div class="sectionTaskForm">
+                        <label>{!$Label.TASK_TITLE}</label>
+                        <div class="columnRight">
+                            <input class="required_field" type="text" name="Name" id="editName" maxLength="80" />
+                            <br/>
+                            <span class="error_msg">Error Text</span>
+                        </div>
+                        <br/>
+
+                        <label>{!$Label.TASK_INSTRUCTION}</label>
+                        <div class="columnRight">
+                            <textarea name="Instruction" id="txtInstruction" rows="5" maxLength="500" />
+                        </div>
+                        <br/>
+
+                        <% if (taskModel.get('Type') == TYPE_FORM) {%>
+                            <label>{!$ObjectType.Survey__c.Label}</label>
+                            <div class="columnRight">
+                                <select name="Form" id="selectForm" class="selectList">
+                                    <option value="none">{!$Label.CREATE_SURVEY_DEFAULT_VALUE_SELECT}</option>
+                                    <%
+                                        _.each(taskModel.get('listItems'), function(item) { %>
+
+                                            <option value="<%= item.id %>">
+                                                <%- item.name %>
+                                            </option>
+                                        <%});
+                                     %>
+                                </select><br/>
+                                <span class="error_msg"></span>
+                            </div>
+                            <div id="mappingTable">
+                                <div class="bar_divider"></div>
+
+                                <div id="mappingTableDiv">
+                                    <div class="text_explanation" style="display: none;">
+                                        <p>{!$Label.JOB_TEMPLATE_INFO_TAKS_MAPPING}</p>
+                                    </div>
+                                     <table id="mappingTableDetail">
+                                        <tr>
+                                            <th>{!$Label.JOB_TEMPLATE_OBJECT}</th>
+                                            <th>{!$Label.TASK_MAPPING_OBJECT_FIELD}</th>
+                                            <th>{!$Label.TASK_MAPPING_FORM_FIELD}</th>
+                                            <th></th>
+                                        </tr>
+                                      </table>
+                                </div>
+                                <span id='noObjectsForMappingMsg' style='display:none'>
+                                {!$Label.TASK_COLLECT_NO_MAPPING}</span>
+                                <div style="float:left">
+                                    <a href="javascript:void(0)" id="lnkNewMapping" onclick='addNewMappedObject()'>
+                                        +{!$Label.ADD}
+                                    </a>
+                                </div>
+                            </div>
+                        <% } else
+                        if (taskModel.get('Type') == TYPE_DATA_VIEW) {%>
+                            <label>End Object</label>
+                            <div class="columnRight">
+                                <select name="objectId" id="selectObject" class="selectList">
+                                    <option value="none">Select Object</option>
+                                    <%
+                                        _.each(taskModel.get('listItems'), function(item) { %>
+
+                                            <option value="<%= $.trim(item.objectId) %>">
+                                                <%- $.trim(item.label) %>
+                                            </option>
+                                        <%});
+                                     %>
+                                </select><br/>
+                                <span class="error_msg">Error Text</span>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="bar_divider"></div>
+                    <div class="btnWrapper">
+                        <a href="javascript:void(0)" class="btnCancelTaskCollect"
+                                id="btnCancelTaskCollect" name="Cancel">
+                            {!$Label.CANCEL}
+                        </a>&nbsp;
+                        <input type="button" value="{!$Label.SAVE}" id="btnSaveTaskCollect"
+                            class="btnSave btnSaveTaskCollect btn" name="Save"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="orderTaskPopup-template">
+        <div class="salesforcePopup">
+            <div id="orderTaskPopupHeader" >
+                {!$Label.JOB_TEMPLATE_ORDER_TASKS}
+            </div>
+            <div id="orderTaskPopupContainer" />
+            <div id="orderTaskPopupButtons" >
+                <div id="orderButtonContainer" >
+                    <a id="cancelOrderTaskButton" > {!$Label.CANCEL} </a>
+                    <input type="button" value="{!$Label.SAVE}" id="saveOrderTaskButton" class="btn" />
+                </div>
+            </div>
+        </div>
+        <div id="popupBlock" ></div>
+    </script>
+
+    <script type="text/template" id="resourceList-template">
+        <span id="resourceListLabel" <%= (resourceList.length == 0) ? 'class="hiddenElement"': '' %> >
+            {!$Label.TASK_CHECK_FILE_TO_SELECT}
+        </span>
+        <div id="resourceListContainer" >
+            <% if (isNotUndefined(resourceList) && resourceList.length > 0) { %>
+                <table id="resourceListContainerTable">
+                    <tr>
+                        <th id="resourceListSelectHeader" >
+                            {!$Label.SELECT}
+                        </th>
+                        <th id="resourceListTitleHeader" >
+                            {!$Label.TASK_TITLE}
+                        </th>
+                        <th id="resourceListFileHeader" >
+                            {!$Label.FILE}
+                        </th>
+                        <th id="resourceListSizeHeader" >
+                            {!$Label.SIZE}
+                        </th>
+                        <th id="resourceListAuthorHeader" >
+                            {!$Label.AUTHOR}
+                        </th>
+                        <th id="resourceListLastModifiedHeader" >
+                            {!$Label.LAST_MODIFICATION}
+                        </th>
+                    </tr>
+                    <%
+                        _.each(resourceList, function(resource) { %>
+                            <tr class="resourceElement">
+                                <td class="resourceSelect">
+                                    <input id="<%= resource.id %>" class="resourceRadio" type="radio"
+                                        name="groupResource" value="Select"
+                                        <%= (selectedResource == resource.id) ? 'checked=checked': '' %>
+                                    />
+                                </td>
+                                <td class="resourceTitle">
+                                    <%- resource.title %>
+                                </td>
+                                <td class="resourceFile">
+                                    <%- resource.file %>
+                                </td>
+                                <td class="resourceSize">
+                                    <%- bytesToSize(resource.contentSize) %>
+                                </td>
+                                <td class="resourceAuthor">
+                                    <%- resource.author %>
+                                </td>
+                                <td class="resourceLastModified">
+                                    <% if (isNotUndefined(resource.contentModifiedDate)) { %>
+                                        <%- dateFormat(resource.contentModifiedDate, 'longDate') %>
+                                    <% }
+                                    else{ %>
+                                        {!$Label.NOT_APPLICABLE}
+                                    <% }%>
+                                </td>
+                            </tr>
+                        <%});
+                     %>
+
+                </table>
+
+                <% if (isResourceDeleted) { %>
+                     <div class="deletedResourceContainer" ><i>{!$Label.SELECT_RESOURCE_DELETED}</i></div>
+                <% }
+              }
+              else{ %>
+                    <div id="noResourceFoundContainer" ><i>{!$Label.TASK_NO_RESOURCE_FOUND}</i></div>
+                    <% if (isResourceDeleted) { %>
+                        <div class="deletedResourceContainer" ><i>{!$Label.SELECT_RESOURCE_DELETED}</i></div>
+                    <% }
+               } %>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+
+        //------------------------Constants and labels-------------------------
+
+        // Constants
+        var CONTACT_NAME            = '{!$ObjectType.Contact.Name}';
+        var CONTACT_LABEL           = '{!JSENCODE($ObjectType.Contact.Label)}';
+        var SELECTED_OBJECT_ATTR    = 'selectedObject';
+        var IS_FIRST_OBJECT         = 'isFirstObject';
+        var FIELD_LIST_ATTR         = 'fieldList';
+        var FIELD_DETAIL_ATTR       = 'detailFields';
+        var NAME_ATTR               = 'name';
+        var VALUE_ATTR              = 'value';
+        var FIELD_ON_LIST           = 'fieldOnList';
+        var DETAIL_TYPE             = 'detailType';
+        var LIST_TYPE               = 'listType';
+        var UNDEFINED_VALUE         = '-1';
+        var DETAIL_FIELD_SEPARATOR  = ', ';
+        var OBJECT_ID_ATTR          = 'objectId';
+        var OBJECT_NAME_ATTR        = 'objectName';
+        var PREVIOUS_OBJECT_ATTR    = 'previousObject';
+        var IS_LAST_OBJECT_ATTR     = 'isLastObject';
+        var POTENTIAL_OBJECTS_ATTR  = 'potentialObjectCollection';
+        var PARENT_ID_ATTR          = 'parentId';
+        var EXTERNAL_ID_ATTR        = 'externalField';
+        var PREVIOUS_EXTERNAL_FIELD = 'previousExternalField';
+        var OBJECT_DELETED          = 'objectDeleted';
+        var FIELD_LIST_DELETED      = 'fieldListDeleted';
+        var FIELD_DETAIL_DELETED    = 'fieldDetailDeleted';
+        var FAILING_DATA            = 'failingData';
+        var DELETED_DETAIL_FIELDS   = 'deletedDetailFields';
+        var MISSING_DATA_OBJ_DEL    = 'Object-deleted';
+        var MISSING_DATA_FIELD_DEL  = 'Fields-deleted';
+        var SELECTED_RESOURCE_ID       = 'selectedResourceId';
+        var SELECTED_RESOURCE_NAME_ATTR= 'selectedResourceName';
+        var SELECTED_RESOURCE_NAME     = 'selectedResourceName';
+        var SELECTED_RESOURCE_SIZE_ATTR    = 'selectedResourceSize';
+        var SELECTED_RESOURCE_ATTR     = 'selectedResource';
+        var LIST_RESOURCES_ATTR        = 'listResources';
+
+        // Labels
+        var CONFIRM_REMOVE_OBJECT   = '{!JSENCODE($Label.JOB_TEMPLATE_CONFIRM_REMOVE)}';
+        var NO_CHILDREN_TO_DISPLAY  = '{!JSENCODE($Label.JOB_TEMPLATE_NO_OBJECTS)}';
+        var CANT_DELETE_HIERARCHY   = '{!JSENCODE($Label.JOB_TEMPLATE_CANT_REMOVE_HIERARCHY)}';
+        var CANT_MODIFIY_USED_TASK  = '{!JSENCODE($Label.JOB_TEMPLATE_CANT_MODIFY_BECAUSE_USED_BY_TASK)}';
+        var NOT_APPLICABLE          = '{!JSENCODE($Label.NOT_APPLICABLE)}';
+
+        //------------------------End constants and labels----------------------
+
+        var orgObjects               = {!orgObjects}.sort(customSortByName);      // Org objects.
+        var objectWithDeletedData    = {!objectWithDeletedData};                  // Map with data with removed object or fields
+        var objectHierarchyList      = new ObjectHierarchyCollection();           // Collection of Object Hierarchies.
+        var currentObjectHierarchy   = new ObjectHierarchy();                     // Global variable to recognize Object Hierarchy currently in the popup.
+
+        function cloneBlockPage() {
+            blockPage();
+            return true;
+        }
+
+        /**
+         * Helper format function for strings
+         */
+        function format(str, args) {
+            return str.replace(/{(\d+)}/g, function(match, number) {
+                return (typeof args[number] != 'undefined') ? args[number] : match;
+            });
+        }
+
+        /**
+         * Creates the new model and the popup to create a new object hierarchy.
+         * It is called when the user clicks on "New" button, or edit an Object
+         */
+        function displayPopupView() {
+            currentObjectHierarchy   = new ObjectHierarchy();
+            if (objectHierarchyList.models.length == 0) {
+                createAndDisplayPopup();
+            } else {
+                blockPage();
+                var lastObject = objectHierarchyList.obtainLastObjectHierarchy();
+                getChildrenOfParentObject(lastObject.get(SELECTED_OBJECT_ATTR).name);
+            }
+        }
+
+        /**
+         *  Display the popup to create the Object Hierarchy.
+         *  Precondition: currentObjectHierarchy model have to be already set.
+         */
+        function createAndDisplayPopup() {
+            if(objectHierarchyList.models.length > 0 && childrenOfObject.length == 0) {
+                // The current parent has no children to display.
+                alert(NO_CHILDREN_TO_DISPLAY);
+            } else {
+                currentObjectHierarchy   = new ObjectHierarchy();
+                if (objectHierarchyList.models.length == 0) {
+                    currentObjectHierarchy.set(IS_FIRST_OBJECT, true);
+                }
+
+                var objectHierarchyView = new ObjectHierarchyPopupView(
+                    {model : currentObjectHierarchy}
+                );
+                var popupDiv = objectHierarchyView.render(true);
+                $('body').append(popupDiv);
+            }
+        }
+
+        /**
+         *  Method in charge to return the list of objects hierarchies in a JSON format.
+         *  @return List of objects hierarchies in a JSON format.
+         */
+        function saveJSONData() {
+            var jsonData = objectHierarchyList.obtainJsonData();
+            return jsonData;
+        }
+
+        var hierarchyListHeaders = [
+            "{!JSENCODE($Label.ACTION)}",
+            "{!JSENCODE($Label.LEVEL)}",
+            "{!JSENCODE($Label.JOB_TEMPLATE_OBJECT)}",
+            "{!JSENCODE($Label.JOB_TEMPLATE_LIST_FIELD)}",
+            "{!JSENCODE($Label.JOB_TEMPLATE_DETAIL_FIELD)}"
+        ];
+
+        /**
+         * Helper function to return the headers for the hierarchy object table
+         */
+        function getHierarchyListHeader() {
+            var result = $('<tr></tr>');
+            var jobStatus = '{!JSENCODE(job.Status__c)}';
+
+            //if job is published it should't have the action column
+            if (
+                    jobStatus == '{!JSENCODE($Label.SURVEY_STATUS_PUBLISHED)}' ||
+                    jobStatus =='{!JSENCODE($Label.SURVEY_STATUS_CLOSED)}'
+            ) {
+                hierarchyListHeaders.splice(0,1); // remove action header column
+            }
+
+            _.each(hierarchyListHeaders, function(item) {
+               result.append('<td class="headerTable">'+item+'</td>');
+            });
+
+            return result;
+        }
+
+        /**
+         *  Method in charge to refresh the list of created object hierarchies.
+         */
+        function refreshListOfObjectHierarchies() {
+            var createdObjectHierarchyContainer = $('#createdObjectHierarchiesTable');
+            var headerTr = (objectHierarchyList.models.length > 0)
+                    ? getHierarchyListHeader() :
+                    '<tr class="noHierarchiesTr"><td>{!JSENCODE($Label.JOB_TEMPLATE_NOT_HIERARCHIES)}</td></tr>';
+            var lastObject = objectHierarchyList.obtainLastObjectHierarchy();
+
+            if (objectHierarchyList.models.length > 0) {
+                createdObjectHierarchyContainer.addClass('salesforceStandardTable');
+            } else {
+                createdObjectHierarchyContainer.removeClass('salesforceStandardTable');
+            }
+
+            createdObjectHierarchyContainer.empty();
+            createdObjectHierarchyContainer.append(headerTr);
+
+            _.each(objectHierarchyList.models, function(jt) {
+
+                if (lastObject.get(OBJECT_ID_ATTR) == jt.get(OBJECT_ID_ATTR)) {
+
+                    // Is the last object, so we allow it to remove and modify object.
+                    jt.set(IS_LAST_OBJECT_ATTR, true);
+                } else {
+                    jt.set(IS_LAST_OBJECT_ATTR, false);
+                }
+
+                // For each model, create the view, and append it to the table.
+                var objectHierarchyItemView = new ObjectHierarchyTrView({model:jt});
+
+                var objectHierarchyElement  = objectHierarchyItemView.render();
+                createdObjectHierarchyContainer.append(objectHierarchyElement);
+            });
+
+            // Also set the input of Hierarchy__c.
+            var objectHierarchyJSON  = saveJSONData();
+            var hiddenHierarchyInput = $("[id*='hierarchyInputHidden']");
+            hiddenHierarchyInput.attr(VALUE_ATTR, objectHierarchyJSON);
+
+            if (isJobTemplatePublishedOrClosed) {
+                hideTableActionColumn();
+            }
+        }
+
+        /**
+         *  Method in charge to call the collection of Object hierarchies in order to create each model from saved objects.
+         *  (Success method of getFieldsFromListObject).
+         */
+        function fillObjectHierarchiesSaved() {
+            objectHierarchyList.convertJsonToModel(
+                parsedObjectsHierarchies,
+                savedObjectFields,
+                mapPotentialObjects
+            );
+            objectHierarchyList.objectId = objectHierarchyList.models.length;
+            refreshListOfObjectHierarchies();
+        }
+
+        //list of current mapped objects
+        var currentMappedObjects= new Array();
+        var objects_fields_map = new Object();
+
+        function findQuestionByName(resultQuestions,qName) {
+            var found = false;
+            var k = 0;
+            while (k < resultQuestions.length && !found) {
+                found = (resultQuestions[k].Name == qName);
+                k++;
+            }
+
+            return found;
+        }
+
+        /**
+         *  Method in charge of disable or enable buttons if an object or field has been deleted from the org or not.
+         *  (is not the same of viewPageAsReadOnly because I need some inputs available, and I need to be easily changed to be
+         *  available again)
+         *  Also decides if should display or not the error message (i.e. if the user fixed the hierarchy should remove message).
+         *
+         *  @param hasDeletedData True if there is at least an object or field with deleted data, false otherwise.
+         *  @param shouldRemoveMessage True if should also remove message error (user fix the hierarchy), false otherwise.
+         */
+        function setVisibilityOfButtons( hasDeletedData, shouldRemoveMessage ) {
+            if (hasDeletedData) {
+                blockPage();
+                $('.job_temp_name').attr('disabled', 'disabled');
+                $('.job_temp_instructions').attr('disabled', 'disabled')
+                $('select.job_temp_status').attr('disabled', 'disabled');
+                $('.list_buttons #btnNewMappedObject').attr('disabled', 'disabled');
+                $('.list_buttons #btnNewMappedObject').addClass('btnDisabled');
+                $('.list_buttons #btnNewTask').attr('disabled', 'disabled');
+                $('.list_buttons #btnNewTask').addClass('btnDisabled');
+                $('.list_buttons #btnOrderTasks').attr('disabled', 'disabled');
+                $('.list_buttons #btnOrderTasks').addClass('btnDisabled');
+                unblockPage();
+            } else {
+                blockPage();
+                $('.job_temp_name').removeAttr('disabled');
+                $('.job_temp_instructions').removeAttr('disabled')
+                $('select.job_temp_status').removeAttr('disabled');
+                $('.list_buttons #btnNewMappedObject').removeAttr('disabled');
+                $('.list_buttons #btnNewMappedObject').removeClass('btnDisabled');
+                $('.list_buttons #btnNewTask').removeAttr('disabled');
+                $('.list_buttons #btnNewTask').removeClass('btnDisabled');
+                $('.list_buttons #btnOrderTasks').removeAttr('disabled');
+                $('.list_buttons #btnOrderTasks').removeClass('btnDisabled');
+
+                if (shouldRemoveMessage) {
+                    enableStandardButtons();
+                } else {
+                    unblockPage();
+                }
+            }
+        }
+
+        /**
+         *  Method in charge of check if there is some hierarchy or task related to deleted data, if no
+         *  task or hierarchy has deleted data, enable buttons, otherwise buttons will be disabled.
+         */
+        function shouldEnableButtons() {
+            // Now we check if there is some field or object removed in the org used currently in hierarchies.
+            var isAnyRemovedDataInHierarchies = objectHierarchyList.isAnyDeletedDataUsed(objectWithDeletedData);
+            // Also check that no task has deleted data.
+            var hasAnyTaskError               = taskTemplateList.isAnyTaskWithError();
+            if (!isAnyRemovedDataInHierarchies && !hasAnyTaskError) {
+                // No deleted field or object is used in the hierarchies or tasks, so we enable disabled buttons and fields.
+                setVisibilityOfButtons(false, true);
+            }
+        }
+
+
+       /**
+        * Load mappable questions from server
+        * @param existingMappings in case we are editing a takes this takes as parameter
+        * the existing mappings in case the task had any
+        * @taskId id of the task in case we are calling this when all task list is loaded on the job template
+        */
+        function loadQuestionsFromServerAndMappings(existingMappings,formId,taskId) {
+            blockPage();
+            var formParam = (formId == null)  ? $('#selectForm :selected').val() : formId;
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CreateJobTemplateController.getMappableQuestions}',
+                formParam,
+                function(result, event) {
+                    if (event.status) {
+                        if (existingMappings==null) {
+                            //load the next ui objects
+                            cachedQuestionsList = result;
+                            addMappingRow(result,null);
+                        }
+                        else {
+                            //if we are invoking it from the task view list load on job template page
+                            if (taskId !=null) {
+                                var errorMap = false;
+                                var i=0;
+                                while (!errorMap && i < existingMappings.length) {
+                                    errorMap = !findQuestionByName(result,existingMappings[i].question);
+                                    i++;
+                                }
+
+                                 if (errorMap) {
+                                    $('.taskRow_'+taskId+' td:eq(0)').find('a.lnkDelete').
+                                    append(
+                                        '&nbsp;<img id="taskMapError_'+taskId+'" src="/img/msg_icons/error16.png" title="'+invalidMappingTask+'">');
+                                 }
+                            }
+                            else {
+                                 _.each(existingMappings,function(mapping) {
+                                    handleMappingDeletedData(result,mapping);
+                                });
+                            }
+                        }
+                        unblockPage();
+                    }
+                    else{
+                        alert(errorRetrievingMappingQuestions);
+                    }
+                },
+                {escape: false}
+            );
+        }
+
+        /**
+         *  Method in charge of decide if it should highlight a mapping or not (because it has the object deleted)
+         *  or if it should highlight the field deleted.
+         *
+         *  @param result Result from the remote call (not used, passed only to pass to addMappingRow method).
+         *  @param mapping Mapping to check looking for deleted data.
+         */
+        function handleMappingDeletedData(result, mapping) {
+
+            var isRelatedHierarchyPresent = objectHierarchyList.isHierarchyPresent(mapping.objectId);
+            if (!isRelatedHierarchyPresent) {
+                // This mapping is related to a hierarchy that is no longer in the list.
+                mapping.deletedDataAttr = MISSING_DATA_OBJ_DEL;
+            }
+            else{
+                // Obtain what kind of data is missing.
+                var deletedDataForThis = objectWithDeletedData[mapping.objectId];
+                if (isNotUndefined(deletedDataForThis)) {
+                    // The object used in this mapping has deleted data.
+                    if (deletedDataForThis.missingDataType == MISSING_DATA_OBJ_DEL) {
+                        // This mapping has the object deleted, so it will have highlighted the object and the field.
+                        mapping.deletedDataAttr = MISSING_DATA_OBJ_DEL;
+                    }
+                    else if (deletedDataForThis.missingDataType == MISSING_DATA_FIELD_DEL) {
+                        // The object of this mapping has a deleted field.
+                        if (_.contains(deletedDataForThis.fieldsDeleted, mapping.field)) {
+                            // This field is deleted in the org.
+                            mapping.deletedDataAttr = MISSING_DATA_FIELD_DEL;
+                        }
+                    }
+                }
+            }
+            addMappingRow(result,mapping);
+        }
+
+        /**
+         *  Method in charge of set the picklist value to closed (after being "Automatically closed"),
+         *  Although in the org it is already closed we need to display it in the page.
+         */
+        function setClosedAndReadOnly() {
+            $('.job_temp_status').val('Closed');
+            $('.disableIfClosed').remove();
+            viewPageAsReadOnly();
+            $('.job_temp_status').attr('disabled', 'disabled');
+            unblockPage();
+        }
+
+        //Constants
+
+        var TYPE_LIST_VIEW              = 'list-view';
+        var TYPE_FORM                   = 'form';
+        var TYPE_DATA_VIEW              = 'data-view';
+        var TYPE_RESOURCE               = 'resource';
+        var TYPE_ATTRIBUTE              = 'Type';
+        var MAPPING_TASK_ATTR           = 'Mapping';
+        var ID_ATTR                     = 'id';
+        var CAPITAL_NAME_ATTR           = 'Name';
+        var POSITION_ATTR               = 'Position';
+
+        var ACTION_EDITED_ADDED         = 'edited_added';
+        var ACTION_LOADED               = 'loaded';
+        var ACTION_DELETED              = 'deleted';
+
+        var JT_STATUS_PUBLISHED         = 'Published';
+        var JT_STATUS_CLOSED            = 'Closed';
+
+        //Global Variables
+
+        var taskTemplateList;
+        var deletedTaskTemplateList;
+
+        var tasksTable;
+        var taskTemplateForm;
+        var jobTemplateId                   = '{!JSENCODE(JobTemplate__c.Id)}';
+        var jobTemplateStatus               = '{!JSENCODE(JobTemplate__c.Status__c)}';
+        var isJobTemplatePublishedOrClosed  = (jobTemplateStatus == JT_STATUS_PUBLISHED
+                                            || jobTemplateStatus == JT_STATUS_CLOSED);
+
+        /**
+        * Hide all action controls
+        * <p>
+        * Hide all action controls to avoid the user attempts to modify the Job Template.
+        * (Related: IDALMSA-2975)
+        */
+        function viewPageAsReadOnly() {
+
+            var job_temp_name = $('input.job_temp_name');
+            var job_temp_instructions = $('textarea.job_temp_instructions');
+
+            //hide required fields signal
+            job_temp_name.prev().remove();
+
+            $('span.requiredLegend').remove();
+            $('img.helpOrb').remove();
+
+            //get text from input, write them as plain text and remove inputs
+            var job_temp_name_val = job_temp_name.val();
+            var job_temp_instructions_val = job_temp_instructions.val();
+
+            job_temp_name.parent().append(
+                                            $('<span>')
+                                                .addClass('job_temp_name')
+                                                .text(job_temp_name_val)
+                                        );
+            job_temp_name.remove();
+
+            job_temp_instructions.parent().append(
+                                            $('<span>')
+                                                .addClass('job_temp_instructions')
+                                                .text(job_temp_instructions_val)
+            );
+
+            job_temp_instructions.remove();
+
+            if (jobTemplateStatus == JT_STATUS_PUBLISHED) {
+                // Remove Draft option from select
+                $('select.job_temp_status').find('option[value="Draft"]').remove();
+                $('.list_buttons').hide();
+            }
+
+            else if (jobTemplateStatus == JT_STATUS_CLOSED) {
+                // Hide action buttons
+                $('.disableIfClosed').hide();
+                // Show close button
+                $('.btnGoToList').show();
+                $('.btnClone').show();
+
+                var job_temp_status = $('select.job_temp_status');
+
+                job_temp_status.prev().remove();
+                job_temp_status.parent().append(
+                                                $('<span>')
+                                                    .addClass('job_temp_status')
+                                                    .text(job_temp_status.val())
+                                                );
+
+                job_temp_status.remove();
+            }
+            // hide buttons...
+            $('#btnNewMappedObject').remove();
+            $('#btnNewTask').remove();
+            $('#btnOrderTasks').remove();
+
+            //hide action columns of tables.
+            hideTableActionColumn();
+        }
+
+        /**
+        * Hide action columns of tables.
+        * (Related: IDALMSA-2975)
+        */
+        function hideTableActionColumn() {
+
+            $('table .actionColumn').css('display', 'none');
+        }
+
+
+        /**
+        * Generate a form of Task Template with all data and open it.  If there is any invalid response
+        * from the server a message is displayed.
+        * (Related: IDALMSA-2629)
+        */
+        function loadTaskForm(taskItemId, reRender) {
+            blockPage();
+
+            //if task Id does not exist in collection create a new empty task otherwise load it
+            var taskType = (reRender) ? $('input:radio:checked').val() : TYPE_FORM;
+
+            var taskTemplateItemModel;
+
+            if (!taskItemId) {
+                if (taskType == TYPE_FORM) {
+                    taskTemplateItemModel = new TaskTemplate( {
+                                                                Type: taskType,
+                                                                Form: '',
+                                                                Mapping:''
+                                                            });
+                }
+                else if (taskType == TYPE_DATA_VIEW) {
+                    taskTemplateItemModel = new TaskTemplateViewData({
+                                                                Type: taskType,
+                                                                objectId: ''
+                                                            });
+                }
+                else if (taskType == TYPE_RESOURCE) {
+                    taskTemplateItemModel = new TaskTemplateResource({Type: taskType});
+                }
+            }
+            else {
+                taskTemplateItemModel = taskTemplateList.get(taskItemId);
+            }
+
+            if (taskTemplateItemModel.get('Type') == TYPE_FORM) {
+
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CreateJobTemplateController.generateFormsList}',
+                    function(result, event) {
+                        if (event.status) {
+                            taskTemplateItemModel.set('listItems', result);
+
+                            buildTaskForm(taskTemplateItemModel, reRender);
+
+                            if (taskItemId != null ) {
+
+                                clearMapping();
+
+                                var mappingElements=$.parseJSON(taskTemplateItemModel.get('Mapping'));
+                                loadQuestionsFromServerAndMappings(mappingElements,null,null);
+                            }
+                            unblockPage();
+                        }
+                        else
+                        {
+                            unblockPage();
+                            alert(errorRetrievingFormListMsg);
+                        }
+                    },
+                    {escape: false}
+                );
+            }
+            else if (taskTemplateItemModel.get('Type') == TYPE_DATA_VIEW) {
+
+                taskTemplateItemModel.set('listItems', $.parseJSON(objectHierarchyList.obtainJsonData()));
+
+                buildTaskForm(taskTemplateItemModel, reRender);
+                unblockPage();
+            }
+            else if (taskTemplateItemModel.get('Type') == TYPE_RESOURCE) {
+                blockPage();
+
+                // Obtain selected resource for this task.
+                var selectedResourceId = taskTemplateItemModel.get(SELECTED_RESOURCE_ID);
+                buildTaskForm(taskTemplateItemModel, reRender);
+
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CreateJobTemplateController.obtainResourcesFromLibrary}',
+                    function(result, event) {
+                        if (event.status) {
+                            // Obtain resources from the library...
+                            var resourceListView                    = new ResourceListView(result, selectedResourceId);
+                            taskTemplateItemModel.resourceListModel = resourceListView.model;
+                            // ... and put them in the table.
+                            taskTemplateForm.setResourceTable(resourceListView.render());
+                            unblockPage();
+                        }
+                        else
+                        {
+                            unblockPage();
+                            alert(errorReadingResources);
+                        }
+                    },
+                    {escape: false}
+                );
+            }
+
+        }
+
+        /**
+         *  Method called when the user clicks on "Order" (task) button.
+         *  If the task list has less than two tasks, display an alert informing the user
+         *  that at least two tasks are required to be able to order them, otherwise
+         *  create the order popup, and display it.
+         */
+        function initializeOrderComponent() {
+            if (taskTemplateList.models.length > 1) {
+                var orderTaskView = new OrderTaskView();
+                orderTaskView.render();
+            }
+            else{
+                // If less than two tasks are created it makes no sense to open the order popup.
+                alert('{!JSENCODE($Label.JOB_TEMPLATE_NO_TASKS_TO_ORDER)}');
+            }
+        }
+
+        /**
+         *  Method in charge to remove the header of the list of mappings of the (data-collection) task.
+         */
+        function removeMappingHeader() {
+            $("#mappingTableDetail").hide();
+            $('#mappingTableDetail tbody tr:gt(0)').remove();
+        }
+
+        // Initialize page on first load
+
+        var savedObjectFields        = {!mapSavedObjectFields};
+        var mapPotentialObjects      = {!mapPotentialObjects};
+        var taskListresultFromDB     = {!loadedTasksFromDB};
+        var parsedObjectsHierarchies = {!IF(JobTemplate__c.Hierarchy__c != null, JobTemplate__c.Hierarchy__c, '[]')};
+
+        // load page objects
+        $(document).ready(function() {
+
+            initialize(); // this initializes tasks variables
+
+            // Fill hierarchies.
+            fillObjectHierarchiesSaved();
+
+            // initialize task list models and object hierarchy models with data from db (if any)
+            taskTemplateList.add(taskListresultFromDB);
+            refreshTasksTable();
+
+            // Now we check if there is some field or object removed in the org used currently in hierarchies or tasks.
+            var isAnyRemovedDataInHierarchies = objectHierarchyList.isAnyDeletedDataUsed(objectWithDeletedData);
+            var hasAnyTaskError               = taskTemplateList.isAnyTaskWithError();
+            // Set buttons visibility.
+            setVisibilityOfButtons(isAnyRemovedDataInHierarchies || hasAnyTaskError, _.isEmpty(objectWithDeletedData));
+            if (isJobTemplatePublishedOrClosed) {
+                if (jobTemplateStatus == JT_STATUS_PUBLISHED && _.size(objectWithDeletedData) > 0) {
+                    // Call an action function that will change the status to automatically closed.
+                    // Cannot be done in the constructor, because salesforce does not allow to call DML in the constructor.
+                    blockPage();
+                    closeJobBecauseOfDeletedData(); // Create action function calling same method in controller.
+                }
+                else{
+                    viewPageAsReadOnly();
+                    if (jobTemplateStatus == JT_STATUS_CLOSED) {
+                        // Is a closed job, so we disable standard buttons.
+                        $('.disableIfClosed').remove();
+                    }
+                }
+            }
+        });
+    </script>
+</apex:page>

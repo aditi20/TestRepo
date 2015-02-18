@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label>Age</label>
+        <name>Age__c</name>
+    </fields>
+    <fields>
+        <label>Est Client</label>
+        <name>IsClient__c</name>
+    </fields>
+    <fields>
+        <label>Est un utilisateur de portable</label>
+        <name>IsMobileUser__c</name>
+    </fields>
+    <fields>
+        <label>Nombre d'utilisateurs de portable</label>
+        <name>Mobile_User__c</name>
+    </fields>
+    <fields>
+        <label>Identité de la personne interrogée</label>
+        <name>mobilesurveys_Id__c</name>
+    </fields>
+    <fields>
+        <label>Date de dernier enregistrement</label>
+        <name>mobilesurveys_LastCheckInDate__c</name>
+    </fields>
+    <fields>
+        <label>Dernier enregistrement d'enquêtes sur portable</label>
+        <name>mobilesurveys_LastCheckInDevice__c</name>
+        <relationshipLabel>Contacts</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Mot de passe de l'enquêteur</label>
+        <name>mobilesurveys_Password__c</name>
+    </fields>
+    <fields>
+        <label>Statut de l'enquêteur</label>
+        <name>mobilesurveys_Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Actif</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blocked</masterLabel>
+            <translation>Bloqué</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation>Innactif</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Nom de l'enquêteur</label>
+        <name>mobilesurveys_Username__c</name>
+    </fields>
+    <layouts>
+        <layout>Contact Layout</layout>
+        <sections>
+            <label>Liens personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label>ActiverContact</label>
+        <name>ActivateContact</name>
+    </webLinks>
+    <webLinks>
+        <label>DésactiverContact</label>
+        <name>DeactivateContact</name>
+    </webLinks>
+    <webLinks>
+        <label>SupprimerContact</label>
+        <name>DeleteContact</name>
+    </webLinks>
+</CustomObjectTranslation>

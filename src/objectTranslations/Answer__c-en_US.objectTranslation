@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Answer</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Answers</value>
+    </caseValues>
+    <fields>
+        <label><!-- DateTimeValue --></label>
+        <name>DateTimeValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- DateValue --></label>
+        <name>DateValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Instance --></label>
+        <name>Instance__c</name>
+    </fields>
+    <fields>
+        <label><!-- NumericValue --></label>
+        <name>NumericValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Option --></label>
+        <name>Option__c</name>
+        <relationshipLabel><!-- Answers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Parent --></label>
+        <name>Parent__c</name>
+        <relationshipLabel><!-- Answers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Question --></label>
+        <name>Question__c</name>
+        <relationshipLabel><!-- Answers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Submission --></label>
+        <name>Submission__c</name>
+        <relationshipLabel><!-- Answers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Text Area Value --></label>
+        <name>TextAreaValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- TextValue --></label>
+        <name>TextValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

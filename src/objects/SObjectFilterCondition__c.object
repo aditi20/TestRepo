@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Filter condition for performance indicator objects</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>FieldAPIName__c</fullName>
+        <description>The API name of the field to which condition is applied to</description>
+        <externalId>false</externalId>
+        <label>Field API Name</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Operator__c</fullName>
+        <description>The operator applied to the field and the value in the SObject query</description>
+        <externalId>false</externalId>
+        <label>Operator</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Equals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less Than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less Than Equals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Equals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater Than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater Than Equals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PerformanceTarget__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The Performance Target that the filter is applied to</description>
+        <externalId>false</externalId>
+        <label>Performance Target</label>
+        <referenceTo>PerformanceTarget__c</referenceTo>
+        <relationshipLabel>SObject Filter Conditions</relationshipLabel>
+        <relationshipName>SObject_Filter_Conditions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <description>The value used in the operator.</description>
+        <externalId>false</externalId>
+        <label>Value</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>SObject Filter Condition</label>
+    <nameField>
+        <displayFormat>SFC-{00000000}</displayFormat>
+        <label>SObject Filter Condition Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>SObject Filter Conditions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

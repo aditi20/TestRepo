@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Actividad de trabajo</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Actividades de trabajo</value>
+    </caseValues>
+    <fields>
+        <label>Equipo</label>
+        <name>Assigned__c</name>
+        <relationshipLabel>Actividades de trabajo</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Cliente</label>
+        <name>Contact__c</name>
+        <relationshipLabel>Trabajos del cliente</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha de creación</label>
+        <name>CreationDate__c</name>
+    </fields>
+    <fields>
+        <label>Notas de creación</label>
+        <name>CreationNotes__c</name>
+    </fields>
+    <fields>
+        <label>Origen de creación</label>
+        <name>CreationSource__c</name>
+        <picklistValues>
+            <masterLabel>Ad-hoc</masterLabel>
+            <translation>Ad-hoc</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Fecha final</label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label>Plantilla de trabajo</label>
+        <name>JobTemplate__c</name>
+        <relationshipLabel>Trabajos</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha inicial</label>
+        <name>StartDate__c</name>
+    </fields>
+        <fields>
+        <label>Ubicación inicial</label>
+        <name>StartLocation__c</name>
+    </fields>
+        <fields>
+        <label>Ubicación final</label>
+        <name>EndLocation__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de la actividad de trabajo</nameFieldLabel>
+</CustomObjectTranslation>

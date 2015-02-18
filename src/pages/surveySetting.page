@@ -1,0 +1,268 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardController="Survey__c" sidebar="false" action="{!checkRedirect}"
+    extensions="SurveySettingsController" tabStyle="SurveyManager__tab" id="page" language="{!userLanguage}">
+
+    <apex:sectionHeader title="{!$ObjectType.Survey__c.LabelPlural}" subtitle="{!$Label.SURVEY_SETTINGS_SUBTITLE_CLONE_SURVEY}" rendered="{!isCloning && isNew && NOT(isPPI)}"/>
+    <apex:sectionHeader title="{!$ObjectType.Survey__c.LabelPlural}" subtitle="{!$Label.SURVEY_SETTINGS_SUBTITLE_NEW_PPI_SURVEY}" rendered="{!isPPI && isNew}"/>
+    <apex:sectionHeader title="{!$ObjectType.Survey__c.LabelPlural}" subtitle="{!$Label.SURVEY_SETTINGS_SUBTITLE_NEW_BLANK_SURVEY}" rendered="{!NOT(isCloning) && NOT(isPPI) && isNew}"/>
+
+    <!-- Component -->
+    <c:blockOverlay label="{!$Label.SAVING}..."/>
+
+    <!-- Styles -->
+    <style type="text/css">
+        .aliasField.empty{color:gray;}
+        .bPageBlock .detailList tr td{border:none;}
+        .pickWidth{width:150px;}
+        .inpText{width:146px;}
+        .bPageBlock .detailList tr td,.bPageBlock .detailList tr th,
+        .hoverDetail .bPageBlock .detailList tr td,.hoverDetail .bPageBlock .detailList tr th {border: none;}
+        .classMsgAndDesc {width: 380px;}
+        .bottomButtons{float:right;}
+        textarea{resize:none;}
+        .setToDefault{
+            cursor: pointer;
+            float: right;
+            margin-right: 4px;
+            position: relative;
+            text-decoration: underline;}
+    </style>
+
+    <!-- Use template -->
+    <apex:composition template="SurveyBuilderTemplate">
+        <!-- Set variables to be used later -->
+        <apex:define name="init">
+            <apex:variable var="selectedTab" value="SETTING"/>
+            <apex:variable var="isNew" value="{!isNew}"/>
+            <apex:variable var="hasError" value="{!hasError}"/>
+            <apex:variable var="isPublished" value="{!isPublished}"/>
+            <apex:variable var="survey" value="{!survey}"/>
+        </apex:define>
+
+        <!-- Define the body -->
+        <apex:define name="body">
+            <apex:form prependId="false">
+                <!-- concurrent save -->
+                <apex:outputText id="concurrentSaveArea" styleClass="concurrentSaveArea" style="display:none" value="{!concurrentSave}"/>
+
+                <apex:inputText styleClass="prevSelectedRadio hidden" id="prev_hidden" value="{!prevRadioButtonSelected}"/>
+                <apex:pageBlock id="newSurvey">
+                    <apex:panelGroup id="Title_alias" rendered="{!NOT(isPPI)}">
+                        <apex:pageBlockSection columns="1" title="{!$Label.SURVEY_SETTING_TITLE_AND_ALIAS}" collapsible="false" id="titleAndAlias">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.Name.Label}" />
+                                <apex:outputPanel id="messages">
+                                    <apex:inputField id="title" value="{!survey.Name}" required="{!NOT(isPPI)}"/>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+
+                            <apex:pageBlockSectionItem id="aliasBlockSectionItem" >
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.Alias__c.Label}" />
+                                <apex:inputField styleClass="aliasField" value="{!survey.Alias__c}" onfocus="focusAliasField(this)"
+                                onblur="blurAliasField(this)" />
+                            </apex:pageBlockSectionItem>
+
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel ></apex:outputLabel>
+                                <apex:outputLabel value="{!$Label.SURVEY_SETTING_ALIAS_INFO}"/>
+                            </apex:pageBlockSectionItem>
+
+                        </apex:pageBlockSection>
+                    </apex:panelGroup>
+
+                    <apex:panelGroup id="Ppi_survey" styleClass="Ppi_survey" rendered="{!isPPI}">
+                        <apex:pageBlockSection title="{!$Label.CREATE_SURVEY_PPI}" collapsible="false" columns="1">
+
+                            <!-- Country -->
+                            <apex:pageBlockSectionItem rendered="{!canChangePPIFields}">
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.CountryCode__c.Label}"/>
+                                <apex:outputPanel id="messages">
+                                    <div class="requiredInput">
+                                        <div class="requiredBlock"></div>
+                                        <apex:selectList id="countryField" styleClass="countryField createNewOne pickWidth" value="{!survey.CountryCode__c}" disabled="{!NOT(canChangePPIFields)}" size="1" required="{!survey.IsPPI__c}" onChange="generateTitle();">
+                                            <apex:selectOption itemLabel="-" itemValue=""/>
+                                            <apex:selectOptions value="{!countriesToSelect}" />
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+
+                            <apex:pageBlockSectionItem rendered="{!!canChangePPIFields}">
+                                <apex:outputLabel for="ppiCountry" value="{!$ObjectType.Survey__c.Fields.CountryCode__c.Label}"/>
+                                <apex:outputText id="ppiCountry" styleClass="ppiCountry" value="{!countryName}"/>
+                            </apex:pageBlockSectionItem>
+
+                            <!-- Year -->
+                            <apex:pageBlockSectionItem rendered="{!canChangePPIFields}">
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.PPIDataYear__c.Label}" />
+                                <apex:outputPanel id="messages">
+                                    <apex:inputField id="data_year" styleClass="data_year createNewOne inpText" value="{!survey.PPIDataYear__c}" required="{!survey.IsPPI__c}" onKeyup="generateTitle();"/>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                            <script type="text/javascript">
+                            //Remove the commas from the year number
+                            $('.data_year').val($('.data_year').val().replace(/\D/g,''));
+                            </script>
+
+                            <apex:pageBlockSectionItem rendered="{!!canChangePPIFields}">
+                                <apex:outputLabel for="ppiYear" value="{!$ObjectType.Survey__c.Fields.PPIDataYear__c.Label}"/>
+                                <apex:outputText id="ppiYear" styleClass="ppiYear" value="{!year}"/>
+                            </apex:pageBlockSectionItem>
+
+                            <!-- Language -->
+                            <apex:pageBlockSectionItem rendered="{!canChangePPIFields}">
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.LanguageCode__c.Label}" />
+                                <apex:outputPanel id="messages">
+                                    <div class="requiredInput">
+                                        <div class="requiredBlock"></div>
+                                        <apex:selectList id="languageField" styleClass="languageField createNewOne pickWidth" value="{!survey.LanguageCode__c}"  disabled="{!NOT(canChangePPIFields)}" size="1" required="{!survey.IsPPI__c}" onChange="generateTitle();">
+                                            <apex:selectOption itemLabel="-" itemValue=""/>
+                                            <apex:selectOptions value="{!languagesToSelect}" />
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+
+                            <apex:pageBlockSectionItem rendered="{!!canChangePPIFields}">
+                                <apex:outputLabel for="ppiLanguage" value="{!$ObjectType.Survey__c.Fields.LanguageCode__c.Label}"/>
+                                <apex:outputText id="ppiLanguage" styleClass="ppiLanguage" value="{!languageName}"/>
+                            </apex:pageBlockSectionItem>
+
+                            <!-- Title -->
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.Name.Label}" />
+                                <apex:outputPanel id="messages">
+                                    <div class="requiredInput">
+                                        <div class="requiredBlock"></div>
+                                        <apex:inputField id="title" styleClass="suggestedTitle" value="{!survey.Name}" required="{!survey.IsPPI__c}"/>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+
+                            <!-- Alias, not show when creating the PPI template -->
+                            <apex:pageBlockSectionItem id="aliasBlockSectionItem" rendered="{!NOT(isTemplate)}">
+                                <apex:outputLabel value="{!$ObjectType.Survey__c.Fields.Alias__c.Label}" />
+                                <apex:inputField styleClass="aliasField" value="{!survey.Alias__c}" onfocus="focusAliasField(this)"
+                                onblur="blurAliasField(this)" />
+                            </apex:pageBlockSectionItem>
+
+                            <apex:pageBlockSectionItem rendered="{!NOT(isTemplate)}">
+                                <apex:outputLabel ></apex:outputLabel>
+                                <apex:outputLabel value="{!$Label.SURVEY_SETTING_ALIAS_INFO}"/>
+                            </apex:pageBlockSectionItem>
+
+                        </apex:pageBlockSection>
+                    </apex:panelGroup>
+
+                    <apex:pageBlockSection id="general" columns="2" title="General" collapsible="false">
+
+                        <apex:inputField id="iptDescription" value="{!survey.Description__c}" styleClass="classMsgAndDesc"/>
+
+                        <apex:pageBlockSectionItem />
+                        <apex:inputField id="closeMessage" value="{!survey.Close_Message__c}" styleClass="classMsgAndDesc classMsgSubmission"/>
+                        <apex:pageBlockSectionItem/>
+                            <a class="setToDefault" onclick="loadDefaultMessage($('.classMsgSubmission'))">{!$Label.SET_TO_DEFAULT}</a>
+                        <apex:pageBlockSectionItem/>
+
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <!-- Action functions -->
+                <apex:actionFunction name="quickSave" action="{!quickSave}" reRender="newSurvey, errorMessages, concurrentSaveArea, pageTitle" onComplete="afterQuickSave();"/>
+                <apex:actionFunction name="saveContinue" action="{!saveSettingContinue}" reRender="concurrentSaveArea, errorMessages" onComplete="afterQuickSave();"/>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+
+        var DEF_CLOSE_MESSAGE = '{!JSENCODE($Label.SURVEY_SETTING_CLOSE_MSG)}'; // Text area helper text
+
+        function setDisabledSelectOption(){
+            var create_new_survey = $('#inptCreatePPISurvey').is(':checked');
+            var update_existing_survey = $('#inptUpdatePPISurvey').is(':checked');
+            $('.createNewOne').prop('disabled', !create_new_survey );
+            $('.updateSurvey').prop('disabled', !update_existing_survey);
+        }
+        /*
+         * Execute when onblur text area, If it is empty the text area is complete with the default message
+         */
+        function loadDefaultMessage(element){
+               element.val(DEF_CLOSE_MESSAGE);
+        }
+        // Alias field functions
+        var MSGALIAS = '{!JSENCODE($Label.SURVEY_SETTING_CREATE_ALIAS)}'; // Alias field helper text
+        function focusAliasField(element){
+            if($(element).hasClass('empty')) $(element).attr('value', '');
+            $(element).removeClass('empty');
+        }
+        function blurAliasField(element){
+            if($(element).attr('value') == '')
+                $(element).val(MSGALIAS).addClass('empty');
+            else
+                $(element).removeClass('empty');
+        }
+
+        function onchangeUnsavedChanges(){
+            if({!NOT(isNew)}){
+                $('input, textarea, select').live('change', function(){
+                    hasUnsavedChanges = true;
+                });
+                if ($(".message.errorM3:visible").length){
+                    hasUnsavedChanges = true;
+                    popupSave = false;
+                }
+            }
+        }
+
+        //this function saves the survey making a quick save in case doContinue is false,
+        //or saving it and continuing to the next step in case doContinue is true
+        function save(doContinue){
+            blockPage();
+            // Set unsaved changes in false after save
+            hasUnsavedChanges = false;
+            //clear the val for the empty class in the aliasField class
+            $('.aliasField.empty').val(null);
+            if (doContinue){
+                saveContinue();
+            }
+            else {
+                quickSave();
+            }
+        }
+        // Add a function to suggest the title of the survey when the title got the focus
+        // This is only added when the survey is a new PPI survey, otherwise is will reset the previous title
+        function generateTitle(){
+            if({!isPPI}){
+                //generate the suggested title only if the title is empty
+                var country  = {!IF(canChangePPIFields,"$('.countryField option:selected').text()","$('.ppiCountry').text()")};
+                var year     = {!IF(canChangePPIFields,"$('.data_year').val()","$('.ppiYear').text()")};
+                var language = {!IF(canChangePPIFields,"$('.languageField option:selected').text()","$('.ppiLanguage').text()")};
+                var suggestedTitle = country + ' PPI ' + year + ' ' + language;
+                $(".suggestedTitle").val(suggestedTitle);
+            }
+        }
+
+        function afterQuickSave(){
+            unblockPage();
+            concurrentSavePopup();
+            onchangeUnsavedChanges();
+            var errorMessage = $('.message').attr('class');
+            // If has errors do not save and has unsaved changes
+            hasUnsavedChanges = errorMessage != undefined;
+            //If do not have error message do redirect
+            if(popupSave && redirect && !hasUnsavedChanges) doRedirect();
+        }
+        $(document).ready(function(){
+            var prevRadioButtonSelected = $('.prevSelectedRadio').val();
+
+            blurAliasField( $('.aliasField') );
+
+            $('form').submit(function(){ $('.aliasField.empty').val(null); });
+            onchangeUnsavedChanges();
+            if({!isNew} && $('.classMsgSubmission').val() == ''){
+                loadDefaultMessage($('.classMsgSubmission'));
+            }
+        });
+    </script>
+</apex:page>

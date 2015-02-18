@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>CreateJobTemplate</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>CreateJobTemplate</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>CreateJobTemplate</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Job</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>CloseReason__c</fullName>
+        <externalId>false</externalId>
+        <label>Close Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Automatically Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hierarchy__c</fullName>
+        <description>Contains information about hierarchy in JSON format</description>
+        <externalId>false</externalId>
+        <label>Hierarchy</label>
+        <length>16000</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Instructions__c</fullName>
+        <description>Instructions</description>
+        <externalId>false</externalId>
+        <label>Instructions</label>
+        <length>500</length>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PublishedDate__c</fullName>
+        <description>When the Job was published.</description>
+        <externalId>false</externalId>
+        <label>Published Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Defines if the Job can be downloaded to the phone. Closed jobs will be removed from mobile phones, but submissions of completed jobs are still possible.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If Job is published its content cannot be edited. Only admits to change to Closed.</inlineHelpText>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TasksNumber__c</fullName>
+        <description>Quantity of tasks associated to this Job.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the quantity of tasks associated to this Job.</inlineHelpText>
+        <label>Tasks Number</label>
+        <summaryForeignKey>TaskTemplate__c.JobTemplate__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <label>Job</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>PublishedDate__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Closed</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>PublishedDate__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </filters>
+        <label>Closed</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Draft</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>PublishedDate__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Draft</value>
+        </filters>
+        <label>Draft</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Published</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>PublishedDate__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Published</value>
+        </filters>
+        <label>Published</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Job Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Jobs</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PublishedDate__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PublishedDate__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>AvoidModifyPublishedDate</fullName>
+        <active>true</active>
+        <description>Avoid to modify the Published Date manually.</description>
+        <errorConditionFormula>ISCHANGED(PublishedDate__c) &amp;&amp; (!ISBLANK( PRIORVALUE(PublishedDate__c) ) || !ISPICKVAL(Status__c, &apos;Published&apos;) )</errorConditionFormula>
+        <errorDisplayField>PublishedDate__c</errorDisplayField>
+        <errorMessage>The Published Date cannot be edited manually. This is only set when a Job Template publishes.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>AvoidPublishJobNoTasks</fullName>
+        <active>true</active>
+        <description>Avoid to publish a Job with no tasks.</description>
+        <errorConditionFormula>TasksNumber__c == 0 &amp;&amp;  !ISBLANK(Id) &amp;&amp; ISPICKVAL( Status__c, &apos;Published&apos;)</errorConditionFormula>
+        <errorMessage>A Job cannot be published because there is not any task associated.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ClosedJobsCannotChangeStatus</fullName>
+        <active>true</active>
+        <description>If the Job is closed the status values cannot change.</description>
+        <errorConditionFormula>ISCHANGED(Status__c)
+&amp;&amp; ISPICKVAL(PRIORVALUE(Status__c),  &apos;Closed&apos;)</errorConditionFormula>
+        <errorDisplayField>Status__c</errorDisplayField>
+        <errorMessage>The Job is Closed. The status cannot change.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>OnlyCanBeEditedInDraft</fullName>
+        <active>true</active>
+        <description>Name cannot be edited if the Job is not in Draft status.</description>
+        <errorConditionFormula>AND (
+    NOT ( ISPICKVAL(Status__c, &apos;Draft&apos;) ),
+     ISCHANGED(Name)
+)</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Name cannot be edited if the Job is not in Draft status.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>StatusCannotChangeBackToDraft</fullName>
+        <active>true</active>
+        <description>Avoid setting Status to Draft if it is Published or Closed.</description>
+        <errorConditionFormula>AND (
+    ISCHANGED(Status__c),
+    ISPICKVAL(Status__c, &apos;Draft&apos;)
+)</errorConditionFormula>
+        <errorDisplayField>Status__c</errorDisplayField>
+        <errorMessage>The status cannot be Draft if the Job is Published or Closed.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>StatusMustBeDraftOnInsert</fullName>
+        <active>true</active>
+        <description>Job Status field must be Draft when inserting.</description>
+        <errorConditionFormula>ISBLANK(Id)  &amp;&amp;  !ISPICKVAL( Status__c , &apos;Draft&apos;)</errorConditionFormula>
+        <errorDisplayField>Status__c</errorDisplayField>
+        <errorMessage>The Job Status must be Draft when creating a new Job.</errorMessage>
+    </validationRules>
+    -    <validationRules>
+         <fullName>Unique_name</fullName>
+         <active>false</active>
+         <description>Validation deprecated. Please feel free to deactivate</description>
+         <errorConditionFormula>false</errorConditionFormula>
+         <errorDisplayField>Name</errorDisplayField>
+         <errorMessage>There is another job with the same name. Change the name and try again.</errorMessage>
+     </validationRules>
+</CustomObject>

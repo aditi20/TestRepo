@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>SubmissionPPIValue__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Report type for PPI</description>
+    <label>PPI Report</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>PPI Lookup Table</displayNameOverride>
+            <field>PPITableLine__c.PPITableDataSet__c.PPITable__c.Name</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Score Range From</displayNameOverride>
+            <field>PPITableLine__c.From__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Score Range To</displayNameOverride>
+            <field>PPITableLine__c.To__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Lookup Table Legend</displayNameOverride>
+            <field>PPITableLine__c.PPITableDataSet__c.ReportLegend__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <masterLabel>PPI Table</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Survey Title</displayNameOverride>
+            <field>Submission__c.Survey__c.Name</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Country Code</displayNameOverride>
+            <field>Submission__c.Survey__c.CountryCode__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Data Year</displayNameOverride>
+            <field>Submission__c.Survey__c.PPIDataYear__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Response Count</displayNameOverride>
+            <field>Submission__c.Survey__c.ResponseCount__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Interviewee</displayNameOverride>
+            <field>Submission__c.Interviewee__c.Name</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Surveyor</displayNameOverride>
+            <field>Submission__c.Surveyor__c.Name</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Interviewee Age</displayNameOverride>
+            <field>Submission__c.Interviewee__c.Age__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <masterLabel>Survey</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Likelihood</displayNameOverride>
+            <field>PPITableLine__c.Probability__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>PPI Score</displayNameOverride>
+            <field>Submission__c.PPIScore__c</field>
+            <table>SubmissionPPIValue__c</table>
+        </columns>
+        <masterLabel>Submission</masterLabel>
+    </sections>
+</ReportType>
