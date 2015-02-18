@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customApplications>
+        <label><!-- Mobile Surveys --></label>
+        <name>Mobile_Surveys</name>
+    </customApplications>
+    <customLabels>
+        <label><!-- Job is not in Draft status, so tasks cannot be inserted, edited or deleted. --></label>
+        <name>AVOID_EDIT_DELETE_TASK_PUBLISHED_JOB_TEMPLATE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- The Job cannot not be published because all related Forms of Tasks must be published. --></label>
+        <name>AVOID_PUBLISH_JOB_TEMPLATE_WITH_NONE_PUBLISHED_SURVEYS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- You can not save a survey while editing something --></label>
+        <name>BUILDER_ERR_CANNOTSAVEWHILE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Concurrent Save Error --></label>
+        <name>BUILDER_ERR_CONCURRENTSAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Publish a survey in an inactive group --></label>
+        <name>BUILDER_ERR_INACTIVEGROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Interviewee set more than once in Survey Mapping --></label>
+        <name>BUILDER_ERR_INTERVIEWEE_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Invalid url --></label>
+        <name>BUILDER_ERR_INVALIDURL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cannot edit a non-editable quiestion --></label>
+        <name>BUILDER_ERR_NONEDITABLEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cannot delete a non-editable question --></label>
+        <name>BUILDER_ERR_NONREMOVABLEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cannot delete a section with non-editable questions inside --></label>
+        <name>BUILDER_ERR_NONREMOVABLESECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BUILDER_ERR_QUESTION_NOTDRAFTSURVEY --></label>
+        <name>BUILDER_ERR_QUESTION_NOTDRAFTSURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- You can not modify this survey. You have not permission. --></label>
+        <name>BUILDER_ERR_READONLYSURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- You can not modify a published survey --></label>
+        <name>BUILDER_ERR_SURVEYALREADYPUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Set question as non-editable, label in surveyQuestion --></label>
+        <name>BUILDER_LBL_NONEDITABLEQUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Use as Interviewee label in surveyMapping --></label>
+        <name>BUILDER_LBL_USEASINTERVIEWEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Refresh page confirmation msg --></label>
+        <name>BUILDER_REFRESH_PAGE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- cancel label --></label>
+        <name>CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Last Option in question error --></label>
+        <name>CONFIRMATION_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Create label --></label>
+        <name>CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CREATESURVEY_ERR_NOLIBRARYSELECTED --></label>
+        <name>CREATESURVEY_ERR_NOLIBRARYSELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CREATESURVEY_LABEL_LIBRARY --></label>
+        <name>CREATESURVEY_LABEL_LIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CREATESURVEY_LABEL_NOLIBRARY --></label>
+        <name>CREATESURVEY_LABEL_NOLIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CREATESURVEY_LABEL_SELECTLIBRARY --></label>
+        <name>CREATESURVEY_LABEL_SELECTLIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Delete label --></label>
+        <name>DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Discard option label --></label>
+        <name>DISCARD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Done Label --></label>
+        <name>DONE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Last Option in question error --></label>
+        <name>EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- The Job Template cannot be deleted because it is not draft. --></label>
+        <name>ERR_DELETE_NON_DRAFT_JOB_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- The survey cannot publish because has empty sections --></label>
+        <name>ERR_INSUFFICIENT_PERMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Insufficient permission of current user to deal with object "{0}". Please report to System Administrator. --></label>
+        <name>ERR_SURVEY_PUBLISH_EMPTY_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error retrieving the Survey Library information from the server. --></label>
+        <name>ERR_SURVEY_RETRIEVE_SURVEY_LIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error reading mappable questions from server. --></label>
+        <name>ERROR_RETRIEVING_MAPPING_QUESTIONS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- The Survey Status cannot be edited manually. --></label>
+        <name>ERR_AVOID_EDIT_SURVEY_STATUS_MANUALLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- filter label --></label>
+        <name>FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- GENERAL_ERR_ERROR --></label>
+        <name>GENERAL_ERR_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JOB_ACTIVITIES --></label>
+        <name>JOB_ACTIVITIES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Clear filter --></label>
+        <name>JOB_ACTIVITIES_CLEAR_FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Mapped Object Text Explanation --></label>
+        <name>JOB_TEMPLATE_INFO_MAPPED_OBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Tasks Text Explanation --></label>
+        <name>JOB_TEMPLATE_INFO_TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Task Collection Mapping Text Explanation --></label>
+        <name>JOB_TEMPLATE_INFO_TAKS_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_ERRORATCOLLINE --></label>
+        <name>LOOKUP_ERR_ERRORATCOLLINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_FILE_SIZE --></label>
+        <name>LOOKUP_ERR_FILE_SIZE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_NAMETOOLONG --></label>
+        <name>LOOKUP_ERR_NAMETOOLONG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_NONUTF8FILE --></label>
+        <name>LOOKUP_ERR_NONUTF8FILE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_RANGEINTERSECTED --></label>
+        <name>LOOKUP_ERR_RANGEINTERSECTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_REPEATEDTABLENAME --></label>
+        <name>LOOKUP_ERR_REPEATEDTABLENAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_SELECTFILE --></label>
+        <name>LOOKUP_ERR_SELECTFILE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_VALUECANTBECONVERTED --></label>
+        <name>LOOKUP_ERR_VALUECANTBECONVERTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_WRONGCOLUMNCOUNTAT --></label>
+        <name>LOOKUP_ERR_WRONGCOLUMNCOUNTAT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_WRONGCOLUMNCOUNTAT --></label>
+        <name>LOOKUP_ERR_WRONGFIELD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOOKUP_ERR_WRONGRANGE --></label>
+        <name>LOOKUP_ERR_WRONGRANGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Next page label --></label>
+        <name>NEXT_PAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New --></label>
+        <name>NEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Negate label --></label>
+        <name>NOT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- It is not saved yet. --></label>
+        <name>NOT_SAVED_YET</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Order --></label>
+        <name>ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Prev page label --></label>
+        <name>PREV_PAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Preview label --></label>
+        <name>PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Publish label --></label>
+        <name>PUBLISH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Question and Section --></label>
+        <name>QUESTION_AND_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- QUESTION_ERR_CANTEDIT --></label>
+        <name>QUESTION_ERR_CANTEDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- QUESTION_ERR_SECTIONCANTEDIT --></label>
+        <name>QUESTION_ERR_SECTIONCANTEDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- QUESTION_ERR_WRONGORDER --></label>
+        <name>QUESTION_ERR_WRONGORDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Save label --></label>
+        <name>SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Save and Continue label --></label>
+        <name>SAVE_AND_CONTINUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- What type of Task do you want to create? --></label>
+        <name>SELECT_TASK_TYPE_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cannot edit a ppi score if it is a distributed survey --></label>
+        <name>SCORE_ERR_CANTEDITDISTRUBUTEDPPISCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- There is logic dependence among questions in this section. --></label>
+        <name>SHOW_ALL_QUESTIONS_DISABLE_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Empty value in required field --></label>
+        <name>SUBMISSION_ERR_EMPTYREQUIREDFIELD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Send sunbmission of survey with an empty xml --></label>
+        <name>SUBMISSION_ERR_EMPTYXML</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fail login --></label>
+        <name>SUBMISSION_ERR_INVALIDAUTHENTICATIONLOGIN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Wrong device --></label>
+        <name>SUBMISSION_ERR_INVALIDDEVICELOGIN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- The survey is in an inactive status --></label>
+        <name>SUBMISSION_ERR_INVALIDSURVEYXML</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SUBMISSION_ERR_MAPPEDOBJECTNOTFOUND --></label>
+        <name>SUBMISSION_ERR_MAPPEDOBJECTNOTFOUND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Send sunbmission of survey with an inactive group --></label>
+        <name>SUBMIT_ERR_ODKINACTIVEGROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEYMAPPING_CONFIRMATION_SET_INTERVIEWEE --></label>
+        <name>SURVEYMAPPING_CONFIRM_ASSIGN_INTERVIEWEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEYMAPPING_ERR_PAGEERRORS --></label>
+        <name>SURVEYMAPPING_ERR_PAGEERRORS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEYVERSION_ERR_CANNOTGOBACKTODRAFT --></label>
+        <name>SURVEYVERSION_ERR_CANNOTGOBACKTODRAFT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error when try to delete a published survey --></label>
+        <name>SURVEY_ERR_CANNOTDELETEPUBLISHED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_CANTPUBLISHWITHSTATUS --></label>
+        <name>SURVEY_ERR_CANTPUBLISHWITHSTATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Empty xform --></label>
+        <name>SURVEY_ERR_EMPTYDOC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error finding a Survey --></label>
+        <name>SURVEY_ERR_ID_NOT_FOUND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_INVALIDCOUNTRYCODE --></label>
+        <name>SURVEY_ERR_INVALIDCOUNTRYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_INVALIDLANGUAGECODE --></label>
+        <name>SURVEY_ERR_INVALIDLANGUAGECODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Survey without xform --></label>
+        <name>SURVEY_ERR_NODOC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No survey selected tu export --></label>
+        <name>SURVEY_ERR_NOSURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_NOSURVEYSELECTED --></label>
+        <name>SURVEY_ERR_NOSURVEYSELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_NULLREFERENCE --></label>
+        <name>SURVEY_ERR_NULLREFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_UNIQUETITLE --></label>
+        <name>SURVEY_ERR_UNIQUETITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_ERR_WRONGSURVEYID --></label>
+        <name>SURVEY_ERR_WRONGSURVEYID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- link label to go back to the survey manager --></label>
+        <name>SURVEY_HEADER_BACKTOMANAGER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Field Mapping tables option in survey header --></label>
+        <name>SURVEY_HEADER_FIELD_MAPPING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Logic option in survey header --></label>
+        <name>SURVEY_HEADER_LOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Lookup tables option in survey header --></label>
+        <name>SURVEY_HEADER_LOOKUP_TABLES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Preview tables option in survey header --></label>
+        <name>SURVEY_HEADER_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Question builder option in survey header --></label>
+        <name>SURVEY_HEADER_QUESTION_BUILDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Scoring option in survey header --></label>
+        <name>SURVEY_HEADER_SCORING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Setting option in survey header --></label>
+        <name>SURVEY_HEADER_SETTING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- unsaved changes message popup --></label>
+        <name>SURVEY_HEADER_UNSAVED_CHANGES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LABEL_RELEASEDTOLIBRARY --></label>
+        <name>SURVEY_LABEL_RELEASEDTOLIBRARY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_ERR_DOWNLOAD --></label>
+        <name>SURVEY_LIBRARY_ERR_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_ERR_FAILEDREBUILD --></label>
+        <name>SURVEY_LIBRARY_ERR_FAILEDREBUILD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_ERR_NOCONTENT --></label>
+        <name>SURVEY_LIBRARY_ERR_NOCONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_ERR_NOEXIST --></label>
+        <name>SURVEY_LIBRARY_ERR_NOEXIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_ERR_NOTFOUND --></label>
+        <name>SURVEY_LIBRARY_ERR_NOTFOUND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_ERR_TOOBIG --></label>
+        <name>SURVEY_LIBRARY_ERR_TOOBIG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_CREATED_BY --></label>
+        <name>SURVEY_LIBRARY_LABEL_CREATED_BY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_DOWNLOAD --></label>
+        <name>SURVEY_LIBRARY_LABEL_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_DOWNLOADING --></label>
+        <name>SURVEY_LIBRARY_LABEL_DOWNLOADING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_LIBRARYLINK --></label>
+        <name>SURVEY_LIBRARY_LABEL_LIBRARYLINK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_MANAGERLINK --></label>
+        <name>SURVEY_LIBRARY_LABEL_MANAGERLINK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_SURVEYSETTINGS --></label>
+        <name>SURVEY_LIBRARY_LABEL_SURVEYSETTINGS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_LABEL_TITLE --></label>
+        <name>SURVEY_LIBRARY_LABEL_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_LIBRARY_MSG_SUCCESS --></label>
+        <name>SURVEY_LIBRARY_MSG_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Add condition button label --></label>
+        <name>SURVEY_LOGIC_ADD_CONDITION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Always Show Label --></label>
+        <name>SURVEY_LOGIC_ALWAYS_SHOW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error message not a valid value --></label>
+        <name>SURVEY_LOGIC_ERR_INVALID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error not numerical value --></label>
+        <name>SURVEY_LOGIC_ERR_NOT_NUM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error message --></label>
+        <name>SURVEY_LOGIC_ERR_QUOTES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error not numerical value --></label>
+        <name>SURVEY_LOGIC_ERR_REQUIRED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Done Label --></label>
+        <name>SURVEY_LOGIC_NO_QUESTION_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- when label --></label>
+        <name>SURVEY_LOGIC_WHEN_CONDITIONS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Clone option label --></label>
+        <name>SURVEY_MANAGER_ACTIONS_CLONE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute option label --></label>
+        <name>SURVEY_MANAGER_ACTIONS_DISTRIBUTE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Do more action label --></label>
+        <name>SURVEY_MANAGER_ACTIONS_DO_MORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit XForm option label --></label>
+        <name>SURVEY_MANAGER_ACTIONS_EDIT_XFORM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Export to csv option label --></label>
+        <name>SURVEY_MANAGER_ACTIONS_EXPORT_CSV</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- View XForm option label --></label>
+        <name>SURVEY_MANAGER_ACTIONS_VIEW_XFORM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- message in the confirmation of cloning --></label>
+        <name>SURVEY_MANAGER_ALERT_CLONE_ALERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- checkbox to clone assignments along with the survey --></label>
+        <name>SURVEY_MANAGER_ALERT_CLONE_ASSIGNMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- confirmation of cloning a survey --></label>
+        <name>SURVEY_MANAGER_ALERT_CLONE_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit survey --></label>
+        <name>SURVEY_MANAGER_ASSIGN_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close survey --></label>
+        <name>SURVEY_MANAGER_CLOSE_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Column name of the owner of the survey --></label>
+        <name>SURVEY_MANAGER_COL_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Concurrent Save Error --></label>
+        <name>SURVEY_MANAGER_CONFIRM_EDIT_CUSTOM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit survey --></label>
+        <name>SURVEY_MANAGER_EDIT_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- message to alert at least one group must be selected --></label>
+        <name>SURVEY_MANAGER_ERR_NOGROUPSELECTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute option label --></label>
+        <name>SURVEY_MANAGER_MSG_CONFIRM_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute option label --></label>
+        <name>SURVEY_MANAGER_MSG_CONFIRM_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Confirm message to publish a certain survey --></label>
+        <name>SURVEY_MANAGER_MSG_CONFIRM_PUBLISH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- create new survey button --></label>
+        <name>SURVEY_MANAGER_NEW_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Publish survey --></label>
+        <name>SURVEY_MANAGER_PUBLISH_SURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SURVEY_MSG_PUBLISHINGSURVEY --></label>
+        <name>SURVEY_MSG_PUBLISHINGSURVEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Add condition button label --></label>
+        <name>SURVEY_QUESTION_ADD_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Condition description --></label>
+        <name>SURVEY_QUESTION_CONDITION_DISPLAY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Add condition button label --></label>
+        <name>SURVEY_QUESTION_DELETE_AFFECTEDLOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Delete option with skip logic msg --></label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_LOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Message question will delete their scorings as well --></label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_SCORELOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Delete a option with scores msg --></label>
+        <name>SURVEY_QUESTION_DELETE_OPTION_WITH_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Delete a question with scores msg --></label>
+        <name>SURVEY_QUESTION_DELETE_QUESTION_WITH_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error validation in number --></label>
+        <name>SURVEY_QUESTION_ERR_GREATER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error question names cannot be repeated --></label>
+        <name>SURVEY_QUESTION_ERR_INVALID_QUESTION_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Invalid value error --></label>
+        <name>SURVEY_QUESTION_ERR_INVALID_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Last Option in question error --></label>
+        <name>SURVEY_QUESTION_ERR_LAST_OPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Maximum Lower than minimun error --></label>
+        <name>SURVEY_QUESTION_ERR_LOWER_THAN_MINIMUN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error no section in survey --></label>
+        <name>SURVEY_QUESTION_ERR_NO_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error options cannot be repeated --></label>
+        <name>SURVEY_QUESTION_ERR_REP_OPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error question names cannot be repeated --></label>
+        <name>SURVEY_QUESTION_ERR_REP_QUESTION_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error no question in section --></label>
+        <name>SURVEY_QUESTION_ERR_SECTION_WITHOUT_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Placeholder for the questions hint input --></label>
+        <name>SURVEY_QUESTION_HINT_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Add condition button label --></label>
+        <name>SURVEY_QUESTION_MOVE_AFFECTEDLOGIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Placeholder for the question name input --></label>
+        <name>SURVEY_QUESTION_NAME_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New Section --></label>
+        <name>SURVEY_QUESTION_NEW_SECTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- message when trying to delete the last section --></label>
+        <name>SURVEY_QUESTION_ONE_SECTION_REQ</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- section Name Label --></label>
+        <name>SURVEY_QUESTION_SECTION_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Placeholder for the static questions hint input --></label>
+        <name>SURVEY_QUESTION_STATIC_HINT_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error question names cannot be repeated --></label>
+        <name>SURVEY_QUESTION_TIP_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Barcode question --></label>
+        <name>SURVEY_QUESTION_TYPE_BARCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Date question --></label>
+        <name>SURVEY_QUESTION_TYPE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Free Text question --></label>
+        <name>SURVEY_QUESTION_TYPE_FREE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Media question --></label>
+        <name>SURVEY_QUESTION_TYPE_MEDIA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Multi Select question --></label>
+        <name>SURVEY_QUESTION_TYPE_MULTI</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Number question --></label>
+        <name>SURVEY_QUESTION_TYPE_NUMBER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Single select question --></label>
+        <name>SURVEY_QUESTION_TYPE_SINGLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Static question --></label>
+        <name>SURVEY_QUESTION_TYPE_STATIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error question names cannot be repeated --></label>
+        <name>SURVEY_QUESTION_USE_CURRENT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error question names cannot be repeated --></label>
+        <name>SURVEY_QUESTION_USE_CURRENT_DATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- message to show in the question types that does not support scores --></label>
+        <name>SURVEY_SCORING_CANNOT_ASSIGN_SCORES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Confirm message to delete a score group --></label>
+        <name>SURVEY_SCORING_CONFIRM_GROUP_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Default name of the Scoring groups --></label>
+        <name>SURVEY_SCORING_DEFAULT_GROUP_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description of Survey Scoring --></label>
+        <name>SURVEY_SCORING_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error trying to save while editing groups --></label>
+        <name>SURVEY_SCORING_ERR_GROUPS_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error invalid group name length --></label>
+        <name>SURVEY_SCORING_ERR_GROUP_LENGTH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- An error ocurred while saving Score group, check group data --></label>
+        <name>SURVEY_SCORING_ERR_SAVING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error invalid score value --></label>
+        <name>SURVEY_SCORING_ERR_SCOREVALUEOUTOFRANGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error invalid score group name --></label>
+        <name>SURVEY_SCORING_ERR_USED_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Score groups page block title --></label>
+        <name>SURVEY_SCORING_GROUPS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Score values page block title --></label>
+        <name>SURVEY_SCORING_SCORES_VALUES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SYSTEM_ERR_NOLICENSEPERMISSION --></label>
+        <name>SYSTEM_ERR_NOLICENSEPERMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TASKS --></label>
+        <name>TASKS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New Task --></label>
+        <name>TASK_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit Task --></label>
+        <name>TASK_EDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Collect Data --></label>
+        <name>TYPE_COLLECT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- View Data --></label>
+        <name>TYPE_VIEW_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- View Resource --></label>
+        <name>TYPE_VIEW_RESOURCE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Some groups assigned to survey will be deleted and this affects some submissions. --></label>
+        <name>UNASSIGN_GROUP_AFFECTED_SUBMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Assignments to groups will be deleted. Are you sure you want to continue? --></label>
+        <name>UNASSIGN_ANY_GROUP_CONFIRMATION</name>
+    </customLabels>
+    <customTabs>
+        <label><!-- Groups --></label>
+        <name>ContactGroups</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Job Activities --></label>
+        <name>JobActivitiesList</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Surveys --></label>
+        <name>SurveyManager</name>
+    </customTabs>
+    <reportTypes>
+        <description><!-- PPI Report --></description>
+        <label><!-- PPI Report --></label>
+        <name>PPIReport</name>
+        <sections>
+            <columns>
+                <label><!-- Lookup Table Legend --></label>
+                <name>Lookup Table Legend</name>
+            </columns>
+            <columns>
+                <label><!-- PPI Lookup Table --></label>
+                <name>PPI Lookup Table</name>
+            </columns>
+            <columns>
+                <label><!-- Score Range From --></label>
+                <name>Score Range From</name>
+            </columns>
+            <columns>
+                <label><!-- Score Range To --></label>
+                <name>Score Range To</name>
+            </columns>
+            <label><!-- PPI Table --></label>
+            <name>PPI Table</name>
+        </sections>
+        <sections>
+            <columns>
+                <label><!-- Likelihood --></label>
+                <name>Likelihood</name>
+            </columns>
+            <columns>
+                <label><!-- PPI Score --></label>
+                <name>PPI Score</name>
+            </columns>
+            <label><!-- Submission --></label>
+            <name>Submission</name>
+        </sections>
+        <sections>
+            <columns>
+                <label><!-- Country Code --></label>
+                <name>Country Code</name>
+            </columns>
+            <columns>
+                <label><!-- Data Year --></label>
+                <name>Data Year</name>
+            </columns>
+            <columns>
+                <label><!-- Interviewee --></label>
+                <name>Interviewee</name>
+            </columns>
+            <columns>
+                <label><!-- Interviewee Age --></label>
+                <name>Interviewee Age</name>
+            </columns>
+            <columns>
+                <label><!-- Response Count --></label>
+                <name>Response Count</name>
+            </columns>
+            <columns>
+                <label><!-- Survey Title --></label>
+                <name>Survey Title</name>
+            </columns>
+            <columns>
+                <label><!-- Surveyor --></label>
+                <name>Surveyor</name>
+            </columns>
+            <label><!-- Survey --></label>
+            <name>Survey</name>
+        </sections>
+    </reportTypes>
+</Translations>

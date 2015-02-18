@@ -1,0 +1,3401 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page tabStyle="SurveyManager__tab" standardController="Survey__c"
+    sidebar="false" extensions="SurveyQuestionController" id="page" language="{!userLanguage}">
+
+    <!-- Component -->
+    <c:blockOverlay label="{!$Label.LOADING}..." callback="setQuestionAutoNumber();"/>
+    <apex:form >
+        <apex:actionFunction id="updatePositions" name="updatePositions"
+        action="{!updatePositions}" rerender="">
+        </apex:actionFunction>
+    </apex:form>
+    <!-- Script needed to run SOQL from javascript -->
+    <script type="text/javascript">
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+    </script>
+    <apex:outputPanel id="confirmationScript">
+
+        <script type="text/javascript" >
+            if ({!positionsWereFixed}) {
+                if(confirm("{!JSENCODE($Label.SURVEY_QUESTION_UPDATE_POSITIONS)}")){
+                    updatePositions();
+                } else {
+                    window.location.href = "{!$Page.SurveyManager}";
+                }
+            }
+        </script>
+    </apex:outputPanel>
+    <script type="text/javascript" src="/jslibrary/1331837151000/sfdc/main.js"/>
+    <script src="/soap/ajax/25.0/connection.js" type="text/javascript"/>
+
+    <!-- Styles -->
+    <style type="text/css">
+
+        .hint{
+            padding-left: 10px;
+            font-size: 90%;
+            width: 80%;
+            text-align: justify;
+        }
+
+        .hContainer{
+            overflow: hidden;
+        }
+
+        .divAutonumber{
+            float: left;
+            margin-right: 8px;
+        }
+
+        #cascadingSelect{
+            vertical-align: top;
+            width: 500px;
+        }
+
+        div.cascadingDiv label{
+            width: 100px;
+            display: inline-block;
+            text-align: right;
+        }
+
+        .long_input, .short_input{
+            width: 80%;
+            background-color: #fff;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            border: 1px solid #000;
+        }
+
+        .long_input{height: 100px;}
+
+        .short_input{height: 30px;}
+
+        .number_input{
+            height:20px;
+            border:2px solid black;
+            width:65%;
+        }
+
+        .short_input_before, .short_input_after{position:relative;}
+        .short_input_before{float:left;}
+        .short_input_after{float:right;}
+
+        .container{
+            height:40px;
+        }
+
+        .day{padding-left: 10px;width: 40px;}
+        .month_year{padding-left: 8px; width: 60px;}
+        .hour_mins{padding-left: 10px;width: 50px;}
+
+        .blankSpace{
+            width: 1%;
+            height: 30px;
+            background-color: WhiteSmoke;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+        #sectionName{
+        width:200px;
+        }
+
+        .colon{
+            height: 30px;
+            background-color: WhiteSmoke;
+            font-weight: bold;
+            padding-top: 7px;
+        }
+        textarea{
+            vertical-align: top;
+            margin-left: 11px;
+        }
+        .Qerrors {
+            width: 100%;
+            background-color: #FFCC99;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            padding: 8px;
+            display: none;
+            color: #000;
+            font-weight: bold;
+        }
+        .cursor {
+            cursor: pointer;
+        }
+        .questions{
+            min-height:20px;
+        }
+        .dragSec{
+            background:#EEEEEE;
+        }
+        #content {width: 100%;}
+
+        #left {
+            width:150px;
+            vertical-align:top;
+        }
+        .minDivIE{
+            width:150px;
+        }
+        .options{
+            margin-top: 9px;
+        }
+        .optionsWrapper{
+            width: 690px;
+            margin-left: 55px;
+            margin-top: 9px;
+        }
+        .uniqueoption{
+            width: 63%;
+        }
+
+        #floatMenu {
+            position: fixed;
+            text-align: center;
+            display: block;
+            width: 140px;
+            padding: 1px 0;
+        }
+
+        #floatMenu>h3 {
+            margin: 1px 2px -2px 2px;
+            padding: 4px 2px;
+            border: 1px solid white;
+            width: 130px;
+            display: block;
+        }
+
+        #floatMenu div.field-types {
+            background-color: WhiteSmoke;
+            margin-bottom: 0px;
+            list-style: none;
+            margin: 2px;
+            text-align: center;
+        }
+
+        #floatMenu div.field-types>div {
+            margin: 0;
+            padding: 5px 5px 2px 5px;
+            border: 1px solid white;
+        }
+
+        #floatMenu div.field-types>div:hover {
+            background: LightGray;
+        }
+
+        #floatMenu div.field-types>div:hout {
+            background: WhiteSmoke;
+        }
+
+        #buttons {margin:20px 2px;float:right;}
+        .message{margin:4px;}
+        .field-types div {cursor: pointer;}
+        .buttonType {cursor: pointer;}
+        textarea{
+            resize:none;
+            vertical-align: top;
+            margin-left: 10px;
+        }
+
+        input {margin:2px;}
+        .input textarea{
+            width:64%;
+        }
+        .options-repeat{
+            margin: 0px 370px;
+            width: 65%;
+            top: 0;
+            position: absolute;
+        }
+        .type{width: 95%;}
+        .repeat-specific{width: 16px;}
+        .bodyDiv{min-height:550px}
+
+        div.optionsClass>div{margin-bottom:10px;}
+        div.optionsClass>div>input{display:inline-block;width:400px;height:20px;border:2px solid black;margin-right:10px;}
+        div.optionsClass>div>div{display:inline-block;margin-left:4px;}
+
+        .option_caption{display:inline-block;margin:0px 10px 10px 4px;width: 15%;text-align:right;}
+        .option_input{
+            display:inline-block;
+            background-color: #fff;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            border: 1px solid #000;
+            width: 62%;
+            height: 25px;}
+
+        .single-multi_select{margin:0px 0px 5px 4px;}
+
+        #floatMenu div.disabled {display:none}
+
+        div.header div.actions{width:auto;float:right;font-size: 12px;}
+        div.header div.actions>span.disabled{color:#666;cursor:default;padding: 0 4px;}
+        div.header div.sectionFooter{width:auto;float:right;}
+        div.header div.actions>a{padding:0 4px;}
+        div.section div.editable form{position:relative;}
+        div.section div.editable form div.actions{position: absolute; top:0; right:0;}
+
+        div.editable div.footer{margin:10px 10px 0; text-align:right;}
+
+        div.number div.body div{display: inline-block;}
+        div.number div.body input{width:80px}
+        div.number.editable div.body{padding:10px 0 0 100px;}
+        div.number.editable div.body>div{display:inline-block;width:114px;vertical-align:top;}
+        div.number.editable div.body>div>label{display:block;text-align:left;padding-left:10px;min-width:90px;}
+
+        #questionArea {margin:0 auto;background:#eee;min-width:770px;min-height:150px;}
+        #questionArea>p {font-size:10pt;}
+
+        div.section {margin-bottom:-16px;padding:2px;}
+        div.section>div.header{margin:12px;padding:10px 10px 0px 20px;overflow:hidden;}
+        div.section>div.header .caption, div.section>div.header input[name=caption]{font-size:large; width:350px;}
+
+        div.handle{
+            float:left;margin-top:-10px;width:15px;opacity:0.6;
+            cursor:url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
+        }
+        div.question>div.handle{margin-left:-10px;}
+        div.section>div.header>div.handle{padding-bottom:25px;margin-left:-20px;}
+        div.section>div.header:hover>div.handle, div.question:hover>div.handle {
+            background-image:url('{!URLFOR($Resource.Handler, 'handler.png')}');
+            background-position:center center;
+            background-repeat:no-repeat;}
+        div.handle:hover{background-color:white;}
+        div.handle.cursorGrabbing{cursor:url(https://mail.google.com/mail/images/2/closedhand.cur), default !important;}
+
+        div.section>div.header.editable{padding-bottom:10px;}
+        div.section>div.header.repeat-height{padding-bottom: 50px;}
+        div.section div.tags{color: #666; position: absolute; right: 39px;}
+
+        div.question {margin:12px;padding:10px;}
+        div.question input, div.question select{margin-left:10px;margin-right:10px;}
+
+        div.question.editable{background:#fff;border:3px solid gray;}
+        div.question.editable div.header{position:relative;}
+        .samePage{padding-top: 2px}
+        div.question.editable div.header input[type=text]{width:64%}
+        div.question.editable div.header div.required{margin-left:100px}
+        div.question.editable div.header div{margin: 2px 0px;}
+        div.question.editable div.type label,
+        div.question.editable div.input label{width:100px;display:inline-block;text-align:right;}
+        div.question.editable div.type label.error,
+        div.question.editable div.option label.error,
+        div.question.editable div.input label.error{color: red;font-family: sans-serif;margin-left: 110px;text-align: left;width: 64%;}
+        div.question.editable.number div.body label.error{margin-left:0;}
+        div.question.editable.cascading div.cascadingDiv label.error{color: red;font-family: sans-serif;margin-left: 110px;text-align: left;width: 64%;}
+        div.question.editable div.option{margin:2px 0;}
+        div.question.readonly {background:#ddd;}
+        div.question.readonly div.body {position:relative;padding:5px 0 0 30px;}
+        div.question.readonly div.body ul{padding-left:20px;}
+        div.question.readonly .caption{font-size:large;}
+        div.question.readonly.text div.option label{min-width:100px;display:inline-block;text-align:right;}
+        div.question.readonly div.tags{position:absolute;right:4px;bottom:0;color:#666;}
+        div.question.readonly div.tags span, div.sectionHeader.readonly div.tags span {display: block;text-align:right;}
+        div.question.readonly div.header {padding-bottom: 10px;}
+
+        div.question.cut{background: none repeat scroll 0 0 #FFFFFF;border: 2px dashed gray;}
+        div.question.editable.text div.options{padding-left:160px;}
+        div.question.editable.radio div.options{padding-left:67px;}
+        div.question.editable.checkbox div.options{padding-left:67px;}
+        div.question.editable.radio input[name="addOption"],
+        div.question.editable.checkbox input[name="addOption"]{margin-left:43px;}
+
+        label.hintRequired{font-style:italic;padding-left:33px;color:red;font-size:12px;}
+        label.questionAutoNumber{font-size: large; color:#6d6d6d;}
+        label.sectionAutoNumber{ margin-right:8px; margin-left:2 0px; color:#6d6d6d;}
+        .placeholderQuest {opacity:0.4;margin:12px;padding:10px;}
+        .placeholderSec {opacity:0.4;margin-bottom:-16px;padding:2px;}
+
+        .field-types .placeholderQuest{display:none;}
+        .field-types .placeholderSec{display:none;}
+
+        body .btn{width:97%;height:100%;}
+
+        .sectionNameLabel {float:left; padding-left:5px; padding-right:5px; line-height:210%;}
+        label.error{font-family:sans-serif;color:red;text-align:left;}
+        div[type="repeat"] > .sectionHeader label.sectionError{width: 350px;display: block;word-break: break-word;}
+
+        .sectionInputContainer {
+            float: left;
+            margin-left: 2px;
+            width: 450px;
+        }
+
+        .sectionNameLabel {
+            float: left;
+            padding-left: 5px;
+            padding-right: 5px;
+            line-height: 210%;
+        }
+        .infoMessage{bacground:yellow;}
+
+        .errorM3 {
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            background-color: #ffc;
+            border-style: solid;
+            border-width: 1px;
+            color: #000;
+            padding: 6px 8px 6px 6px;
+            margin: 4px 20px;
+            border-color: #c00;
+        }
+        .errorM3 .msgIcon{
+            background-image: url("/img/msg_icons/error24.png");
+            background-position: 0 0;
+            height: 24px;
+            width: 24px;
+        }
+
+    </style>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+
+        //create a format function for strings
+        function format(str,args){
+            return str.replace(/{(\d+)}/g, function(match, number) {
+            return typeof args[number] != 'undefined'
+                                            ? args[number]
+                                            : match;
+            });
+        }
+
+        // CONDITIONS
+        var questionTypesLabels = {!questionTypesLabels};
+
+        // CASCADING
+        var cascadingSelects = {!cascadingSelects};
+
+        // CONDITIONS
+        var conditionText = {!conditions};
+
+        function isType(question, type){ return question.type.indexOf(type) == 0; }
+        function isTypes(question, types){
+            for(i in types)
+                if (isType(question, types[i]))
+                    return true;
+            return false;
+        }
+
+        var questions = new Array(); // Questions Array
+        var questionMappingsRelated = {!questionMappingsRelated}; // Map of questions mapped.
+        var isEditing = false; // Flag, limit the menu usage when a question is in edit or is new yet.
+
+        var AFFECTED_CONDITIONS_MESSAGE_MOVE = '{!JSENCODE($Label.SURVEY_QUESTION_MOVE_AFFECTEDLOGIC)} ';
+        var AFFECTED_CONDITIONS_MESSAGE_DONT_MOVE_ITS_LOGIC_IN_QUESTION ='{!JSENCODE($Label.SURVEY_QUESTION_MOVE_NONEDITABLE_AFFECTEDLOGIC)}';
+        var AFFECTED_CONDITIONS_MESSAGE_DONT_MOVE_ITS_LOGIC_IN_SECTION ='{!JSENCODE($Label.SURVEY_QUESTION_MOVE_NONEDITABLE_AFFECTEDLOGIC)}';
+        var AFFECTED_CONDITIONS_MESSAGE_DELETE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_AFFECTEDLOGIC)} ';
+        var QUESTION_HAS_SCORING_MESSAGE_DELETE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_QUESTION_WITH_SCORES)}';
+        var QUESTION_HAS_PPISCORE_MESSAGE_DELETE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_QUESTION_WITH_PPISCORES)}';
+
+        var SECTION_HAS_SCORING_MESSAGE_DELETE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_SECTION_WITH_SCORES)}';
+        var SECTION_HAS_PPISCORE_MESSAGE_DELETE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_SECTION_WITH_PPISCORES)}';
+
+        // Option delete messages
+        var OPTION_HAS_PPISCORE_MESSAGE           = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_PPISCORES)}';
+        var OPTION_HAS_SCORING_MESSAGE            = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_SCORES)}';
+        var OPTION_HAS_SKIP_LOGIC_MESSAGE         = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_LOGIC)}';
+        var OPTION_HAS_SKIP_AND_SCORE_MESSAGE     = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_SCORELOGIC)}';
+        var OPTION_HAS_ALLCONDITIONS_MESSAGE      = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_ALLCONDITIONS)}';
+        var OPTION_HAS_SCORE_AND_PPISCORE_MESSAGE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_SCORENPPISCORE)}';
+        var OPTION_HAS_LOGIC_AND_PPISCORE_MESSAGE = '{!JSENCODE($Label.SURVEY_QUESTION_DELETE_OPTION_WITH_LOGICNPPISCORE)}';
+
+        // GENERAL PURPOSE HELPER METHODS
+        function newId(){ return new Date().getTime().toString(36); }
+
+        // removes all existing autonumbers, and adds new ones based on the order of the questions
+        function setQuestionAutoNumber(){
+            var i = 1;
+            var s = 1;
+            $('.question .divAutonumber').remove();
+            $('.question.readonly').each(function(key, question){
+                $(this).find('.header').prepend('<div class="divAutonumber"><label class="questionAutoNumber">Q' + i + '</label></div>');
+                // Refreshing tag
+                currentQuestionAutonumber = 'Q' + i;
+                refreshBasedOnPrevNumberTag(question.id);
+                i++;
+            });
+            $('.sectionHeader .sectionAutoNumber').remove();
+            $('.sectionHeader').each(function(){
+                $(this).find('.sectionCaption').prepend('<label class="sectionAutoNumber">S' + s + '</label>');
+                s++;
+            });
+        }
+
+        //Helper method to check if a question was created in this org
+        function isOriginalQuestion(question){
+            return (question.id == question.originId || question.originId == null || question.originId == '');
+        }
+
+        // JQUERY VALIDATION ADDONS
+        function isEmpty(value){ return value == null || value == ''; }
+        function isInteger(value){ return (value == parseInt(value, 10)) }
+        function isDecimal(value){return(value == parseFloat(value))}
+
+
+        jQuery.extend(jQuery.validator.messages, {
+            required: "{!JSENCODE($Label.SURVEY_LOGIC_ERR_REQUIRED)}"
+        });
+
+        $.validator.addMethod('validate', function(value, element, param) {
+            var questionId = $(element).parents('.question').attr('id');
+            var questionType = $('#'+questionId).attr('class');
+            if (questionType.match('decimal')){
+                return isEmpty(value) || isDecimal(value);
+            }else{
+                return isEmpty(value) || isInteger(value);
+            }
+        }, '{!JSENCODE($Label.SURVEY_QUESTION_ERR_INVALID_VALUE)}');
+
+        $.validator.addMethod('greaterOrEqual', function(value, element, param) {
+            var other = $(param).val();
+            var questionId = $(element).parents('.question').attr('id');
+            var questionType = $('#'+questionId).attr('class');
+            if(value == '' && other =='' || value != '' && other == '' || value == '' && other != ''){
+                return true;
+            }else{
+                if (questionType.match('decimal')){
+                    return(parseFloat(value)> parseFloat(other));
+                }else{
+                    return(parseInt(value,10) > parseInt(other,10));
+                }
+            }
+        }, '{!JSENCODE($Label.SURVEY_QUESTION_ERR_GREATER)}' );
+
+        $.validator.addMethod('uniqueoption', function(value, element, param){
+            var options = $(element).parents('div.options');
+            var timeRepeated = 0;
+            options.find($('.uniqueoption')).each(function () {
+                if ($(this).val() === value) {
+                    timeRepeated++;
+                }
+            });
+            return timeRepeated === 1 || timeRepeated === 0;
+        }, '{!JSENCODE($Label.SURVEY_QUESTION_ERR_REP_OPTION)}');
+        $.validator.addClassRules('uniqueoption',{"uniqueoption": true });
+
+        $.validator.addMethod('uniquequestion', function(value, element, param){
+            var questions = $('#questionArea');
+            var timeRepeated = 0;
+
+            // if any of the other question names match this one, timeRepeated will be increased
+            questions.find('.name').each(function() {
+                if ($(this).text().toLowerCase() == value.toLowerCase()) {
+                    timeRepeated++;
+                }
+            });
+            return timeRepeated == 0;
+        }, '{!JSENCODE($Label.SURVEY_QUESTION_ERR_REP_QUESTION_NAME)}');
+
+        $.validator.addMethod('validquestionname', function(value, element, param){
+            //tests the content of the name. if it is not valid, the error message is displayed
+            var nameExpression = /^[A-Za-z][\w]*$/;
+            return nameExpression.test(value);
+        }, '{!JSENCODE($Label.SURVEY_QUESTION_ERR_INVALID_QUESTION_NAME)}');
+
+        $.validator.addMethod('validateIsIntegerAndRelated',function(value, element, param){
+            return (questions[param.id] == undefined || !(isNumberAndIsRelated(param.id) && value == TYPE_NUMBER_DECIMAL));
+        }, '{!JSENCODE($Label.QUESTION_TYPE_NUMBER_CANNOT_BE_CHANGED_MESSAGE)}');
+
+        $.validator.addMethod('validateCascadingLibrary',function(value, element, param){
+            return (questions[param] == undefined);
+        }, '{!JSENCODE($Label.QUESTION_TYPE_CASCADING_SELECT_INVALID_ID)}');
+
+        //-------------------
+        // READ-ONLY QUESTIONS
+        //-------------------
+
+        function getReadonlyDiv(question, div){
+            if (div == null) div = $('<div id= "' +question.id+ '"></div>');
+            var header  = getReadonlyHeader(question);
+            var body    = getReadonlyBody(question);
+            var handler = $('<div class="handle"/>');
+            $(div).html('')
+                .removeClass().addClass('question readonly ' + question.type.replace('-',' '))
+                .append(handler,header, body);
+           //Matching handler height with question height
+           handler.height($(div).height()+20);
+           prepareDragHandle(handler);
+           return div;
+        };
+
+        //check if the section has a question referencing a non editable one on skiplogic
+        function sectionHasReferenceToNonEditable(sectionId) {
+            for (i in questions) {
+                var q = questions[i];
+                if (q.parent == sectionId && referencesNonEditable(q)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        //check if the questions is referencing a noneditable question with skiplogic
+        function referencesNonEditable(question) {
+            for (i in questions) {
+                var q = questions[i];
+                if ((q.id!=question.id) && (q.skipconditions!=null) && (!q.remoteEditable)) {
+                    for (k in q.skipconditions){
+                        var sk = q.skipconditions[k];
+                        if (sk.sourceQuestionId == question.id) return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        //checks wheter the question is non deletable
+        //criteria is if question is from a remote survey and is not remoteEditable
+        //or if question is remoteEditable and references a non editable on skip logic
+        function isNonDeletableQuestion(question){
+            return (question.originId !=null) && ( (!question.remoteEditable) || ( question.remoteEditable && referencesNonEditable(question)) );
+        }
+
+        function getReadonlyHeader(question){
+            dragndrop();
+            var actions = $('<div class="actions"/>');
+
+            actions.append((question.originId != null && !question.remoteEditable)
+                        ? '<span class="action-edit disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.EDIT)}</span>'
+                        : '<a class="action-edit" href="javascript: void(0)" onclick="editQuestion(\'' + question.id + '\')">{!JSENCODE($Label.EDIT)}</a>');
+
+            actions.append( isNonDeletableQuestion(question)
+                        ? '<span class="action-remove disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.DELETE)}</span>'
+                        : '<a class="action-remove" href="javascript: void(0)" onclick="removeQuestion(\'' + question.id + '\')">{!JSENCODE($Label.DELETE)}</a>');
+
+            var div = $('<div/>').addClass('header');
+            var headerContainer = $('<div/>',{"class":'hContainer'});
+
+            // Caption
+            headerContainer.append($('<div/>',{"class":'caption',"text":question.caption}).append(actions));
+            // Name
+            headerContainer.append( $('<div/>',{"class":'name',"text":question.name}) );
+            //This splits the text in each line break so we will write each line separately
+            var lines = (question.qhint == null) ? '' : question.qhint.split(/[\n\r]/);
+            if(lines != ''){
+                // Instructions
+                headerContainer.append( $('<div/>',{"class":'qhint'}));
+                for(var a in lines){
+                    //Write each line and add a BR tag to ensure the line break
+                    $(headerContainer).find('.qhint').append($('<div/>',{"text":lines[a]}).append('<br/>'));
+                }
+            }
+            div.append(headerContainer);
+            return div;
+        };
+
+        var isFirst = true;
+        function getReadonlyBody(question){
+            var div = $('<div/>').addClass('body');
+            var tags = $('<div/>',{"class":'tags'});
+            if (question.required) tags.append('<span>{!JSENCODE($ObjectType.Question__c.Fields.Required__c.Label)}</span>');
+
+            if (question.minimum != null) tags.append('<span>{!JSENCODE($ObjectType.Question__c.Fields.Minimum__c.Label)}:'+ question.minimum +'</span>');
+            if (question.maximum != null) tags.append('<span>{!JSENCODE($ObjectType.Question__c.Fields.Maximum__c.Label)}:'+ question.maximum +'</span>');
+
+            // In the source org show the is remote editable and in the child orgs show a label when a question is not editable
+            if (isOriginalQuestion(question) && question.remoteEditable && ({!survey.IsPPI__c} ||{!survey.IsTemplate__c})){
+                tags.append('<span>{!JSENCODE($ObjectType.Question__c.Fields.IsRemoteEditable__c.Label)}</span>');
+            }else if (!isOriginalQuestion(question) && !question.remoteEditable){
+                tags.append('<span>{!JSENCODE($Label.BUILDER_LBL_NONEDITABLEQUESTION)}</span>');
+            }
+
+            div.append(tags);
+
+            if ( isType(question, TYPE_TEXT) ){
+                if ( isTypes(question, [TYPE_TEXT_SHORT, TYPE_TEXT_LONG]) ) {
+                    if ( isType(question, TYPE_TEXT_SHORT) ) div.append('<input type="text" disabled="true"/>');
+                    if ( isType(question, TYPE_TEXT_LONG ) ) div.append('<textarea rows="4" cols="40" disabled="true"/>');
+                }
+            }else if( isType(question, TYPE_DATE) ){
+                div.append('<input type="text" class="day" disabled="true" value="DD"/>'+
+                           '<input type="text" class="month_year" disabled="true" value="MM"/>'+
+                           '<input type="text" class="month_year" disabled="true" value="YYYY"/>');
+                if ( isType(question, TYPE_DATE_DATETIME) )
+                    div.append(':'+
+                               '<input type="text" class="hour_mins" disabled="true" value="HH"/>'+
+                               '<input type="text" class="hour_mins" disabled="true" value="Mins"/>');
+            }else if( isType(question, TYPE_NUMBER) ){
+                div.append( $('<div/>', {"class":"do doBefore", "text":question.doBefore}) )
+                    .append('<input type="text" disabled="true"/>')
+                    .append( $('<div/>', {"class":"do doAfter", "text":question.doAfter}) );
+            } else if( isType(question, TYPE_BARCODE)) {
+                div.append('<input type="text" disabled="true"/>');
+            } else if( isType(question, TYPE_CASCADING_SELECT)){
+                div.append('<div class="cascadingTag">{!JSENCODE($Label.CASCADING_SELECT_OPTION)}: ' + question.cascadingName + '</div>');
+            } else if (isType(question, TYPE_GPS)) {// Display GPS Location caption to uniquely identify from other questions - IDALMSA-3820
+                div.append('<div class="caption" style="padding-left: 8px;">{!JSENCODE($Label.XFORM_ODK_GPSLOCATION)}</div>');
+            }
+
+            // Display the list of options
+            // TODO: Displaying should be dependant of question type
+            if (question.options.length > 0) {
+                var list = $('<ul/>');
+                for (i in question.options){
+                    option = question.options[i];
+                    if( isType(question, TYPE_RADIO) ){
+                        list.append(
+                            $('<div/>',{"id": option.id, "class":'option'})
+                                .append( $('<input/>',{"type":'radio', "id":'op'+option.id, "disabled":'true', "name":'op'+question.id}) )
+                                .append( $('<label/>',{"for":'op'+option.id, "text":option.caption}) )
+                        );
+
+                    }else if( isType(question, TYPE_CHECKBOX) ){
+                        list.append(
+                            $('<div/>',{"id": option.id, "class":'option'})
+                                .append( $('<input/>',{"type":'checkbox', "id":'op'+option.id, "disabled":'true', "name":'op'+question.id}) )
+                                .append( $('<label/>',{"for":'op'+option.id, "text":option.caption}) )
+                        );
+                    }
+                }
+                div.append(list);
+            }else{
+                for (i in question.options){
+                    option = question.options[i];
+                    list.append('<li class="option">'+ option.caption +'</li>');
+                }
+            }
+            return div;
+        };
+
+        // helper method to create dropdowns
+        function _dropdown(id,pname, options, def){
+            dropdown = $('<select/>',{"id":id,"name":pname,"size":"1"});
+            for (var key in options)
+                dropdown.append('<option value="' + key + '">' + options[key] + '</option>');
+            $(dropdown).find('option[value="' + def + '"]').attr('selected','selected');
+            return dropdown;
+        }
+
+        // helper method to trim and remove extra spaces from text inputs
+        function removeExtraSpaces(){ removeInputExtraSpaces(this) }
+        function removeInputExtraSpaces(input) { $(input).val( $.trim($(input).val().replace(/[^\S^\r\n]+/g,' ')) ); }
+
+        function _textarea(id,pname, plabel, pdefault, pattributes) {
+            var attributes = {"id":id,"name":pname, "type":'text',"rows":'3',"value":(pdefault != null ? pdefault : ''), "blur":removeExtraSpaces};
+            $.extend(attributes, pattributes)
+            var input = $('<textarea/>',attributes);
+            var div = $('<div/>').addClass('input input-'+pname)
+                    .append('<label for="' + pname + '">' + plabel + '</label>')
+                    .append( input );
+            return div;
+        }
+        function _input(id,pname, plabel, pdefault, pattributes) {
+            var attributes = {"id":id,"name":pname, "type":'text', "value":(pdefault != null ? pdefault : ''), "blur":removeExtraSpaces};
+            $.extend(attributes, pattributes)
+
+            var input = $('<input/>',attributes);
+            var div = $('<div/>').addClass('input input-'+pname)
+                    .append('<label for="' + pname + '">' + plabel + '</label>')
+                    .append( input );
+            return div;
+        }
+        //-------------------
+        // EDITABLE QUESTIONS
+        //-------------------
+
+        function getEditableDiv(question, div){
+            var isNew = div == null ? 'true' : 'false' ;
+
+            if (div == null) div = $('<div/>').attr('id',question.id);
+            var header  = getEditableHeader(question);
+            var body    = getEditableBody(question);
+
+            var footer  = $('<div/>')
+                .addClass('footer')
+                .append('<a href="#" class="cancel-edit" onclick="cancelEdit(\'' + question.id + '\',' + isNew + ');return false;">{!JSENCODE($Label.CANCEL)}</a>')
+                .append('<input type="submit" class="submit-edit" value="{!JSENCODE($Label.SAVE)}"/>');
+
+            var form = $('<form/>', {"id":'form' + question.id, "method":'GET'})
+                        .append(header).append(body).append(footer);
+
+            $(div).html('').removeClass().addClass('question editable ' + question.type.replace('-',' ')).append(form);
+
+            // rules for validating the form
+            if(isType(question, TYPE_STATIC) || isType(question, TYPE_FINAL)){
+                $(form).validate({
+                    "rules" : {
+                        "caption": "required",
+                        "name": {"required":true, "validquestionname":true, "uniquequestion":true},
+                        "qhint": {"required":false},
+                    },"submitHandler": function(form) {
+                        $(form).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                        acceptEdit(question.id);
+                    }, "errorPlacement": function(error, element) {
+                        error.appendTo( element.parent("div") );
+                    }
+                });
+            }if(isType(question, TYPE_NUMBER)){
+                validateNumberForm(question, form);
+            }if(isType(question, TYPE_CASCADING_SELECT)){
+                validateCascadingLibrary(question, form);
+            }else{
+                $(form).validate({
+                    "rules" : {
+                        "caption": "required",
+                        "name": {"required":true, "validquestionname":true, "uniquequestion":true},
+                    },
+                    "submitHandler": function(form) {
+                        $(form).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                        acceptEdit(question.id);
+                    }, "errorPlacement": function(error, element) {
+                        error.appendTo( element.parent("div") );
+                    }
+                });
+            }
+            return div;
+        };
+
+        function getEditableHeader(question){
+            var toolTipQuestion = '{!JSENCODE($Label.SURVEY_QUESTION_TIP_QUESTION)}';
+            var info = $('<img/>', {"class":"infoIcon", "src":"/s.gif"});
+            var popup = $('<div/>', {"class":"mouseOverInfo", "style":"display: none;"});
+            popup.html(toolTipQuestion);
+            var popupContainer = $('<div/>', {"class":"mouseOverInfoOuter", "title":toolTipQuestion});
+            popupContainer.append(info, popup);
+
+            var div = $('<div/>').addClass('header');
+            var inputtype = $('<input/>',{"type":'hidden',"name":'type',"value":question.type});
+            var position = $('<input/>',{"type":'hidden',"name":'position',"value":question.position});
+
+            if (isType(question, TYPE_STATIC) || isType(question, TYPE_FINAL)) {
+                div.append( _textarea('qCaptionLbl','caption','{!JSENCODE($ObjectType.Question__c.Fields.Caption__c.Label)}',question.caption,{"maxlength":255,"placeholder":'{!JSENCODE($Label.SURVEY_QUESTION_NAME_PLACEHOLDER)}'}) );
+                div.append( _input('qNameLbl','name','{!JSENCODE($ObjectType.Question__c.Fields.Name.Label)}',question.name,{"maxlength":40,"onblur":"$(this).val($(this).val().toLowerCase())"}).append(popupContainer) );
+                div.append( _textarea('qHintLbl','qhint', '{!JSENCODE($Label.SURVEY_QUESTION_STATIC_CONTENT)}', question.qhint, {"maxlength":2000,"placeholder":'{!JSENCODE($Label.SURVEY_QUESTION_STATIC_HINT_PLACEHOLDER)}'}) );
+            } else {
+                div.append( _textarea('qCaptionLbl','caption','{!JSENCODE($ObjectType.Question__c.Fields.Caption__c.Label)}',question.caption,{"maxlength":255,"placeholder":'{!JSENCODE($Label.SURVEY_QUESTION_NAME_PLACEHOLDER)}'}) );
+                div.append( _input('qNameLbl','name','{!JSENCODE($ObjectType.Question__c.Fields.Name.Label)}',question.name,{"maxlength":40,"onblur":"$(this).val($(this).val().toLowerCase())"}).append(popupContainer) );
+                div.append( _textarea('qHintLbl','qhint', '{!JSENCODE($ObjectType.Question__c.Fields.Hint__c.Label)}', question.qhint, {"maxlength":2000,"placeholder":'{!JSENCODE($Label.SURVEY_QUESTION_HINT_PLACEHOLDER)}'}) );
+                if (isType(question, TYPE_GPS)) {
+                    div.append( '<div class="required"><input type="checkbox" name="required" id="req' + question.id + '" ' + (question.required ? 'checked="checked"' : '') + '/><label for="req' + question.id + '">{!JSENCODE($ObjectType.Question__c.Fields.Required__c.Label)}</label><br/><label class="hintRequired">{!JSENCODE($Label.GPS_ALERT_REQUIRED)}</label></div>' );
+                } else {
+                    div.append( '<div class="required"><input type="checkbox" name="required" id="req' + question.id + '" ' + (question.required ? 'checked="checked"' : '') + '/><label for="req' + question.id + '">{!JSENCODE($ObjectType.Question__c.Fields.Required__c.Label)}</label></div>' );
+                }
+            }
+
+            // If it is not a distributed survey append the div, cannot re-distribute
+            if(question.originId == null && {!canDistribute} && {!survey.IsTemplate__c})
+                div.append( '<div class="required"><input type="checkbox" name="remoteEditable" id="remote' + question.id + '" ' + (question.remoteEditable ? 'checked="checked"' : '') + '/><label for="remote' + question.id + '">{!JSENCODE($ObjectType.Question__c.Fields.IsRemoteEditable__c.Label)}</label></div>' );
+
+            if (isType(question, TYPE_TEXT)) {
+                var types = {}
+                types[TYPE_TEXT_SHORT] = questionTypesLabels[TYPE_TEXT_SHORT];
+                types[TYPE_TEXT_LONG ] = questionTypesLabels[TYPE_TEXT_LONG];
+                inputtype = $('<div/>').addClass('type')
+                        .append('<label for="type">{!JSENCODE($ObjectType.Question__c.Fields.Type__c.Label)}</label>')
+                        .append(_dropdown('textDropDown','type',types,question.type)
+                            .change(function(){
+                                var options = $(this).parents('.question').find('.options');
+                                options.parent().hide();
+                            })
+                        );
+            }
+
+            else if (isType(question, TYPE_NUMBER)){
+                var types = {}
+                types[TYPE_NUMBER_INTEGER] = questionTypesLabels[TYPE_NUMBER_INTEGER];
+                types[TYPE_NUMBER_DECIMAL] = questionTypesLabels[TYPE_NUMBER_DECIMAL];
+
+                var wasIntegerAndRelated =  questions[question.id] != undefined && isNumberAndIsRelated(question.id);
+
+                inputtype = $('<div/>').addClass('type')
+                        .append('<label for="type">{!JSENCODE($ObjectType.Question__c.Fields.Type__c.Label)}</label>')
+                        .append(_dropdown('numberDropDown','type',types,question.type)
+                            .change(function(){
+                                var form = $('#'+question.id).find('#form' + question.id);
+                                var isDecimal = $(this).val() == TYPE_NUMBER_DECIMAL ;
+                                var isInteger = $(this).val() == TYPE_NUMBER_INTEGER ;
+
+                                // Validate the type change when is integer and is related with a repeated section
+                                if(wasIntegerAndRelated && isDecimal)
+                                    isDecimal = false;
+
+                                question.type = isDecimal ? TYPE_NUMBER_DECIMAL : TYPE_NUMBER_INTEGER;
+                                $('.questions .editable').toggleClass('decimal', isDecimal);
+                                $('.questions .editable').toggleClass('integer',isInteger);
+                                validateNumberForm(question, form);
+                            })
+                        );
+            }
+
+            else if (isType(question, TYPE_DATE)) {
+                var types = {}
+                types[TYPE_DATE_DATE] = questionTypesLabels[TYPE_DATE_DATE];
+                types[TYPE_DATE_DATETIME] = questionTypesLabels[TYPE_DATE_DATETIME];
+                 inputtype = $('<div/>').addClass('type')
+                         .append('<label for="type">{!JSENCODE($ObjectType.Question__c.Fields.Type__c.Label)}</label>')
+                         .append(_dropdown('dateDropDown','type',types,question.type));
+            }
+
+            else if(isType(question, TYPE_CASCADING_SELECT)){
+                var types = {};
+                types[TYPE_CASCADING_SELECT] = questionTypesLabels[TYPE_CASCADING_SELECT];
+
+                // Create dropdown with cascading names from library
+                dropdown = $('<select/>',{"id":'cascadingSelect', "name":'cascading_select'});
+                dropdown.append('<option value=""> ---- </option>');
+
+                // Add all options to the list to show
+                for(var op in cascadingSelects){
+                    dropdown.append('<option value="'+ cascadingSelects[op].Id +'">'+ cascadingSelects[op].Name + '</option>');
+                }
+                // Show selected cascading selects
+                $(dropdown).find('option[value="' + question.cascadingId + '"]').attr('selected','selected');
+
+                // Create cascading div
+                var cascadingDiv = $('<div/>').addClass('cascadingDiv')
+                                    .append('<label for="cascadingDiv">{!JSENCODE($Label.QUESTION_BUILDER_SELECT_CASCADING)}</label>')
+                                    .append(dropdown);
+
+                // Add cascading select with label to question div
+                div.append(cascadingDiv);
+            }
+
+            div.prepend(inputtype,position);
+            return div;
+        };
+
+        function validateNumberForm(question, div){
+            $(div).validate({
+                "rules" : {
+                    "caption": "required",
+                    "name"   : {"required":true, "validquestionname":true, "uniquequestion":true},
+                    "minimum": {"validate":true, "min":-9999999999.999999, "max":9999999999.999999},
+                    "maximum": {"validate":true, "min":-9999999999.999999, "max":9999999999.999999, "greaterOrEqual":"#" + div.attr("id") + " input[name=minimum]"},
+                    "type"   : {"validateIsIntegerAndRelated":question}
+                },
+                "messages" : {
+                    "maximum": {"greaterOrEqual": "{!JSENCODE($Label.SURVEY_QUESTION_ERR_LOWER_THAN_MINIMUN)}"}
+                },
+                "submitHandler": function(form) {
+                  $(div).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                    acceptEdit(question.id);
+                },
+                "errorPlacement": function(error, element) {
+                    error.appendTo( element.parent("div") );
+                }
+           });
+
+        }
+
+        /**
+         * IDALMSA-4250
+         * Function to validate cascading libraries in a cascading question
+         *
+         * @param question to validate
+         * @param div that contains question to validate
+         */
+        function validateCascadingLibrary(question, div){
+            $(div).validate({
+                "rules":{
+                    "caption"          : "required",
+                    "name"             : {"required":true, "validquestionname":true, "uniquequestion":true},
+                    "cascading_select" : {"required":true, "validateCascadingLibrary": question.cascadingId}
+                },
+                "submitHandler": function(form) {
+                  $(div).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                    acceptEdit(question.id);
+                },
+                "errorPlacement": function(error, element) {
+                    error.appendTo( element.parent("div") );
+                }
+            });
+        }
+
+        function getEditableBody(question){
+            var div = $('<div/>').addClass('body');
+
+            if ( isType(question, TYPE_NUMBER)){
+                 div.append( _input('minNumer','minimum','{!JSENCODE($ObjectType.Question__c.Fields.Minimum__c.Label)}',question.minimum, {"maxlength":18}) )
+                    .append( _input('maxNumer','maximum','{!JSENCODE($ObjectType.Question__c.Fields.Maximum__c.Label)}',question.maximum, {"maxlength":18}) );
+            }
+
+            div.append( getEditableOptions(question) );
+
+            return div;
+        };
+
+        // Helper function to create an option row, with it's controls
+        function _option(option, prependable){
+            if(option == null) option = {"id":newId(), "name":''}
+            var div = $('<div/>').attr('id',option.id).addClass('option')
+                .append(prependable)
+                .append($('<input/>',{"type":'text', "name":'caption-'+option.id, "class":'required uniqueoption', "maxlength":255, "value":option.caption, "blur":removeExtraSpaces, "placeholder":'{!JSENCODE($ObjectType.Option__c.Label)}'}))
+                .append($('<input/>',{"type":'hidden', "name":'name-'+option.id,"value":option.name}))
+                .append($('<input/>',{"type":'hidden', "name":'ppiScore',"value":option.ppiScore}))
+                .append($('<a/>',{
+                    "class":'deleteOption',
+                    "href":'#',
+                    "click":function(){
+                        if ($(this).parents('.options').find('.option').size() > 1) {
+                            var deleteConfirmed = true;
+                            var hasSkipLogic = false;
+                            var hasScoring = option.hasScoreValues;
+                            var hasPPIScore = option.hasPPIScoreValues;
+                            var questionId = $(this).parents('.question').attr('id');
+
+                            //Id of question is in database if has more than 14 digits.
+                            if(questionId.length > 14){
+                                var skipconds = sforce.connection.query("SELECT Id, Name, {!$ObjectType.SkipCondition__c.Fields['SourceQuestion__c'].Name},"+
+                                                " {!$ObjectType.SkipCondition__c.Fields['SkipValue__c'].Name}"+
+                                                " FROM {!$ObjectType.SkipCondition__c.Name}"+
+                                                " WHERE {!$ObjectType.SkipCondition__c.Fields['SourceQuestion__c'].Name} = '"+ questionId.replace("'","\\'")+"'").records;
+
+                                if(skipconds != undefined){
+                                    if(skipconds.length == undefined){
+                                       if(skipconds.SkipValue__c == option.id)
+                                            hasSkipLogic = true;
+                                    }
+                                    else{
+                                        for (var i = 0; i < skipconds.length; i++){
+                                            if(skipconds[i].SkipValue__c == option.id){
+                                                hasSkipLogic = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(hasScoring       && hasSkipLogic  && hasPPIScore)
+                                deleteConfirmed = confirm(OPTION_HAS_ALLCONDITIONS_MESSAGE);
+                            else if(hasScoring  && hasSkipLogic  && !hasPPIScore)
+                                deleteConfirmed = confirm(OPTION_HAS_SKIP_AND_SCORE_MESSAGE);
+                            else if(hasScoring  && !hasSkipLogic && hasPPIScore)
+                                deleteConfirmed = confirm(OPTION_HAS_SCORE_AND_PPISCORE_MESSAGE);
+                            else if(!hasScoring && hasSkipLogic  && hasPPIScore)
+                                deleteConfirmed = confirm(OPTION_HAS_LOGIC_AND_PPISCORE_MESSAGE);
+                            else if(hasScoring  && !hasSkipLogic && ! hasPPIScore)
+                                deleteConfirmed = confirm(OPTION_HAS_SCORING_MESSAGE);
+                            else if(!hasScoring && !hasPPIScore  && hasSkipLogic)
+                                deleteConfirmed = confirm(OPTION_HAS_SKIP_LOGIC_MESSAGE);
+                            else if(!hasScoring && !hasSkipLogic && hasPPIScore)
+                                deleteConfirmed = confirm(OPTION_HAS_PPISCORE_MESSAGE);
+                            else
+                                deleteConfirmed = true;
+
+                            if (deleteConfirmed)
+                                $(this).parent().remove();
+
+                        } else {
+                            alert('{!JSENCODE($Label.SURVEY_QUESTION_ERR_LAST_OPTION)}');
+                        }
+                        return false;
+                    }
+                }).text('{!JSENCODE($Label.DELETE)}'));
+            return div;
+        }
+
+        function getEditableOptions(question, div){
+            if (div == null) div = div = $('<div/>');
+            var divWrapper = $('<div/>').append('<div class="optionsWrapper" style="margin-bottom: 8px;"><h2>{!JSENCODE($ObjectType.Option__c.LabelPlural)}</h2></div>');
+            div.html('').addClass('options');
+            divWrapper.hide();
+            var prependable = null;
+            if( isType(question,TYPE_RADIO)) prependable = '<input type="radio" disabled="true" name="op' + question.id + '"/>';
+            if( isType(question,TYPE_CHECKBOX)) prependable = '<input type="checkbox" disabled="true"/>';
+
+            if( isTypes(question, [ TYPE_RADIO, TYPE_CHECKBOX]) ) {
+                divWrapper.show();
+                var options = question.options;
+                if (options && options.length == 0)
+                    div.append( _option(null, prependable) ); // must have at least one
+                else
+                    for (var i in options) div.append( _option(options[i], prependable).hide().fadeIn() );
+            }
+
+            // Button for adding more options
+            var morebutton = $('<input/>',{
+                "type":'button',
+                "class":'addOption',
+                "name":'addOption',
+                "value":'{!JSENCODE($Label.QUESTION_ADD_OPTION)}',
+                "click":function(){
+                    var optiondiv = _option(null, prependable);
+                    $(this).before( optiondiv.hide().fadeIn('fast',function(){optiondiv.find('input:text').focus()}) );
+                }
+            });
+            div.append(morebutton);
+
+            return divWrapper.append(div);
+        };
+
+
+        //given the question/section div and the question/section id returns wheter is remote editable or not
+        function isRemoteEditable(div,id) {
+            var q = questions[id];
+            return ($(div).find('[name="remoteEditable"]').attr('checked') != null)
+                || (q!=null && (q.originId!=null) && q.remoteEditable);
+        }
+
+        // Returns a new question, parsed from editable div
+        function saveToQuestion(div){
+            var id = $(div).attr('id');
+            var type = $(div).find('[name="type"]').val();
+            var position = $(div).find('[name="position"]').val();
+            var section = $(div).parents('.section');
+            var question = {
+                "id": id,
+                "parent": section.attr('id'),
+                "position": parseInt(position,10),
+                "type": type,
+                "caption": $(div).find('[name="caption"]').val(),
+                "name": $(div).find('[name="name"]').val(),
+                "qhint": $(div).find('[name="qhint"]').val(),
+                "required": $(div).find('[name="required"]').attr('checked') != null,
+                "remoteEditable": isRemoteEditable(div,id),
+                "originId": (questions[id] != null) ? questions[id].originId : null,
+                "options": new Array()
+            };
+            //if Type starts with number
+            if(type.match("^number")){
+                var min = $(div).find('[name="minimum"]').val();
+                var max = $(div).find('[name="maximum"]').val();
+                question.doBefore = $(div).find('[name="doBefore"]').val();
+                question.doAfter = $(div).find('[name="doAfter"]').val();
+
+                if(type == TYPE_NUMBER_DECIMAL){
+                    question.minimum = (!min || min == '') ? null : parseFloat(min);
+                    question.maximum = (!max || max == '') ? null : parseFloat(max);
+                }else{
+                    question.minimum = (!min || min == '') ? null : parseInt(min,10);
+                    question.maximum = (!max || max == '') ? null : parseInt(max,10);
+                }
+
+            }
+
+            else if(isType(question, TYPE_CASCADING_SELECT)){
+                question.cascadingId = $(div).find('[id="cascadingSelect"]').find(':selected').val();
+                question.cascadingName =
+                    htmlEncode($(div).find('[id="cascadingSelect"]').find(':selected').text());
+            }
+
+            var options = div.find('.options');
+            if (options.is(':hidden')) options.html(''); // Do not store options if they are not visible
+
+            var existingQuestion = questions[id];
+            options.find('div.option').each(function(i,op){
+                var opid       =  $(op).attr('id');
+                var opPPIScore = $(op).find('[name=ppiScore]').val();
+
+                question.options.push({
+                    "id": opid,
+                    "name": $(op).find('[name=name-' + opid + ']').val(),
+                    "caption": $(op).find('[name=caption-' + opid + ']').val(),
+                    "ppiScore": opPPIScore != '' ? opPPIScore : '0' ,
+                    "position": (i+1)
+                });
+
+                if(existingQuestion != undefined){
+                    if(existingQuestion.options[i] != undefined){
+                        question.options[i].hasScoreValues = existingQuestion.options[i].hasScoreValues;
+                        question.options[i].hasPPIScoreValues = existingQuestion.options[i].hasPPIScoreValues;
+                    }
+                }
+            });
+            var existingQuestion = questions[id];
+            if (existingQuestion){
+                question.skipconditions = existingQuestion.skipconditions;
+                question.skipLogicBehavior = existingQuestion.skipLogicBehavior;
+                question.skipLogicOperator = existingQuestion.skipLogicOperator;
+            }else{
+                question.skipconditions = new Array();
+            }
+
+            return question;
+        };
+
+        // goes through all the options of the question and gets the needed one
+        function getOption (question, optionId){
+            for (var oid in question.options){
+                var option = question.options[oid];
+                if (option.id == optionId){
+                    return option;
+                }
+            }
+        }
+
+        // checks wheter the section is non deletable
+        // criteria is if section is from a remote survey and is not remoteEditable
+        // or if section is remoteEditable and contains a question that references a non editable on skip logic
+        function isNonDeletableSection(section){
+            return (section.originId != null)
+            && ( (!section.remoteEditable) || (section.remoteEditable && sectionHasReferenceToNonEditable(section.id) ) );
+        }
+
+        //----------------
+        // SECTION HEADERS
+        //----------------
+
+        function sectionReadonlyHeader(section, div){
+            dragndrop();
+            if (div == null) div = $('<div/>');
+            div.html('').removeClass('editable repeat-height').addClass('header readonly tertiaryPalette sectionHeader');
+            div.parent('.section').removeClass('new');
+
+            var secHandler = $('<div class="handle"/>');
+
+            var btn_edit = (section.originId != null && !section.remoteEditable)
+                           ? '<span class="action-edit disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.EDIT)}</span>'
+                           : $('<a/>',{"class":'action-edit',
+                                       "href":'#',
+                                       "text":'{!JSENCODE($Label.EDIT)}',
+                                       "onclick": 'editSection("' + section.id + '");return false;'
+                                      });
+
+            var btn_delete = isNonDeletableSection(section)
+                             ? '<span class="action-edit disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.DELETE)}</span>'
+                             : $('<a/>',{"class":'action-remove',
+                                         "href":'#',
+                                         "text":'{!JSENCODE($Label.DELETE)}',
+                                         "onclick":'deleteSec("' + section.id + '");return false;'
+                                        });
+
+            var actions = $('<div class="actions"/>');
+
+            actions.append(btn_edit, btn_delete);
+            div.append(secHandler, actions);
+            div.append( $('<span/>',{"class":'caption sectionCaption',"text":section.caption,id:'sectionCaption'}));
+
+            var tags = $('<div/>',{"class":'tags'});
+
+            // Add tag with the related integer question
+            if (section.type == TYPE_REPEAT){
+                tags.append('<span>{!JSENCODE($Label.SECTION_REPEAT)}</span>');
+                if(section.prevSourceQuestion != '' && section.prevSourceQuestion != undefined && section.prevSourceQuestionName != undefined){
+                    tags.append('<span class="repeatTag-' + section.prevSourceQuestion + '"> {!JSENCODE($Label.BASED_NUMERIC_FROM)} ' + section.prevSourceQuestionName + '</span>');
+                }
+            }
+
+            if (section.samePage) tags.append('<span>{!JSENCODE($ObjectType.Question__c.Fields.SamePage__c.Label)}</span>');
+
+            // in the source org show the is remote editable and in the child orgs show a label when a question is not editable
+            if (isOriginalQuestion(section) && section.remoteEditable && ({!survey.IsPPI__c} || {!survey.IsTemplate__c})){
+                tags.append('<span>{!JSENCODE($ObjectType.Question__c.Fields.IsRemoteEditable__c.Label)}</span>');
+            }else if (!isOriginalQuestion(section) && !section.remoteEditable){
+                tags.append('<span>{!JSENCODE($Label.BUILDER_LBL_NONEDITABLEQUESTION)}</span>');
+            }
+
+            div.append(tags);
+            div.append('<div/>'); // line break. resets "float" status
+            div.append($('<span/>',{"class":'name',"text":section.name}));
+
+            //Matching handler height with header of section height
+            secHandler.height($(div).height()+20);
+            prepareDragHandle(secHandler);
+            return div;
+        }
+
+        function deleteSec(sectionId){
+            var section = questions[sectionId];
+            if(section.originId != null && !section.remoteEditable){
+                alert('{!JSENCODE($Label.BUILDER_ERR_NONREMOVABLESECTION)}');
+            }else if ($('.section:not(.new)').size() <= 1){
+                alert('{!JSENCODE($Label.SURVEY_QUESTION_ONE_SECTION_REQ)}');
+            }else{
+                // Restrict the deletion of sections in distributed surveys
+                for(var qid in questions){
+                    if (questions[qid].parent == sectionId && !questions[qid].remoteEditable && questions[qid].originId != null){
+                        alert('{!JSENCODE($Label.BUILDER_ERR_NONREMOVABLESECTION)}');
+                        return;
+                    }
+                }
+                var affectedConditions = new Array();
+                var sectionWithNumberRelated = questions[sectionId].type == TYPE_SECTION ? containsRelatedNumberQuestion(sectionId) : isRepeatAndRelated(sectionId) ;
+                var hasScorings = false;
+                var hasPPIScore = false;
+
+                // If contains at least one question with scoring show confirm
+                for(var qid in questions){
+                    if(questions[qid].parent == sectionId){
+                        var qoptions = questions[qid].options;
+                        for (var i in qoptions){
+                            var option  = qoptions[i];
+                            hasScorings = hasScorings || option.hasScoreValues;
+                            hasPPIScore = hasPPIScore || option.hasPPIScoreValues;
+                        }
+                        if(hasScorings || hasPPIScore)
+                            break;
+                    }
+                }
+
+                var hasScoringText  = ((hasScorings) ? SECTION_HAS_SCORING_MESSAGE_DELETE + '\n\n' : '');
+                var hasPPIScoreText = ((hasPPIScore) ? SECTION_HAS_PPISCORE_MESSAGE_DELETE + '\n\n' : '');
+
+                // for each question the section contains, add the corresponding affected conditions to the array
+                $('#'+sectionId).find('div.question').each(function(i,question){
+                    affectedConditions.push.apply(affectedConditions, getAffectedConditions($(question).attr('id'), true));
+                });
+
+                var affectedConditionsText = ((affectedConditions.length) ? AFFECTED_CONDITIONS_MESSAGE_DELETE + buildConfirmString(affectedConditions) : '{!JSENCODE($Label.CONFIRMATION_MSG)}');
+
+                var relatedNumberQuestionText = '';
+                if(sectionWithNumberRelated){
+                    if(questions[sectionId].type == TYPE_SECTION)
+                        relatedNumberQuestionText = '{!JSENCODE($Label.SECTION_WITH_RELATED_INTEGER_QUESTION_MESSAGE_DELETE)}' + '\n\n';
+                    else
+                        relatedNumberQuestionText = '{!JSENCODE($Label.REPEAT_RELATED_INTEGER_QUESTION_MESSAGE_DELETE)}' + '\n\n';
+                }
+
+                var confirmText =  relatedNumberQuestionText + hasScoringText + hasPPIScoreText + affectedConditionsText;
+
+                if (confirm(confirmText)){
+                    
+
+                    // If delete is confirmed then delete the relationship
+                    if(sectionWithNumberRelated){
+                        if(questions[sectionId].type == TYPE_SECTION){
+                            for(var qid in questions){
+                                if(questions[qid].parent == sectionId && questions[qid].type == TYPE_NUMBER_INTEGER){
+                                    for(var id in questions){
+                                        if (questions[id].type == TYPE_REPEAT && questions[id].prevSourceQuestion == qid){
+                                            $('.tags').find ('.repeatTag-' + questions[id].prevSourceQuestion).remove();
+                                            questions[id].prevSourceQuestion = null;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    blockPage();
+                    postQuestion = {"id":sectionId};
+                    postRemoveQuestion(sectionId);
+                    hasUnsavedChanges = true;
+                }
+            }
+        }
+        function editMode(value){
+            if(value == isEditing)return;
+            isEditing = value;
+
+            if(value){
+                $('.readonly .actions').hide();
+                $('#sectionSortable, .questions, #questionSortable, #questionArea').sortable('disable');
+                $('#questionArea .handle').hide();
+                $('#questionArea .sectionHeader.readonly').height(71);
+            }else{
+                $('.actions').show();
+                $('#sectionSortable, .questions, #questionSortable, #questionArea').sortable('enable');
+                $('#questionArea .handle').show();
+                $('#questionArea .sectionHeader.readonly').height('');
+            }
+        }
+
+        /**
+         * Fill dropdown with the previous number questions to select the number of repeats
+         *
+         * IDALMSA-2317
+         * @param section to edit
+         * @return dropdown to select the previous integer question
+         */
+        function getPrevNumericQuestionsToSelect(section){
+            //var currentQuestionAutonumber ;  // keep track of the current question number (count questions only)
+            dropdown = $('<select/>',{"id":'selectPrevQuestionNumber'});
+            dropdown.append('<option value=""> ---- </option>');
+
+            $(dropdown).prop('disabled', section.prevSourceQuestion == null || section.prevSourceQuestion == '');
+
+            $('.question').each(function(i, question){
+                if(questions[question.id].type == TYPE_NUMBER_INTEGER){
+                    if(questions[questions[question.id].parent].position < section.position && questions[questions[question.id].parent].type == TYPE_SECTION){
+                        // Question auto number to indicate which question is and concatenate with question caption.
+                        currentQuestionAutonumber = $('#'+question.id).find('.questionAutoNumber').text();
+                        dropdown.append('<option value="' + question.id + '">' + currentQuestionAutonumber + ' ' + htmlEncode(questions[question.id].caption) + '</option>');
+                    }
+                }
+            })
+            return dropdown;
+        }
+
+        /**
+         * Change tags after edit questions
+         *
+         * IDALMSA-2959
+         * @param question to edit
+         */
+        function refreshBasedOnPrevNumberTag(questionId){
+            // If the question is number integer check if there is a repeated section related to this
+            if(questions[questionId].type == TYPE_NUMBER_INTEGER){
+                $('.section').each(function(i, section){
+                    if(questions[section.id].type == TYPE_REPEAT && questions[section.id].prevSourceQuestion == questionId){
+                        $('.repeatTag-'+questionId).text(currentQuestionAutonumber + ' ' + htmlEncode(questions[questionId].caption));
+                    }
+                });
+            }
+        }
+
+        /**
+         * Disabled options when are not selected
+         *
+         * IDALMSA-2317
+         */
+        function setDisabledSelectOption() {
+            var unlimitedTimes = $('#repeat-unlimited').is(':checked');
+            var basedOnNumeric = $('#repeat-based').is(':checked');
+
+            // If based on numeric is not selected, then disable the dropdown
+            $('#selectPrevQuestionNumber').prop('disabled', !basedOnNumeric);
+            // If unlimited times option is selected, then delete the value of the number repeated
+            $('#selectPrevQuestionNumber').find('option[value=""]').attr('selected', unlimitedTimes);
+        }
+
+        /**
+         * Disable Based on numeric option when tehre is no number question to select
+         *
+         * IDALMSA-2802
+         */
+        function setDisableBasedOnNumericDependingPrevQuestions(section, position){
+            var existPrevNumbQuest = false;
+            var prevPosition;
+            var prevType;
+
+            // For each section, if section is before, not repeated, and is not the editable one,
+            // check if there is at least one number question
+            $('#questionArea').find('.section').each(function(i, sec) {
+                if (($(sec).attr('id') != section.id)){
+                    prevPosition = questions[$(sec).attr('id')].position;
+                    prevType     = questions[$(sec).attr('id')].type;
+
+                    if(prevPosition < position && prevType != TYPE_REPEAT){
+                        $(sec).find('.question').each(function(i, quest){
+                            if($(quest).attr('class').toLowerCase().indexOf('number integer') != -1){
+                                existPrevNumbQuest = true;
+                                return false;
+                            }
+                        });
+                    }
+                }
+            });
+
+            // If does not exist at least one number integer question before the repeated section
+            // disable the radio button repeat based on a number question.
+            if(!existPrevNumbQuest){
+                $('#'+section.id).find('[id=repeat-based]').prop('disabled', true);
+            }
+        }
+
+        /**
+         * Options div on repeated sections
+         *
+         * IDALMSA-2317
+         * @param section to edit
+         * @return div with options to select the times to repeat a repeated sections
+         */
+        function sectionRepeatedDiv(section){
+            // Create dropdown
+            var dropdown       = getPrevNumericQuestionsToSelect(section);
+
+            var div            = $('<div class="options-'+ section.type +'"' +
+                                   'title="Set Repeat"><h3>{!JSENCODE($Label.SECTION_REPEAT_SET_TIMES)}</h3></div>');
+
+            var unlimitedTimes = $('<tr><td><input type="radio" id="repeat-unlimited"' +
+                                   ' name="repeatOption" onclick="setDisabledSelectOption()" '+
+                                   ((section.prevSourceQuestion == '' || section.prevSourceQuestion == null) ?
+                                   'checked="checked"' : '') + '/><label for="repeat-unlimited">' +
+                                   '{!JSENCODE($Label.SECTION_REPEAT_UNLIMITED)}</label></td></tr>');
+
+            // Commented until that be necessary
+            /*var specificTimes  = $('<tr><td><input type="radio"' +
+                                   ' disabled="disabled" name="repeatOption"/>' +
+                                   '<input class="repeat-specific" disabled="disabled" name="number-specific"/>' +
+                                   '<label for="repeat-specific">{!JSENCODE($Label.SECTION_REPEAT_SPECIFIC)}</label></td></tr>');
+            */
+            var basedOnNumeric = $('<tr><td><input type="radio" id="repeat-based"' +
+                                   ' name="repeatOption" onclick="setDisabledSelectOption()" ' +
+                                   ((section.prevSourceQuestion != '' && section.prevSourceQuestion != null) ?
+                                   'checked="checked"' : '') + '/><label for="repeat-based">' +
+                                   '{!JSENCODE($Label.SECTION_REPEAT_BASED)}</label></td></tr>').append(dropdown);
+
+            // Commented until that be necessary
+            /*var nestUnder      = $('<tr><td><input type="checkbox" disabled="disabled"' +
+                                   ' name="repeat-under"/><label for="repeat-under">' +
+                                   '{!JSENCODE($Label.SECTION_REPEAT_UNDER)}</label><select disabled="disabled"/>' +
+                                   '</td>td></tr>');
+            */
+
+            // Set the name of the selected question to use it in the tag
+            dropdown.change(function(){
+                section.prevSourceQuestionName = $('#selectPrevQuestionNumber option:selected').text();
+            });
+
+            return div.append(unlimitedTimes, basedOnNumeric);
+        }
+
+        /**
+        * Check if there is logic dependence between questions of this section
+        * <p>
+        * Go through all questions of the same section and verify if exist at least one dependence
+        * between two of them.
+        * (Related with IDALMSA-2122)
+        * @param section sectionId      Identifier of Section
+        * @return assert Boolean        Confirmation of existence.
+        */
+
+        function hasLogicBetweenChildQuestions(section){
+
+            //for each question
+            for (qIndex in questions){
+
+                var question = questions[qIndex];
+
+                //if the question belong to same section and it has skip condition
+                if (question.parent == section && question.skipconditions.length > 0){
+
+                    //for each assigned skip condition of question
+                    for (skipCondIndex in question.skipconditions){
+
+                        var skipCond = question.skipconditions[skipCondIndex];
+
+                        //verify there is a dependence from a question of the same section
+
+                        if (questions[skipCond.sourceQuestionId].parent == section){
+
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        function sectionEditableHeader(section, div){
+            var isNew = div == null;
+            if (div == null) div = $('<div/>');
+            div.html('').addClass('header editable tertiaryPalette').removeClass('readonly');
+
+            // Set the height of the repeated sections
+            if(section.type == TYPE_REPEAT){
+                div.addClass('repeat-height');
+            }
+
+            var form           = $('<form/>',{"method":'GET',"action":''});
+
+            var sectionid      = $('<input/>',{"type":'hidden',"name":'sectionid',"value":section.id});
+
+            var caption        = $('<input/>',{"type":TYPE_TEXT, "name":'caption', "value":section.caption,
+                                               "maxlength":80, "blur":removeExtraSpaces});
+
+            var name           = $('<input/>',{"type":TYPE_TEXT,"id":'sectionName', "name":'name',
+                                               "value":section.name, "maxlength":40,
+                                               "onblur":"$(this).val($(this).val().toLowerCase())"});
+
+            var position       = $('<input/>',{"type":'hidden',"name":'position',"value":section.position});
+
+            //if exists at least one dependency in the same question disable the control to assignment of section "Show all questions in same page"
+            var strDisableShowAlwaysControls = (hasLogicBetweenChildQuestions(section.id))
+                                                    ? 'disabled = "disabled" title="{!$label.SHOW_ALL_QUESTIONS_DISABLE_MESSAGE}"'
+                                                    : '';
+
+            var samePage       = $('<div class="samePage"><input type="checkbox" class="samePageCheck" ' +
+                                   strDisableShowAlwaysControls +
+                                   ' name="samePage" id="same' + section.id + '" ' +
+                                   (section.samePage ? 'checked="checked"' : '') + '/>' +
+                                   '<label for="same' + section.id + '">' +
+                                   '{!JSENCODE($ObjectType.Question__c.Fields.SamePage__c.Label)}</label></div>' );
+
+            var remoteEditable = $('<div class="required"><input type="checkbox" name="remoteEditable"' +
+                                   'id="remote' + section.id + '" ' + (section.remoteEditable ? 'checked="checked"' : '') +
+                                   '/><label for="remote' + section.id + '">' +
+                                   '{!JSENCODE($ObjectType.Question__c.Fields.IsRemoteEditable__c.Label)}</label></div>');
+
+            var actions        = $('<div class="actions"/>');
+
+            actions.append($('<a/>',{
+                "class":'cancel-edit',
+                "href":'#',
+                "text":'{!JSENCODE($Label.CANCEL)}',
+                "click":function(){
+                    if (isNew && $('.section').size() <= 1){
+                        alert('{!JSENCODE($Label.SURVEY_QUESTION_ONE_SECTION_REQ)}');
+                    } else if (isNew) {
+                        secdiv = div.parents('.section');
+                        secdiv.fadeOut(null, function(){secdiv.remove()});
+                        editMode(false);
+                    }else{
+                        sectionReadonlyHeader(section,div).hide().fadeIn();
+                        editMode(false);
+                    }
+                    return false;
+                }
+            })).append($('<input/>',{"class":'submit-edit',"type":'submit',"value":'{!JSENCODE($Label.SAVE)}'}));
+
+
+            form.append(sectionid, position, caption,
+                '<div style="clear:both;"/>',
+                '<label for="name" class="sectionNameLabel">{!JSENCODE($Label.SURVEY_QUESTION_SECTION_NAME)}</label>',
+                name,
+                samePage
+            );
+
+            // If it is repeat add the actions
+            if(section.type == TYPE_REPEAT){
+                form.append(sectionRepeatedDiv(section));
+            }
+
+            if (section.originId == null && {!canDistribute} && ({!survey.IsPPI__c} || {!survey.IsTemplate__c}))
+                form.append(remoteEditable);
+
+            form.append(actions);
+
+            $(form).validate({
+                "rules": {
+                    "caption": "required",
+                    "name": {"required":true, "validquestionname":true, "uniquequestion":true}
+                },
+                "submitHandler": function(form){
+                    $(form).find('input[type="text"]').each(function(i,elem){removeInputExtraSpaces(elem)});
+                    blockPage();
+                    postQuestion = $.extend(true, {}, questions[section.id], {
+                        "id"                    : section.id,
+                        "name"                  : $(name).val(),
+                        "caption"               : $(caption).val(),
+                        "type"                  : section.type,
+                        "samePage"              : $(div).find('[name="samePage"]').is(':checked'),
+                        "remoteEditable"        : isRemoteEditable(div,section.id),
+                        "originId"              : (questions[section.id] != null) ? questions[section.id].originId : null,
+                        "prevSourceQuestion"    : $(div).find('#selectPrevQuestionNumber').val() != '' ? $(div).find('#selectPrevQuestionNumber').val() : null,
+                        "prevSourceQuestionName": htmlEncode(section.prevSourceQuestionName),
+                        "position"              : parseInt($(position).val(),10)
+                    });
+
+                    var json = JSON.stringify(postQuestion);
+                    if (questions[section.id])
+                        postEditQuestion(json);
+                    else{
+                        postAddQuestion(json);}
+                },
+                "errorPlacement": function(error, element) {
+                    error.addClass('sectionError');
+                    element.after(error).after("<br />");
+                }
+            });
+
+            div.append(form);
+
+            // Set selected option
+            if(section.prevSourceQuestion != null && section.prevSourceQuestion != ''){
+                $('#selectPrevQuestionNumber').find('option[value="' + section.prevSourceQuestion + '"]').attr('selected',true);
+            }
+
+            // Validate cascading select into the current section
+            checkCascadingUncheckAndDisableShowOnAllOnPage(section.id);
+
+            return div;
+        }
+
+        //-------------
+        // USER ACTIONS
+        //-------------
+
+        // called from add section button: onclick="addSection()"
+        function addSection(type,section,position,prevSectionId){
+
+            if(isEditing)return;
+
+            var doEdit = section == null;
+            if (doEdit) var section = {"id":newId(),
+                                       "caption":'{!JSENCODE($Label.SURVEY_QUESTION_NEW_SECTION)}',
+                                       "type":type,
+                                       "samePage":false,
+                                       "prevSourceQuestion":''
+                                   }
+
+            if((position && prevSectionId) == undefined)
+                section.position = 1 + getPosition(section);
+            else
+                section.position = position;
+
+            var div = $('<div/>',{"id":section.id, "type":type}).addClass('section')
+                .append( doEdit ? sectionEditableHeader(section,null) : sectionReadonlyHeader(section,null) )
+                .append('<div class="questions"></div>');
+
+            if (doEdit) div.addClass('new');
+
+            if((position && prevSectionId) == undefined){
+                $('#questionArea').append(div);
+                div.hide().fadeIn(null,function(){ if (doEdit) div.find('[name=caption]').focus().select(); });
+
+                var sections = $('#questionArea').find('.editable');
+                if( sections.size() != 0 )
+                    $('html, body').animate({scrollTop: $('.editable').offset().top});//Center the page in the section to add
+
+            }else{
+                if(position == 1){
+                    $('#questionArea').prepend(div);
+                    div.hide().fadeIn(null,function(){ if (doEdit) div.find('[name=caption]').focus().select(); });
+                }else{
+                    $('#questionArea').find('#'+prevSectionId).after(div);
+                    div.hide().fadeIn(null,function(){ if (doEdit) div.find('[name=caption]').focus().select(); });
+                }
+            }
+
+            if(section.type == TYPE_REPEAT){
+                // Disable based on numeric if it is necessary
+                setDisableBasedOnNumericDependingPrevQuestions(section, section.position);
+            }
+
+            editMode(true);
+            bindCaptionBlur('S');
+
+        }
+
+        function getPosition(question){
+            if(isSection(question)){
+                return $('#questionArea').find('.section').size();
+            }
+            else{
+                var section = $('#questionArea').find('.section:not(.new)').last();
+                return section.find('.question').size();
+            }
+        }
+        // called from buttons: onclick="addQuestion({type:xxx})"
+        function addQuestion(type,parent,position,prevId){
+            // Find which section to append the new question
+            // Only saved sections should be considered
+            var sections = $('#questionArea').find('.section:not(.new)');
+
+            if(sections.size() == 0){
+                alert('{!JSENCODE($Label.SURVEY_QUESTION_ERR_NO_SECTION)}');
+            }else{
+                if(isEditing)return;
+                var sectionId;
+                if(parent == undefined){
+                    var section = sections.last();
+                    sectionId = section.attr('id');
+                }else
+                    sectionId = parent;
+
+                if(type == TYPE_FINAL && questions[sectionId].type == TYPE_REPEAT){
+                    alert('{!JSENCODE($Label.CANNOT_ADD_FINAL_TO_REPEATED)}');
+                    return;
+                }
+
+                var question = {
+                    "id":newId(),
+                    "parent":sectionId,
+                    "type":type,
+                    "caption":'',
+                    "name":'',
+                    "qhint":'',
+                    "required":false,
+                    "remoteEditable":false,
+                    "options":new Array(),
+
+                    // number questions
+                    "minimum":null,
+                    "maximum":null,
+                    "doBefore":'',
+                    "doAfter":''
+                };
+
+                question.parent = sectionId;
+                if(position == undefined){
+                    question.position = 1 + getPosition(question);
+                }else{
+                    question.position = position;
+                }
+                questiondiv = getEditableDiv(question, null);
+
+                if(parent == undefined){
+                    if(type == TYPE_CASCADING_SELECT && questions[question.parent].type == TYPE_REPEAT){
+                        alert('{!JSENCODE($Label.QUESTION_TYPE_CASCADING_SELECT_INTO_REPEAT)}');
+                        return;
+                    }else{
+                        $('#' + sectionId + ' .questions').append( questiondiv.hide().fadeIn(null, function(){
+                            questiondiv.find('[name=caption]').focus();
+                        }) );
+                        //Center the page in the question to add
+                        $('html, body').animate({scrollTop: $('.editable').offset().top});
+                    }
+                }else{
+                    if(position == 1){
+                        $('#'+sectionId).find('.questions').prepend( questiondiv.hide().fadeIn(null, function(){
+                            questiondiv.find('[name=caption]').focus();
+                        }) );
+                    }else{
+                        var div = $('#'+prevId);
+                        $(div).after( questiondiv.hide().fadeIn(null, function(){
+                            questiondiv.find('[name=caption]').focus();
+                        }) );
+                    }
+                }
+
+            }
+             editMode(true);
+             bindCaptionBlur('Q');
+        };
+
+        // binds the blur action to all caption fields in the page
+        function bindCaptionBlur(prefixForName){
+            $('div.header [name="caption"]').blur(function(){
+
+                // if the name field of the question is blank, the method goes on
+                var element = $(this).parents('form').find('[name="name"]');
+                if ($.trim(element.val()) == null || $.trim(element.val()) == ''){
+
+                    var value = manageName ($(this), prefixForName);
+                    if(value != null){
+                        // sets the value of the name field with the caption value properly formatted
+                        $(element).val(value.toLowerCase());
+                    }
+                }
+            });
+            $('div.option [name^="caption"]').blur(function(){
+                // if the name field of the question is blank, the method goes on
+                var element = $(this).parent().find($('[name^="name"]'));
+                    var value = manageName ($(this));
+                    if(value != null){
+                        // sets the value of the name field with the caption value properly formatted
+                        $(element).val(value.toLowerCase());
+                    }
+            });
+        }
+
+        // receives a value and formats it to fit for the "name" field
+        function manageName (element, prefix,isOption){
+            /*
+            this line formats the value of the name:
+                + removes all non alphanumeric characters
+                + replaces all subsequent spaces for only one space
+                + replaces all spaces for underscores
+                + trims the content in both sides (beginning and end)
+                + truncates content to 40 characters
+                + adds a "Q" before the text if it starts with a number (in case of a question)
+                + adds a "S" before the text if it starts with a number (in case of a section)
+            */
+
+            value = $.trim($(element).val().replace(/[^a-zA-Z 0-9]+/g,'')).replace( /\s\s+/g, ' ' ).replace(/ /g,'_');
+            value = value.toLowerCase();
+            if (value != '' && value != null){
+                if (!isNaN(value.charAt(0))) value = prefix + value;
+                value = value.substring(0,40);
+
+                // Avoid name colisions
+                var i = 0;
+                var uvalue = value.toLowerCase();
+                var ok = true;
+                var suffix = '';
+                var questionId = $(element).parents('.question').size() > 0 ? questionId = $(element).parents('.question').attr('id') : questionId = $(element).parents('.section').attr('id');
+                var options = $(element).parents('.options');
+                do {
+                    ok = true;
+                    if(isOption){
+                        for (var op in options) {
+                        if ($(op).find('input [name^="name"]').val().toLowerCase() == uvalue && op.Id != element.parent().id) {
+                            i++;
+                            suffix = '_' + i;
+                            uvalue = value.substring(0,40-suffix.length) + suffix;
+                            ok = false;
+                            break;
+                        }
+                    }
+                    }else {
+                        for (var qid in questions) {
+                            if (questions[qid].name.toLowerCase()== uvalue && qid != questionId) {
+                                i++;
+                                suffix = '_' + i;
+                                uvalue = (value.substring(0,40-suffix.length) + suffix).toLowerCase();
+                                ok = false;
+                                break;
+                            }
+                        }
+                    }
+                } while(!ok);
+                return uvalue;
+            }
+
+            return null;
+        }
+
+        /**
+         * Get the conditions affected by a change, and puts them into an array.
+         * behaves different if the user is moving a section
+         *
+         * IDALMSA-2317
+         * @param id of the moved question
+         * @param boolean if it is deleting the question
+         * @return array of affected conditions
+         */
+        function getAffectedConditions(questionId, isDelete){
+
+            var absQuestions = new Array(); // array to set the absolute positions
+            var affectedConditions = new Array(); // array to temporarily store the affected conditions when a question is being moved
+            var movedQuestion = questions[questionId];
+            // Add the absolute position of the questions to the array
+            var absPosition = 1;
+            $('.readonly').each(function(){
+                var question = questions[$(this).attr('id')];
+                //if question is undefined then is a section
+                if (!question) {
+                  question = questions[$(this).parent().attr('id')];
+                }
+                absQuestions[question.id] = absPosition;
+                absPosition++;
+            });
+
+            if (movedQuestion.skipconditions != null){
+                // take the absolute question position
+                var position = absQuestions[questionId];
+                // checks if any question has a condition involving the moved question
+                for (var qid in questions){
+                    if (qid != questionId){
+                        var question = questions[qid];
+                        if (question.skipconditions && question.skipconditions.length){
+                            // in case a section is being moved, questions within the same section should not be checked
+                            if (!(isSection(movedQuestion) && movedQuestion.parent == question.parent)) {
+                                var questionPosition = absQuestions[question.id];
+                                for (var cid in question.skipconditions){
+                                    var condition = question.skipconditions[cid];
+                                    if (condition.sourceQuestionId == questionId){
+                                        //if the question is before the moved one, the condition will be invalid
+                                        if (questionPosition <= position || isDelete) {
+                                            affectedConditions[affectedConditions.length] = condition;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // checks the moved question's conditions
+                for (var cid in movedQuestion.skipconditions){
+                    var condition = movedQuestion.skipconditions[cid];
+                    var question = questions[condition.sourceQuestionId];
+                    // in case a section is being moved, questions within the same section should not be checked
+                    if (!(isSection(movedQuestion) && movedQuestion.parent == question.parent)){
+                        // if the condition's question is after the moved question, the condition is invalid
+                        var questionPosition = absQuestions[question.id];
+                        if ( position < questionPosition ) {
+                            affectedConditions[affectedConditions.length] = condition;
+
+                        //if the source and target questions are in a repeated section with logic between them, and the movemet move the question outside the repeat section,add the condition to the affected conditions
+                        }else if((questions[question.parent] == questions[movedQuestion.parent])
+                            && (questions[question.parent].type == TYPE_REPEAT)
+                            && (questions[question.parent] != questions[getNewParent(movedQuestion.id)])) {
+
+                            affectedConditions[affectedConditions.length] = condition;
+
+                        }
+                    }
+                }
+            }
+            return affectedConditions;
+        }
+        /**
+         * Get new parent of the question when is being moved
+         *
+         * @param Id of question
+         * @return Id of parent question
+         */
+        function getNewParent(id){
+            return $('#'+id).parents('.section').attr('id');
+        }
+
+        /**
+         * Get new position of the question when si moved
+         *
+         * IDALMSA-2317
+         * @param Id of question to move
+         * @return new position of question moved.
+         */
+        function getMovedQuestionPosition(questionId){
+            var previousQuestion = $('#' + questionId).prev();
+            question = questions[questionId];
+            var position;
+
+            if(isSection(question)){
+                // Get previous section
+                var prevSectionId = $('#' + questionId).prev('.section').attr('id');
+
+                // No previous so is the first
+                if(prevSectionId == undefined)
+                    position = 1;
+                else{
+                    // Move down
+                    if(questions[prevSectionId].position > question.position)
+                        position = questions[prevSectionId].position;
+                    // Move up
+                    else
+                        position = questions[prevSectionId].position + 1;
+                }
+            }else{
+                // Get origin parent
+                var originParentId = question.parent;
+                var destinationParentId = $('#' + questionId).parents('.section').attr('id');
+
+                // Get previous question
+                var prevQuestionId = $('#' + questionId).prev('.question').attr('id');
+
+                // No previous so is the first
+                if(prevQuestionId == undefined)
+                    position = 1;
+                else{
+                    // Move question to a different section
+                    if(originParentId != destinationParentId){
+                        position = questions[prevQuestionId].position + 1;
+                    }
+                    // Move question inside the same section
+                    else{
+                        // Move down
+                        if(questions[prevQuestionId].position > question.position)
+                            position = questions[prevQuestionId].position;
+                        // Move up
+                        else
+                            position = questions[prevQuestionId].position + 1;
+                    }
+                }
+            }
+            return position;
+        }
+
+        function buildConfirmString(affectedConds){
+
+            var returnString = '\n';
+            for (var cid in affectedConds){
+                var condition = affectedConds[cid];
+                var conditionValue = getConditionValue(condition);
+                var caption = '';
+                var sourceQuestion = questions[condition.sourceQuestionId];
+
+                //Questions with options
+                if(sourceQuestion.options.length > 0){
+                    for (i in sourceQuestion.options){
+                       var option = sourceQuestion.options[i];
+                       if(condition.condition != 'Answered' && option.id == condition.value){
+                           caption = option.caption;
+                       }
+                    }
+
+                //Questions without options
+                }else{
+                    if (condition.condition != 'Answered')
+                        caption = condition.value;
+                }
+                returnString += format('{!JSENCODE($Label.SURVEY_QUESTION_CONDITION_DISPLAY)}\n',[sourceQuestion.caption,conditionText[condition.condition],caption,getConditionParent(condition.id).caption]);
+
+            }
+            return returnString;
+        }
+
+        function getConditionValue (condition){
+            var returnString = '';
+            if (condition.value != null){
+                var questionType = questions[condition.sourceQuestionId].type;
+                if (questionType == TYPE_RADIO || questionType == TYPE_CHECKBOX){
+                    for (var oid in questions[condition.sourceQuestionId].options){
+                        if (questions[condition.sourceQuestionId].options[oid].id == condition.value){
+                            returnString += ' ' + questions[condition.sourceQuestionId].options[oid].name;
+                            break;
+                        }
+                    }
+                }else{
+                    returnString += ' ' + condition.value;
+                }
+            }
+            return returnString;
+        }
+
+        function getConditionParent (conditionId){
+            for (var qid in questions){
+                var question = questions[qid];
+                for (var cid in question.skipconditions){
+                    var condition = question.skipconditions[cid];
+                    if (condition.id == conditionId)
+                        return question;
+                }
+            }
+        }
+
+        /*
+        Drag and Drop:
+        Allow to select a question and drag this one to the destination to drop.
+        After drop the question. All page is refreshed and updated.
+        */
+
+        //DRAG AND DROP
+        //Question Sortable
+        function dragndrop(){
+            var moveConfirmed;
+            var sourceAllowToMove;
+            var questAsInterviewee;
+            var informAndCancelMove;
+            var cascadingIntoRepeated;
+            $(function(){
+                var originId;
+                var isQuestion;
+                $('#questionSortable, .questions').sortable({
+                    connectWith: '.questions',
+                    helper: 'clone',
+                    create: function(){
+                            $('#questionSortable').sortable({items:'div:not(.disableSort, #questionSortable)'}); //Disable Sort list items from menu
+                            $('.questions').sortable({handle: '.handle'});
+                            $('#questionSortable').sortable({ cancel: '.disableItem' }); // Disable this item until enable functionality
+                    },
+                    start:function(event,ui){
+                            moveConfirmed         = true;
+                            sourceAllowToMove     = true;
+                            questAsInterviewee    = false;
+                            informAndCancelMove   = false;
+                            cascadingIntoRepeated = false;
+
+                            isQuestion = $(ui.item).hasClass('addQuestion');
+                            originId = $(ui.item).attr('id');
+
+                            $('#questionSortable').find('#'+originId+':hidden').show(); //Show item to drag while dragging
+                            $('.questions').sortable({ axis: 'y' });
+                            ui.placeholder.height(ui.item.height()-10);
+                            $('.actions').hide(); //Hide actions while is been moving
+                    },
+                    stop: function(event,ui){
+                            var editableMode = $('#questionArea').find('.question').hasClass('editable');
+                            if(!editableMode){
+                                if(isQuestion){
+                                    $(this).sortable('cancel');//Do not make changes when do not move a question from the menu.
+                                }else{
+                                    $('#'+originId).find('.handle').removeClass('cursorGrabbing');//Add the grab cursor in questions after moved
+                                }
+                                $('.actions').show(); //Show actions after moved
+                            }
+                    },
+                    placeholder: 'placeholderQuest tertiaryPalette',
+                    opacity:0.6,
+                    update: function(event,ui){
+                        //If im dragging an element from the menu
+                        var secId = $('#'+originId).parents('.section').attr('id');
+                        if (isQuestion){
+                            var prevId = $('#'+originId).prev('.question:not(.editable)').attr('id');
+                            var questPos;
+                            if (prevId != undefined){
+                                if(originId == TYPE_FINAL && questions[secId].type == TYPE_REPEAT){
+                                    informAndCancelMove = true;
+                                }else if(originId == TYPE_CASCADING_SELECT && questions[secId].type == TYPE_REPEAT){
+                                    cascadingIntoRepeated = true;
+                                }else{
+                                    var prevQuestion = questions[prevId];
+                                    var parentId = prevQuestion.parent;
+                                    var prevQuestPos = prevQuestion.position; //Add inside a section but not in first position
+                                    questPos = parseInt(prevQuestPos,10)+1;
+                                    addQuestion(originId, parentId, questPos, prevId); //Adding new question
+                                }
+                            }else{
+                                questPos = 1; //Add in first position
+                                if(secId != undefined){
+                                    if(originId == TYPE_FINAL && questions[secId].type == TYPE_REPEAT){
+                                        informAndCancelMove = true;
+                                    }else if(originId == TYPE_CASCADING_SELECT && questions[secId].type == TYPE_REPEAT){
+                                        cascadingIntoRepeated = true;
+                                    }else{
+                                        addQuestion(originId, secId, questPos); //Adding new question
+                                    }
+                                }else{
+                                    informAndCancelMove   = false;
+                                    cascadingIntoRepeated = false;
+                                }
+                            }
+                            $('#questionSortable').sortable('cancel');
+
+                            if(informAndCancelMove){
+                                alert('{!JSENCODE($Label.CANNOT_ADD_FINAL_TO_REPEATED)}');
+                            }else if(cascadingIntoRepeated){
+                                alert('{!JSENCODE($Label.QUESTION_TYPE_CASCADING_SELECT_INTO_REPEAT)}');
+                            }
+
+                        //If im dragging a question
+                        }else{
+                            if(questions[originId].type == TYPE_FINAL && questions[secId].type == TYPE_REPEAT){
+                                $(this).sortable('cancel');
+                                alert('{!JSENCODE($Label.CANNOT_MOVE_FINAL_TO_REPEATED)}');
+                            }
+                            // Cannot move a cascading select question into a repeated section
+                            else if(questions[originId].type == TYPE_CASCADING_SELECT && questions[secId].type == TYPE_REPEAT){
+                                $(this).sortable('cancel');
+                                alert('{!JSENCODE($Label.QUESTION_TYPE_CASCADING_SELECT_INTO_REPEAT)}');
+                            }
+
+                            var affectedConditions = getAffectedConditions(originId, false);
+
+
+                            //if affected question is empty previously verify if there is any other affected condition when
+                            //moving to a section with disabled "Show all question in same page"
+                            affectedConditions  = (affectedConditions.length == 0)
+                                                    ? getAffectedCondMovingSameSourceQuestionSectionAlwaysShow(ui)
+                                                    : affectedConditions;
+
+                            // If there is a number question related to a repeated section and is moved after
+                            // cannot do the move
+                            if(!isMovmenteAllowedBySourceQuestion(ui.item)){
+                                sourceAllowToMove = false;
+                            }
+                            // If it is not allowed the movement do not execute the logic validate
+                            if(sourceAllowToMove){
+                                if (!isMovementPermitted(ui.item, affectedConditions)){
+
+                                    alert(AFFECTED_CONDITIONS_MESSAGE_DONT_MOVE_ITS_LOGIC_IN_QUESTION);
+                                    moveConfirmed = false;
+                                }
+                                else{
+                                    affectedConditions.length ? moveConfirmed = confirm(AFFECTED_CONDITIONS_MESSAGE_MOVE + buildConfirmString(affectedConditions)) : moveConfirmed = true;
+                                }
+                            }
+
+                            if (moveConfirmed && sourceAllowToMove && !questAsInterviewee){
+                                for (var qid in questions){
+                                    var question = questions[qid];
+                                    var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                                    for (var cid in question.skipconditions){
+                                        if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                            qConditions.push(question.skipconditions[cid]);
+                                        }
+                                    }
+                                    question.skipconditions = qConditions;
+                                }
+                                cut(originId);    //Call cut function
+                                var originQuestion        = questions[originId];
+
+                                var prevPaste             = $('#'+originId).prev().attr('id');  // Obtain position to be pasted.
+                                // If the position is a question obtain the Id, if it is a section, obtain the id of the section.
+                                var destinationId         = (prevPaste != null) ? prevPaste : $('#' + originId).parents('.section').attr('id');
+                                var destinationQuestion   = questions[destinationId]; // Obtain the destination question.
+
+                                if(isDragValid(originQuestion, destinationQuestion)) {
+                                    // Is a valid drag.
+                                    paste(destinationId); // Paste in the position obtained previously.
+                                }
+                                else{
+                                    alert('{!JSENCODE($Label.CANNOT_MOVE_MAPPED_QUESTION)}');
+                                    $(this).sortable('cancel');
+                                }
+                            }else{
+                                $(this).sortable('cancel');
+                            }
+                        }
+                    }
+                });
+            });
+
+            //Section Sortable
+            $(function(){
+                var originId;
+                var isSection;
+                var divId;
+                $('#sectionSortable, #questionArea').sortable({
+                    connectWith: '#questionArea',
+                    helper: 'clone',
+                    create:function(event,ui){
+                        $('#sectionSortable').sortable({items:'div:not(.disableSort, #sectionSortable)'}); //Disable sortable
+                        $('#questionArea').sortable({handle: '.handle'});
+                    },
+                    start: function(event,ui){
+                        moveConfirmed = true;
+                        sourceAllowToMove = true;
+                        isSection = $(ui.item).hasClass('addSection');
+                        originId = $(ui.item).attr('id');
+                        $('#sectionSortable').find('#'+originId+':hidden').show(); //Show item to drag while dragging
+                        $('#questionArea').sortable({axis: 'y'}); //Sort just in 'y' axis for sections
+                        ui.placeholder.height(ui.item.height());
+                        $('.actions').hide(); //Hide actions while is been moving
+                        $('.section').addClass('dragSec'); //Add background while is been moving
+                    },
+                    change: function(event, ui) {
+                        // Re-size placeholder when change section
+                        if(isSection){
+                            divId = (ui.placeholder).parents().attr('id');
+                            if(divId == 'questionArea')
+                                ui.placeholder.height(50);
+                        }
+                    },
+                    stop: function(){
+                        var editableMode = $('#questionArea').find('.header').hasClass('editable');
+                        if(!editableMode){
+                            if(isSection){
+                                    $(this).sortable('cancel');//Do not make changes when do not move a question from the menu.
+                                }else{
+                                    $('#'+originId).find('.handle').removeClass('cursorGrabbing');//Add the grab cursor in questions after moved
+                                }
+                            $('.actions').show(); //Show actions after moved
+                        }
+                        $('.section').removeClass('dragSec'); //Remove background after moved
+                    },
+                    placeholder: 'placeholderSec tertiaryPalette',
+                    opacity:0.6,
+                    update:function(event,ui){
+                        if(isSection){
+                            var prevId = $('#'+originId).prev('.section:not(.new)').attr('id');
+                            var secPos;
+                            var prevSectionId;
+                            if (prevId != undefined){
+                                var prevSection = questions[prevId];
+                                prevSectionId = prevSection.id;
+                                var prevSecPos = prevSection.position; //Add Section but not in first position
+                                secPos = parseInt(prevSecPos,10)+1;
+                            }else{
+                                secPos = 1; //Add Section in first position
+                                prevSectionId = $('#questionArea').attr('id');
+                            }
+
+                            if(divId != 'sectionSortable')
+                                addSection(originId, null, secPos, prevSectionId);
+
+                            $('#sectionSortable').sortable('cancel');
+                        }else{
+
+                            var affectedConditions = new Array();
+
+
+                            //put affected conditions for the current section
+                            affectedConditions.push.apply(affectedConditions, getAffectedConditions(originId, false));
+
+                            // for each question the section contains, add the corresponding affected conditions to the array
+                            $('#'+originId).find('div.question').each(function(i,question){
+                                affectedConditions.push.apply(affectedConditions, getAffectedConditions($(question).attr('id'), false));
+                            });
+
+
+                            // If there is a number question in this section related to a repeated section and is moved after
+                            // cannot do the move
+                            if(!isMovmenteAllowedBySourceQuestion(ui.item)){
+                                sourceAllowToMove = false;
+                            }
+
+                            // If it is not allowed the movement do not execute the logic validate
+                            if(sourceAllowToMove){
+                                if (!isMovementPermitted(ui.item, affectedConditions)){
+                                    alert(AFFECTED_CONDITIONS_MESSAGE_DONT_MOVE_ITS_LOGIC_IN_SECTION);
+                                    moveConfirmed = false;
+                                }
+                                else{
+                                    affectedConditions.length ? moveConfirmed = confirm(AFFECTED_CONDITIONS_MESSAGE_MOVE + buildConfirmString(affectedConditions)) : moveConfirmed = true;
+                                }
+                            }
+
+                            if (moveConfirmed && sourceAllowToMove){
+                                for (var qid in questions){
+                                    var question = questions[qid];
+                                    var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                                    for (var cid in question.skipconditions){
+                                        if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                            qConditions.push(question.skipconditions[cid]);
+                                        }
+                                    }
+                                    question.skipconditions = qConditions;
+                                }
+                                cut(originId); //Call cut function
+
+                                var secPrevPaste = $('#'+origin.id).prev('.section').attr('id');
+                                if(secPrevPaste != null)
+                                    paste(secPrevPaste);
+                                else{
+                                    paste(null);//Updating position when the section is moved to first place.
+                                }
+                            }else{
+                                $(this).sortable('cancel');
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        /**
+         * verify if it's posible to move the question order
+         *
+         * @param uiItem UI object to move
+         * @param affectedConditions List of affected questions when moving
+         * @return moveConfirmed Whether the movement is permitted or not.
+         */
+        function isMovementPermitted(uiItem, affectedConditions){
+
+            var moveConfirmed=true;
+            var uiItemId=uiItem.attr('id');
+
+            var isMovingDependentNotEditableRemoteQuestion= (questions[uiItemId]!=null && (!questions[uiItemId].remoteEditable && questions[uiItemId].originId!=null && $('div#'+uiItemId+' span.action-edit').hasClass('disabled') && affectedConditions.length));
+
+            //move remote dependent question
+            var isMovingReferredQuestionOrSection=(affectedConditions.length && existRemoteDependenceInAffectedConditions(affectedConditions));
+
+            //move dependence referred question or a section
+            if (isMovingDependentNotEditableRemoteQuestion || isMovingReferredQuestionOrSection){
+                moveConfirmed=false;
+            }
+
+            return moveConfirmed;
+        }
+
+        /**
+         * Check if exist any remote editable question in affected Conditions when moving
+         *
+         * @param affectedConditions List of affected questions when moving
+         * @return confirmation Whether the question exists or not.
+         */
+        function existRemoteDependenceInAffectedConditions(affectedConditions){
+
+            for (var index in affectedConditions){
+
+                if ($('div#'+affectedConditions[index].parent+' span.action-edit').hasClass('disabled')){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Check if the move is allowed by the source question
+         * The source number question must be always before the repeated section related
+         *
+         * IDALMSA-2317
+         * @param uiItem UI object to move
+         * @return canMove when the movement is permitted or not.
+         */
+        function isMovmenteAllowedBySourceQuestion(uiItem){
+
+            var uiItemId = uiItem.attr('id');
+            var question = questions[uiItemId];
+            var canMove = true;
+            var newPosition = getMovedQuestionPosition(uiItemId);
+            var qNamesToShow = '';
+
+            // If im moving a section
+            if(question.type == TYPE_REPEAT && question.prevSourceQuestion != undefined){
+                canMove = (newPosition > questions[questions[question.prevSourceQuestion].parent].position);
+                if(!canMove) alert(format('{!JSENCODE($Label.CANNOT_MOVE_REPEATED_RELATED_QUESTION_MESSAGE)} ',[questions[question.prevSourceQuestion].name]));
+            }
+
+            // If im moving a section with a number question related to a repeated section
+            else if(question.type == TYPE_SECTION){
+                var numberChildrens = new Array();
+                var rNamesToShow = '';
+                var qNameBefore = '';
+
+                // Get number question childrens of the section that is been moving and save in an array
+                for(var qid in questions){
+                    if(questions[qid].type == TYPE_NUMBER_INTEGER && questions[qid].parent == question.id){
+                        numberChildrens[questions[qid].id] = questions[qid];
+                    }
+                }
+                // Use the number question array to check if there is any question related to a repeated section
+                for(var qid in questions){
+                    for(var nid in numberChildrens){
+                        if(questions[qid].type == TYPE_REPEAT && questions[qid].prevSourceQuestion == numberChildrens[nid].id && newPosition >= questions[qid].position){
+                            canMove = false;
+                            // Question names to show in the alert, if the name is repeated just show once
+                            if(qNameBefore != numberChildrens[nid].name){
+                                qNamesToShow += numberChildrens[nid].name + ', ';
+                                qNameBefore = numberChildrens[nid].name;
+                            }
+                            // Repeated section names to show in the alert
+                            rNamesToShow += questions[qid].name + ', ';
+                        }
+                    }
+                }
+                // Cut the last comma separator
+                qNamesToShow = qNamesToShow.substring(0, qNamesToShow.length - 2);
+                rNamesToShow = rNamesToShow.substring(0, rNamesToShow.length - 2);
+                if(!canMove) alert(format('{!JSENCODE($Label.CANNOT_MOVE_SECTION_WITH_RELATED_QUESTION_MESSAGE)}',[qNamesToShow, rNamesToShow]));
+            }
+
+            // If im moving a number question related with a repeated section
+            else if(isNumberAndIsRelated(question.id)){
+                var destinationParentId = $('#' + question.id).parents('.section').attr('id');
+                if(questions[destinationParentId].type == TYPE_REPEAT){
+                    canMove = false;
+                    alert('{!JSENCODE($Label.CANNOT_MOVE_QUESTION_RELATED_IN_REPEATED_MESSAGE)}');
+                }else{
+                    for(var qid in questions){
+                        if(questions[qid].type == TYPE_REPEAT && questions[qid].prevSourceQuestion == question.id && questions[destinationParentId].position > questions[qid].position){
+                            canMove = false;
+                            qNamesToShow += questions[qid].name + ', ';
+                        }
+                    }
+                    // Cut the last comma separator
+                    qNamesToShow = qNamesToShow.substring(0, qNamesToShow.length - 2);
+                    if(!canMove) alert(format('{!JSENCODE($Label.CANNOT_MOVE_QUESTION_RELATED_REPEAT_MESSAGE)} ', [qNamesToShow]));
+                }
+            }
+            return canMove;
+        }
+
+        /**
+         * verify if it's posible to move the question order
+         *
+         * @param uiItem UI object to move
+         * @param affectedConditions List of affected questions when moving
+         * @return moveConfirmed Whether the movement is permitted or not.
+         */
+        function isMovementPermitted(uiItem, affectedConditions){
+            var moveConfirmed = true;
+            var uiItemId = uiItem.attr('id');
+
+            //move remote dependent question
+            var isMovingDependentNotEditableRemoteQuestion = (questions[uiItemId] != null && (!questions[uiItemId].remoteEditable && questions[uiItemId].originId!=null && $('div#'+uiItemId+' span.action-edit').hasClass('disabled') && affectedConditions.length));
+
+            //move dependence referred question or a section
+            var isMovingReferredQuestionOrSection = (affectedConditions.length && existRemoteDependenceInAffectedConditions(affectedConditions));
+
+            if (isMovingDependentNotEditableRemoteQuestion
+                || isMovingReferredQuestionOrSection){
+
+                moveConfirmed = false;
+            }
+
+            return moveConfirmed;
+        }
+
+        /**
+        * Generate affected conditions when moving a question to a section with "Show all questions in same page" option activated
+        * <p>
+        * If try to move a questions to a section with "Show all questions in same page" option activated
+        * verify what condition is related and store it as affected condition.
+        * (Related with IDALMSA-2122)
+        *
+        * @param ui Element             Moved visual element
+        * @return affectedConditions    List of detected affected conditions
+        */
+
+        function getAffectedCondMovingSameSourceQuestionSectionAlwaysShow(ui){
+
+            var questionId = ui.item.attr('id');    //get the question id from the visual moved element
+
+            var affectedConditions = new Array;            //list to store detected affected condition
+
+            secId = $('#'+questionId).parents('.section').attr('id');    //get Id of section
+
+            //if section has enable "Show All questions in same page" option
+            if (questions[secId].samePage){
+
+                //go trough all questions of the same section
+                for (qId in questions){
+
+                    var question = questions[qId];
+
+                    if (questions[qId].parent == secId){
+
+                        //dependence of parent (moving from up)
+                        //go through a skip logic of each question inside the section
+
+                        for (skipCond in question.skipconditions){
+
+                            var skipCondition = question.skipconditions[skipCond];
+
+                            //if someone depends of moved question
+
+                            if (skipCondition.sourceQuestionId == questionId){
+
+                                affectedConditions.push(skipCondition);
+                            }
+                        }
+
+                        //if there is not any detected affection
+                        if ( affectedConditions.length == 0){
+
+                            //dependence of source condition (moving from down)
+                            //go through all condition of moved question
+
+                            for (skipCond in questions[questionId].skipconditions){
+
+                                var skipCondition = questions[questionId].skipconditions[skipCond];
+
+                                //if the question depends of a question inside the section
+
+                                if (skipCondition.sourceQuestionId == qId){
+
+                                    affectedConditions.push(skipCondition);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return affectedConditions;
+        }
+
+        /**
+        * Check if exist any remote editable question in affected Conditions when moving
+        *
+        * @param affectedConditions List of affected questions when moving
+        * @return confirmation Whether the question exists or not.
+        */
+        function existRemoteDependenceInAffectedConditions(affectedConditions){
+            for (var index in affectedConditions){
+                if ($('div#' + affectedConditions[index].parent + ' span.action-edit').hasClass('disabled')){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /*
+        Cut and Paste functions:
+        Select a question, this question is cuted. After this, should select a question to paste.
+        The origin question is pasted after the destination question. In case that the user want to paste
+        the origin question on the first place of a section, the destination question selected must be that
+        section.
+        */
+
+        var origin; //question object origin to move
+        var destination; //question object destination
+        //CUT
+        function cut(questionId){
+            isEditing = true;
+            $('#questionSortable, .questions, #sectionSortable, #questionArea').sortable('disable');
+            origin = questions[questionId];
+            $('#'+questionId).addClass('cut');
+            $('div.actions a:not(.paste)').hide();
+
+        }
+
+        //PASTE
+        function paste(questionId){
+            $('.questions').sortable('enable');
+            $('#questionArea').sortable('enable');
+            destination = questions[questionId];
+
+            if(destination != null && destination.id == origin.id || (origin.position == 1 && destination.id == origin.parent)){
+                // If moving to same location, cancel move
+                cancelMove(origin.id);
+
+                return;
+            } else {
+                // Call move function on server
+                blockPage();
+                if(destination == null){
+                    postMoveQuestion(origin.id, FIRST_SECTION);
+                }else{
+                    postMoveQuestion(origin.id, destination.id);
+                }
+            }
+            setQuestionAutoNumber();
+        }
+
+        /**
+         *  Method in charge of check if given the question to move and
+         *  the destination, the move is valid.
+         *  To be invalid must meet the following conditions:
+         *  - Source question have to be mapped, and...
+         *  - must be a question (not a section) and...
+         *  - is moving the question to another section (not in the same section) and...
+         *  - either source or destination is repeat.
+         *
+         *  @param sourceQuestion Question to move.
+         *  @param destinationQuestion Question (or section) that will be above when the user finish the drag.
+         *  @return True if user is able to drag the question, false otherwise.
+         */
+        function isDragValid(sourceQuestion, destinationQuestion){
+            var isValid        = true;
+            var isSourceMapped = isNotUndefined(questionMappingsRelated[sourceQuestion.id]);
+
+            /*if (isSourceMapped) {
+                // If the question to move is mapped we must validate it.
+                if (!isSection(sourceQuestion)) {
+                    // What im moving is not a section so we must validate the drag...
+                    if (!areInSameSection(sourceQuestion, destinationQuestion)) {
+                        // ... source and destination are not in the same section...
+                        if (destinationQuestion.type == TYPE_REPEAT || isParentRepeat(destinationQuestion) || isParentRepeat(sourceQuestion)) {
+                            // ...if destination or origin are in repeat sections, cannot make the drag.
+                            isValid = false;
+                        }
+                    }
+                }
+            }*/
+            return isValid;
+        }
+
+        /**
+         *  Method in charge to know if given two questions, they are in the same section.
+         *
+         *  @param sourceQuestion First question.
+         *  @param destinationQuestion Second question.
+         *  @return True if both questions are in the same section, false otherwise.
+         */
+        function areInSameSection(sourceQuestion, destinationQuestion){
+            var inSameSection = false;
+            if (isNotUndefined(sourceQuestion) && isNotUndefined(destinationQuestion)) {
+                // If it has no parent it means it's a section (when user puts a question in the first position
+                // destinationQuestion is the parent section).
+                var sourceSectionId      = (isNotUndefined(sourceQuestion.parent) && sourceQuestion.parent != null)
+                                                ? sourceQuestion.parent
+                                                : sourceQuestion.id;
+                var destinationSectionId = (isNotUndefined(destinationQuestion.parent) && destinationQuestion.parent != null)
+                                                ? destinationQuestion.parent
+                                                : destinationQuestion.id;
+
+                inSameSection = (sourceSectionId == destinationSectionId);
+            }
+            return inSameSection;
+        }
+
+        /**
+         *  Method in charge of check that if given a question, its parent is
+         *  repeat.
+         *
+         *  @param Question that will be evaluated.
+         *  @return True if the parent of the given question is repeat, false otherwise.
+         */
+        function isParentRepeat(q){
+            var isRepeat = false;
+            var parent   = questions[q.parent];
+            if (isNotUndefined(parent) && isNotUndefined(parent.type)) {
+                isRepeat = (parent.type == 'repeat');
+            }
+            return isRepeat;
+        }
+
+        function cancelMove (questionId){
+            $('#'+questionId).removeClass('cut');
+            $('div.actions a:not(.paste)').show();
+            $('div.actions a.paste').hide();
+            $('#questionSortable, .questions, #sectionSortable, #questionArea').sortable('enable');
+            isEditing = false;
+        }
+
+        var fixNumberType;
+        var currentQuestionAutonumber;
+        // called from "edit" links
+        function editQuestion(questionId){
+            var question = questions[questionId];
+            currentQuestionAutonumber = $('#'+question.id).find('.questionAutoNumber').text();
+
+            //Restrict question edition for distributed surveys
+            if(question.originId != null && !question.remoteEditable){
+                alert('{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}');
+            }else{
+                editMode(true);
+                //Get the question type before edit to fixit it if its cancel
+                if(isType(question,TYPE_NUMBER))
+                    fixNumberType = question.type;
+
+                var div = $("#" + questionId);
+                var questiondiv = getEditableDiv(question, div);
+                questiondiv.hide().fadeIn(null, function(){
+                    questiondiv.find('[name=caption]').focus();
+                });
+                bindCaptionBlur('Q');
+            }
+        };
+
+        function editSection(sectionId){
+            var section = questions[sectionId];
+            if(section.originId != null && !section.remoteEditable){
+                alert('{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}');
+            } else {
+                var div = $('#' + sectionId + '>div.header');
+                var sectiondiv = sectionEditableHeader(section,div);
+                sectiondiv.hide().fadeIn(null, function(){
+                    sectiondiv.find('[name=caption]').focus();
+                });
+
+                if(section.type == TYPE_REPEAT){
+                    // Disable based on numeric if it is necessary
+                    setDisableBasedOnNumericDependingPrevQuestions(section, section.position);
+                }
+
+                editMode(true);
+                bindCaptionBlur('S');
+            }
+        }
+
+        // called from "delete" links
+        function removeQuestion(questionId){
+            if(!questions[questionId].remoteEditable && questions[questionId].originId != null){
+                alert('{!JSENCODE($Label.BUILDER_ERR_NONREMOVABLEQUESTION)}');
+                return;
+            }
+            //check if the question to be remove has assigned Scores values
+            var qoptions    = questions[questionId].options;
+            var hasScorings = false;
+            var hasPPIScore = false;
+
+            for (var i in qoptions){
+                var option  = qoptions[i];
+                hasScorings = hasScorings || option.hasScoreValues;
+                hasPPIScore = hasPPIScore || option.hasPPIScoreValues;
+            }
+
+            var affectedConditions = getAffectedConditions(questionId, true);
+            var hasRelatedRepeated = isNumberAndIsRelated(questionId);
+
+            var hasScoringText = ((hasScorings) ? QUESTION_HAS_SCORING_MESSAGE_DELETE + '\n\n' : '');
+            var hasPPIScoreText = ((hasPPIScore) ? QUESTION_HAS_PPISCORE_MESSAGE_DELETE + '\n\n' : '');
+            var relatedNumberQuestionText = ((hasRelatedRepeated) ? '{!JSENCODE($Label.INTEGER_RELATED_REPEAT_SECTION_MESSAGE_DELETE)}' + '\n\n' : '');
+            var affectedConditionsText = ((affectedConditions.length != 0) ? AFFECTED_CONDITIONS_MESSAGE_DELETE + buildConfirmString(affectedConditions) : '{!JSENCODE($Label.CONFIRMATION_MSG)}');
+
+            //generate the confirmation text
+            var confirmationText =  relatedNumberQuestionText + hasScoringText + hasPPIScoreText + affectedConditionsText;
+
+            if (confirm(confirmationText)){
+                
+                // If delete is confirmed then delete the relationship
+                if(hasRelatedRepeated){
+                    for(var qid in questions){
+                        if (questions[qid].type == TYPE_REPEAT && questions[qid].prevSourceQuestion == questionId){
+                            $('.tags').find ('.repeatTag-' + questions[qid].prevSourceQuestion).remove();
+                            questions[qid].prevSourceQuestion = null;
+                        }
+
+                    }
+                }
+
+                blockPage();
+                postQuestion = {"id":questionId};
+                postRemoveQuestion( questionId );
+                hasUnsavedChanges = true;
+            }
+        };
+
+        /**
+         * Check if the number question to delete is related to a repeated section
+         *
+         * IDALMSA-2317
+         * @param id of question to delete
+         * @return true if it is related
+         */
+        function isNumberAndIsRelated(questionId){
+            var showConfirm = false;
+            // If the question is number integer check if there is a repeated section related to this
+            if(questions[questionId].type == TYPE_NUMBER_INTEGER){
+                for(var qid in questions){
+                    if (questions[qid].type == TYPE_REPEAT && questions[qid].prevSourceQuestion == questionId)
+                        showConfirm = true;
+                }
+            }
+            return showConfirm;
+        }
+
+        /**
+         * Check if the section to delete contains a related integer question to a repeated section
+         *
+         * IDALMSA-2317
+         * @param id of section to delete
+         * @return true if there is any integer question related to a repeated section
+         */
+        function containsRelatedNumberQuestion(questionId){
+            var showConfirm = false;
+            // If the question is section check if there is an integer question related to this
+            if(questions[questionId].type == TYPE_SECTION){
+                for(var qid in questions){
+                    if(questions[qid].parent == questionId && questions[qid].type == TYPE_NUMBER_INTEGER){
+                        showConfirm = isNumberAndIsRelated(qid);
+                    }
+                }
+            }
+            return showConfirm;
+        }
+
+        /**
+         * Check if the repeated section to delete is related to an integer question
+         *
+         * IDALMSA-2317
+         * @param id of repeated section to delete
+         * @return true if it is related
+         */
+        function isRepeatAndRelated(questionId){
+            var showConfirm = false;
+            // If the question is repeat check if it is related to an integer question
+            if(questions[questionId].type == TYPE_REPEAT){
+                if(questions[questionId].prevSourceQuestion != null && questions[questionId].prevSourceQuestion != '')
+                    showConfirm = true;
+            }
+            return showConfirm;
+        }
+
+        function validateForm(div){
+            return true;
+        };
+
+        function save(closeAfterwards){
+            // Validate that the user is not currently editing or moving a question or a section.
+            if ($('div.question.editable').size() > 0) {
+                alert(format('{!JSENCODE($Label.BUILDER_ERR_CANNOTSAVEWHILE)}',['{!JSENCODE($ObjectType.Question__c.LabelPlural)}','{!JSENCODE($Label.GENERAL_EDITED)}']));
+                return;
+            }
+            if($('div.question.cut').size() > 0) {
+                alert(format('{!JSENCODE($Label.BUILDER_ERR_CANNOTSAVEWHILE)}',['{!JSENCODE($ObjectType.Question__c.LabelPlural)}','{!JSENCODE($Label.MOVED)}']));
+                return;
+            }
+            if($('div.header.editable').size() > 0){
+                alert(format('{!JSENCODE($Label.BUILDER_ERR_CANNOTSAVEWHILE)}',['{!JSENCODE($ObjectType.Question__c.LabelPlural)}','{!JSENCODE($Label.GENERAL_EDITED)}']));
+                return;
+            }
+            if($('div.section.cut').size() > 0){
+                alert(format('{!JSENCODE($Label.BUILDER_ERR_CANNOTSAVEWHILE)}',['{!JSENCODE($ObjectType.Question__c.LabelPlural)}','{!JSENCODE($Label.MOVED)}']));
+                return;
+            }
+
+            // Validate that no section is empty.
+            // Keep a map of how many questions each section has.
+            // Then, check that all sections have at least one question.
+            var questionCount;
+            for (var qid in questions){
+                question = questions[qid];
+                if (isSection(question)) {
+                    questionCount = $('#'  +question.id + ' .questions .question').size();
+                    if(questionCount == 0){
+                        alert(format('{!JSENCODE($Label.SURVEY_QUESTION_ERR_SECTION_WITHOUT_QUESTION)}',[question.caption]));
+                        return;
+                    }
+                }
+            }
+
+            // Set unsaved changes in false after save
+            hasUnsavedChanges = false;
+            // Now that all validations passed, proceed to save.
+            blockPage();
+
+            //converts questions into json
+            var arr = new Array();
+            for(var i in questions) arr.push(JSON.stringify(questions[i]));
+            var json = '[' + arr.join(',') + ']';
+
+            if (closeAfterwards){
+                postSaveContinue(json);
+            }else{
+                postQuickSave(json);
+            }
+        }
+
+        //------------------
+        // ACTION COMPLETION
+        //------------------
+        $(document).ready(function(){
+            //IE8 fix for popup that shows when leaving a page
+            if ( $.browser.msie && (parseInt($.browser.version, 10) == 8) ) {
+                window.onbeforeunload = null;
+            }
+            drawFetchedQuestions();
+
+            //questions that are remoteEditable and are referenced by a non editable on skip logic should not be allowed to be deleted
+            for (i in questions) {
+                var q = questions[i];
+
+                if (q.remoteEditable && ( (q.originId!='') && (q.originId!=null)) && referencesNonEditable(q)) {
+
+                   var editBtn= $('#'+q.id).find('.action-edit').first();
+                   editBtn.replaceWith('<span class="action-edit disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.EDIT)}</span>');
+
+                   var delBtn= $('#'+q.id).find('.action-remove').first();
+                   var parent = delBtn.parent();
+                   delBtn.replaceWith('<span class="action-remove disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.DELETE)}</span>');
+
+                   var sectionElem = $('#'+q.id).closest('.section');
+                   var secid = sectionElem.attr('id');
+                   var s = questions[secid];
+                   //if section is remoteEditable then we must also remove the delete link from it
+                   if (s.remoteEditable) {
+                      var delBtnSec = sectionElem.find('.sectionHeader').find('.action-remove').first();
+                      if (!delBtnSec.hasClass('disabled')) {
+                          var delBtnSecParent = delBtnSec.parent();
+                          delBtnSec.replaceWith('<span class="action-remove disabled" title="{!JSENCODE($Label.BUILDER_ERR_NONEDITABLEQUESTION)}">{!JSENCODE($Label.DELETE)}</span>');
+                      }
+
+                   }
+                }
+            }
+        });
+
+        /**
+         * Draws the questions that the survey got from the database in the last batch.
+         */
+        function drawFetchedQuestions () {
+            var existing_questions = $('.existing-questions');
+            var to_draw = $.parseJSON( existing_questions.text());
+            existing_questions.empty();
+
+            if (to_draw == null || to_draw.length == 0) {
+                // create the first section if there are none
+                var sections = $('#questionArea').find('.section');
+                if( sections.size() == 0 )
+                    addSection(TYPE_SECTION);
+            } else {
+                for (i in to_draw){
+                    to_draw[i].type = to_draw[i].type.toLowerCase();
+                }
+
+                for (var i in to_draw) {
+                    var question = to_draw[i];
+                    // Add the questions to the questions array
+                    questions[question.id] = question;
+
+                    // Actually draw the question
+                    if (isSection(question)){
+                        addSection(question.type, question);
+                        editMode(false);
+                    }
+                    else{
+                        height = getReadonlyDiv(question).height();
+                        $('#' + question.parent + ' .questions').append( getReadonlyDiv(question) );
+                    }
+                }
+            }
+
+            if ($('.hasMoreQuestions').text() == 'true') {
+                blockPage();
+                loadMoreQuestions();
+            } else {
+                unblockPage();
+                afterAllQuestionsFetched();
+            }
+        }
+
+        function afterAllQuestionsFetched() {
+            setQuestionAutoNumber();
+            doHandler();
+        }
+
+        //Draw drag and drop handler
+        function doHandler(){
+            var hand;
+            var actH;
+            $('.section>.header.readonly, .question.readonly').each(function(){
+                hand = $(this).find('.handle');
+                actH = $(this).height()+20;//Matching height of handler with header of section height
+                hand.height(actH);
+            });
+            prepareDragHandles();
+        }
+
+        function handleMouseUp(){$(this).addClass('cursorGrabbing')}
+        function handleMouseDown(){$(this).removeClass('cursorGrabbing')}
+
+        //Cursor of the drag and drop
+        function prepareDragHandles(){ $('div.handle').mousedown(handleMouseUp).mouseup(handleMouseDown); }
+        function prepareDragHandle(div){ div.mousedown(handleMouseUp).mouseup(handleMouseDown); }
+
+        // called from "cancel" link on Editable view
+        function cancelEdit(questionId, isNew){
+            // Removing error message when try to change to not required a quiestion mapped to a required field
+            $('.message').remove();
+
+            var div = $('#' + questionId);
+            var question = questions[questionId];
+            editMode(false);
+            if(isNew){
+                delete question;
+                div.remove();
+            }else{
+                //Fix question type when cancel edit
+                if(isType(question, TYPE_NUMBER)){
+                    if(fixNumberType != question.type)
+                        question.type = fixNumberType;
+                }
+                getReadonlyDiv(question, div).hide().fadeIn();
+             }
+             setQuestionAutoNumber();
+        };
+
+        // called from "done" link on Editable view
+        function acceptEdit(questionId){
+            var div = $('#' + questionId);
+            if (validateForm(div)){
+                var newQuestion = saveToQuestion(div);
+                postQuestion = newQuestion;
+                blockPage();
+
+                var json = JSON.stringify(newQuestion);
+
+                if (questions[questionId]){
+                    postEditQuestion(json);
+                }else{
+                    postAddQuestion(json);
+                }
+            }
+        };
+
+        /**
+         * IDALMSA-4251
+         * Check if actual section has at least one cascading question inside
+         * In affirmative case, uncheck and disable same page checkbox
+         *
+         * @param sectionId id of current section
+         */
+        function checkCascadingUncheckAndDisableShowOnAllOnPage(sectionId){
+            $('#'+sectionId).find('div.question').each(function(i,question){
+                if(questions[$(question).attr('id')].type == TYPE_CASCADING_SELECT){
+                    // Uncheck same page checkbox
+                    $('#'+sectionId).find('input[name="samePage"]').removeAttr('checked');
+                    // Set as disable
+                    $('#'+sectionId).find('input[name="samePage"]').attr('disabled', 'disabled');
+                    // Set as false
+                    questions[sectionId].samePage = false;
+                }
+            });
+        }
+
+        /**
+         * IDALMSA-4251
+         * Remove show on same page tag when section contains a cascading question
+         *
+         * @param sectionId id of current section
+         */
+        function removeShowAllSamePageTag(sectionId){
+            $('#'+sectionId).find('.tags span:contains("Show all questions on one page")').remove();
+        }
+
+        // Stores the question that is being sent to the controller,
+        // so that it can be accessed on afterPost methods.
+        var postQuestion = null;
+
+        function afterPostAddQuestion(request){
+            // Removing error message if exist when try to delete a question mapped to a required field
+            $('.errorMsg').remove();
+            if(!hasApexMessage()){
+                questions[postQuestion.id] = postQuestion;
+                if(request._request.status != 200 || request._errorMessage != 'XML Response object not set'){
+                    $('#' + postQuestion.id).append('<div class="errorMsg">{!JSENCODE($Label.ERR_NETWORK_ADD)}</div>');
+                }else{
+                    if( isType(postQuestion, TYPE_SECTION) || isType(postQuestion, TYPE_REPEAT) ){
+                        var div = $('#' + postQuestion.id + '>div.header');
+                        for(qid in questions){
+                            if(isSection(questions[qid]) && questions[qid].position >= postQuestion.position && questions[qid].id != postQuestion.id)
+                                questions[qid].position++;
+                        }
+                        sectionReadonlyHeader(postQuestion, div.hide().fadeIn() );
+                    }else{
+                        var div = $('#' + postQuestion.id);
+                        // Remove show all on one page tag
+                        if(postQuestion.type == TYPE_CASCADING_SELECT){
+                            removeShowAllSamePageTag(postQuestion.parent);
+                        }
+                        for(qid in questions){
+                            if(!isSection(questions[qid]) && questions[qid].parent == postQuestion.parent && questions[qid].position >= postQuestion.position && questions[qid].id != postQuestion.id){
+                                questions[qid].position++;
+                            }
+                        }
+                        getReadonlyDiv(postQuestion, div).hide().fadeIn();
+                    }
+                }
+                editMode(false);
+            }
+            hasUnsavedChanges = false;
+            popupSave = false;
+            unblockPage();
+        }
+
+        function afterPostEditQuestion(request){
+            // Removing error message if exist when try to delete a question mapped to a required field
+            $('.errorMsg').remove();
+
+            if(!hasApexMessage()){
+                questions[postQuestion.id] = postQuestion;
+                if(request._request.status != 200 || request._errorMessage != 'XML Response object not set'){
+                    $('#' + postQuestion.id).append('<div class="errorMsg">{!JSENCODE($Label.ERR_NETWORK_EDIT)}</div>');
+                }
+                else{
+                    if( isType(postQuestion, TYPE_SECTION) || isType(postQuestion, TYPE_REPEAT) ){
+                        var div = $('#' + postQuestion.id + '>div.header');
+                        sectionReadonlyHeader(postQuestion, div.hide().fadeIn() );
+                    }else{
+                        var div = $('#' + postQuestion.id);
+                        getReadonlyDiv(postQuestion, div).hide().fadeIn();
+                    }
+                editMode(false);
+                }
+            }
+            hasUnsavedChanges = false;
+            popupSave = false;
+            unblockPage();
+        }
+
+        function afterPostMoveQuestion(){
+            if(!hasApexMessage()){
+                var divOrigin = $('#questionArea').find('#'+origin.id);
+                // Removing error message if exist when try to delete a question mapped to a required field
+                $('.errorMsg').remove();
+
+                // Hide Paste and show the others actions
+                $('div.actions a:not(.paste)').show();
+                $('#'+origin.id).removeClass('cut'); // remove cut class
+                $('div.actions a.paste').hide();
+
+                if(!hasApexMessage()){
+                    //UPDATING POSITIONS
+                    //Moving Sections
+                    if(isSection(origin)){
+                        //First section of page
+                        if(destination == null){
+                            for(qid in questions){
+                                if(isSection(questions[qid]) && questions[qid].position < origin.position){
+                                    questions[qid].position++;
+                                }
+                            }
+                            origin.position = 1;
+                        }else{
+                            divOrigin.remove();//remove div from old position.
+
+                            for(qid in questions){
+                                if(questions[qid].position > origin.position && isSection(questions[qid]))
+                                    questions[qid].position--;
+                            }
+
+                            //Update moved question position
+                            origin.position = parseInt(destination.position,10)+1;
+                            $('#'+destination.id).after(divOrigin); // moving div to new position
+                            dragndrop(); //Initialize drag and drop for new div after moved
+
+                            //Update position of questions following
+                            for(qid in questions){
+                                if(questions[qid].position >= origin.position && questions[qid].id != origin.id && isSection(questions[qid]))
+                                    questions[qid].position++;
+                            }
+                        }
+                        origin.position = 1;
+                    }else{
+                        //Moving Questions
+                        divOrigin.remove();//remove div from old position.
+
+                        for(qid in questions){
+                            if (questions[qid].parent == origin.parent && questions[qid].position > origin.position){
+                                questions[qid].position--;
+                            }
+                        }
+
+                        // Update moved question position
+                        // (Consider if destination is section or question)
+                        if (isSection(destination)){
+                            $('#'+destination.id).find('.questions').prepend(divOrigin); // moving div to new position
+                            // Remove show all on one page tag
+                            if(origin.type == TYPE_CASCADING_SELECT && origin.parent != destination.id){
+                                removeShowAllSamePageTag(destination.id);
+                            }
+                            origin.parent   = destination.id;
+                            origin.position = 1;
+                        } else {
+                            $('#'+destination.id).after(divOrigin); // moving div to new position
+                            // Remove show all on one page tag
+                            if(origin.type == TYPE_CASCADING_SELECT && origin.parent != destination.parent){
+                                removeShowAllSamePageTag(destination.parent);
+                            }
+                            origin.parent   = destination.parent;
+                            origin.position = parseInt(destination.position,10) + 1;
+                        }
+
+                        // Update position of questions following
+                        for (qid in questions){
+                            if (questions[qid].parent == origin.parent && questions[qid].position >= origin.position && questions[qid].id != origin.id){
+
+                                questions[qid].position++;
+                            }
+                        }
+                    }
+                }
+                var div = divOrigin.find('.handle');
+                prepareDragHandle(div);
+                isEditing = false;
+                hasUnsavedChanges = true;
+                popupSave = false;
+                $('#questionSortable, .questions, #sectionSortable, #questionArea').sortable('enable');
+            }
+            unblockPage();
+        }
+
+        function afterPostRemoveQuestion(){
+            
+            var questionId = postQuestion.id;
+            var affectedConditions = getAffectedConditions(questionId, true);
+            var scrollTo = $('#' + questionId ); //element to delete
+            var rawPosition = scrollTo.offset().top; //Position of the element in the page
+            var halfWindow = $(window).height()/2; // In order to be shown centered
+            scrollPositionToGo = rawPosition - halfWindow ;
+            if(!hasApexMessage()){
+            
+                // If there is no error on deleting the question, delete the affected conditios as well
+                if(affectedConditions.length){
+                    for (var qid in questions){
+                        var question = questions[qid];
+                        var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                        for (var cid in question.skipconditions){
+                            if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                qConditions.push(question.skipconditions[cid]);
+                            }
+                        }
+                        question.skipconditions = qConditions;
+                    }
+                }
+                
+                // Removing error message if exist when try to delete a question mapped to a required field
+                $('.errorMsg').remove();
+
+                if(!isSection(questions[questionId])){
+                    for(qid in questions){
+                        //UPDATE QUESTIONS POSITIONS
+                        if(questions[qid].parent == questions[questionId].parent && questions[qid].position > questions[questionId].position){
+                                questions[qid].position--;
+                        }
+                    }
+                }
+                if(isSection(questions[questionId])){
+                    for(qid in questions){
+                        if(isSection(questions[qid]) && questions[qid].position > questions[questionId].position){
+                            questions[qid].position--;
+                        }
+                        if(questions[qid].parent == questionId && questions[qid]!= questions[questionId]){
+                            delete questions[qid];              // Remove questions inside the section
+                        }
+                    }
+                }
+                delete questions[questionId];
+                $('#' + questionId).remove();       // Remove div
+
+                editMode(false);
+            }else{
+                var errMsg = $('.errorM3').text();
+                $('.errorM3').remove();
+                $('.errorMsg').remove();
+
+                // If it is a section add the message to the required question
+                if(isSection(questions[questionId])){
+                    for(qid in questions){
+                        if(questions[qid].parent == questionId &&
+                           $('#'+ qid +' .tags').text() == 'Required' || $('#'+ qid +' .tags').text() == 'Requerido'){
+                                scrollTo = $('#'+qid);
+                                break;
+                        }
+                    }
+                }
+                scrollTo.append('<div class="errorMsg">'+ errMsg +'</div>');
+            }
+            $("body").scrollTop( scrollPositionToGo ); // Scrolls
+            popupSave = false;
+            unblockPage();
+        }
+        // Check if there is an error message
+        function hasApexMessage(){
+            return $('.hasApexMessage').text() == 'true';
+        }
+
+        function afterPostQuickSave(request){
+            // Removing error message if exist when try to delete a question mapped to a required field
+            $('.errorMsg').remove();
+            unblockPage();
+
+            if(request._request.status != 200 || request._errorMessage != 'XML Response object not set'){
+                $('#content').before('<div class="errorMsg errorM3"><table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;"><tbody><tr valign="top"><td><img alt="ERROR" class="msgIcon" src="/s.gif" title="ERROR"></td><td class="messageCell"><div id="errorMessages" class="messageText"><span id="errorMessages" style="color:#cc0000"><h4>Error:</h4><br/></span>{!JSENCODE($Label.ERR_NETWORK_SAVE)}</div></td></tr></tbody></table></div>');
+            }else{
+                concurrentSavePopup();
+                var errorMessage = $('.message').attr('class');
+                // If has errors do not save and has unsaved changes
+                hasUnsavedChanges = errorMessage != undefined;
+
+                if(popupSave && redirect && !hasUnsavedChanges) doRedirect();
+            }
+        }
+
+    </script>
+
+    <!-- Use template -->
+    <apex:composition template="SurveyBuilderTemplate">
+        <!-- Set variables to be used later -->
+        <apex:define name="init">
+            <apex:outputPanel id="variables">
+                <apex:variable var="selectedTab" value="QUESTIONSECTION"/>
+                <apex:variable var="hasError" value="{!hasApexMessage}"/>
+                <apex:variable var="isPublished" value="{!isPublished}"/>
+                <apex:variable var="survey" value="{!survey}"/>
+            </apex:outputPanel>
+        </apex:define>
+
+        <!-- Define the body -->
+        <apex:define name="body">
+            <table id="content">
+                <tr>
+                    <td id="left">
+                        <div id="minDivIE" class="minDivIE">
+                            <div id="floatMenu"  class="tertiaryPalette">
+                                <h3>{!$Label.SECTIONS}</h3>
+                                <div class="field-types" id="sectionSortable">
+                                    <div id='section' class='addSection disableSort' onclick="addSection(TYPE_SECTION);">{!$Label.SURVEY_QUESTION_TYPE_SECTION}</div>
+                                    <div id='repeat' class='addSection disableSort' onclick="addSection(TYPE_REPEAT);">{!$Label.SURVEY_QUESTION_TYPE_REPEAT}</div>
+                                </div>
+                                <h3>{!$Label.QUESTIONS}</h3>
+                                <div class="field-types" id="questionSortable">
+                                    <div id='radio' class='addQuestion disableSort' onclick="addQuestion(TYPE_RADIO);">{!$Label.SURVEY_QUESTION_TYPE_SINGLE}</div>
+                                    <div id='checkbox' class='addQuestion disableSort' onclick="addQuestion(TYPE_CHECKBOX);">{!$Label.SURVEY_QUESTION_TYPE_MULTI}</div>
+                                    <div id='cascading-select' class='addQuestion disableSort' onclick="addQuestion(TYPE_CASCADING_SELECT);">{!$Label.QUESTION_TYPE_CASCADING_SELECT}</div>
+                                    <div id='text-short' class='addQuestion disableSort' onclick="addQuestion(TYPE_TEXT_SHORT);">{!$Label.SURVEY_QUESTION_TYPE_FREE}</div>
+                                    <div id='number' class='addQuestion disableSort' onclick="addQuestion(TYPE_NUMBER);">{!$Label.SURVEY_QUESTION_TYPE_NUMBER}</div>
+                                    <div id='barcode' class='addQuestion disableSort' onclick="addQuestion(TYPE_BARCODE);">{!$Label.SURVEY_QUESTION_TYPE_BARCODE}</div>
+                                    <div id='date-time' class='addQuestion disableSort' onclick="addQuestion(TYPE_DATE_DATE);">{!$Label.SURVEY_QUESTION_TYPE_DATE}</div>
+                                    <!-- Added new question type in Floating Menu for GPS Location - IDALMSA-3820 -->
+                                    <div id='gps-location' class='addQuestion disableSort' onclick="addQuestion(TYPE_GPS);">{!$Label.XFORM_ODK_GPSLOCATION}</div>
+                                    <div id='picture' class="addQuestion disableSort" onclick="addQuestion(TYPE_MEDIA);">{!$Label.SURVEY_QUESTION_TYPE_MEDIA}</div>
+                                    <div id='signature' class='addQuestion disableSort' onclick="addQuestion(TYPE_SIGNATURE);">{!$Label.SURVEY_QUESTION_TYPE_SIGNATURE}</div>
+                                    <div id='static-content' class='addQuestion disableSort' onclick="addQuestion(TYPE_STATIC);">{!$Label.SURVEY_QUESTION_TYPE_STATIC}</div>
+                                    <div id='end_of_survey' class='addQuestion disableSort' onclick="addQuestion(TYPE_FINAL);">{!$Label.SURVEY_QUESTION_TYPE_FINAL}</div>
+                                    <div id='fileUploadLbl' class="disabled">File Upload</div>
+                                    <div id='playMediaLbl' class="disabled">Play Media</div>
+                                </div>
+                                 <button id='btnToolbarSave' type="button" class="btn" onClick="save(false)">{!$Label.SAVE}</button>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="right">
+                        <div id="questionArea" class="questionAreaClass"></div>
+                    </td>
+                </tr>
+            </table>
+
+            <apex:form prependId="false">
+                <apex:outputText id="existing-questions" styleClass="existing-questions" style="display:none" value="{!lastBatchOfQuestions}"/>
+                <apex:outputText id="hasMoreQuestions" styleClass="hasMoreQuestions" style="display:none" value="{!hasMoreQuestions}"/>
+                <apex:outputText id="concurrentSaveArea" styleClass="concurrentSaveArea" style="display:none" value="{!concurrentSave}"/>
+                <apex:outputText id="hasApexMessage" styleClass="hasApexMessage" style="display:none" value="{!hasApexMessage}"/>
+
+                <!-- Action functions -->
+                <apex:actionFunction id="postAddQuestion" name="postAddQuestion"
+                    action="{!addQuestionController}"
+                    oncomplete="afterPostAddQuestion(request)"
+                    reRender="errorMessages, hasApexMessage">
+                    <apex:param name="question" value="" />
+                </apex:actionFunction>
+
+                <apex:actionFunction id="postEditQuestion" name="postEditQuestion"
+                    action="{!editQuestionController}"
+                    oncomplete="afterPostEditQuestion(request)"
+                    reRender="errorMessages, hasApexMessage">
+                    <apex:param name="question" value="" />
+                </apex:actionFunction>
+
+                <apex:actionFunction id="postRemoveQuestion" name="postRemoveQuestion"
+                    action="{!removeQuestionController}"
+                    oncomplete="afterPostRemoveQuestion()"
+                    reRender="errorMessages, hasApexMessage">
+                    <apex:param name="qId" value="" />
+                </apex:actionFunction>
+
+                <apex:actionFunction id="postMoveQuestion" name="postMoveQuestion"
+                    action="{!moveQuestionController}"
+                    oncomplete="afterPostMoveQuestion()"
+                    reRender="errorMessages, hasApexMessage">
+                    <apex:param name="originId" value="" />
+                    <apex:param name="destinationId" value="" />
+                </apex:actionFunction>
+
+                <apex:actionFunction id="postQuickSave" name="postQuickSave" action="{!quickSave}"
+                    oncomplete="afterPostQuickSave(request)" reRender="errorMessages, concurrentSaveArea">
+                    <apex:param name="questions" value="" />
+                </apex:actionFunction>
+
+                <apex:actionFunction id="postSaveContinue" name="postSaveContinue" action="{!saveContinue}"
+                    oncomplete="afterPostQuickSave(request)" reRender="errorMessages, concurrentSaveArea" >
+                    <apex:param name="questions" value="" />
+                </apex:actionFunction>
+
+                <!-- Get questions from controller in batches, so not to hit script statement limit -->
+                <apex:actionStatus id="loadMoreQuestionsStatus" onstop="{drawFetchedQuestions()}"/>
+                <apex:actionFunction id="loadMoreQuestions" name="loadMoreQuestions" action="{!loadMoreQuestions}"
+                    reRender="existing-questions,hasMoreQuestions" status="loadMoreQuestionsStatus" >
+                    <apex:param name="questions" value="" />
+                </apex:actionFunction>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

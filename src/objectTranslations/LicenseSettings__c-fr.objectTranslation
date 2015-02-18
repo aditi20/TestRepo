@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Paramètres de License</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Paramètres de License</value>
+    </caseValues>
+    <fields>
+        <label>Peut Distribuer</label>
+        <name>Can_Distribute__c</name>
+    </fields>
+    <fields>
+        <label>CréerdesModèles</label>
+        <name>CreateTemplates__c</name>
+    </fields>
+    <fields>
+        <label>SupprimerdesModèles</label>
+        <name>DeleteTemplates__c</name>
+    </fields>
+    <fields>
+        <label>TéléchargerPPI</label>
+        <name>DownloadPPI__c</name>
+    </fields>
+    <fields>
+        <label>TéléchargerModèles</label>
+        <name>DownloadTemplates__c</name>
+    </fields>
+    <fields>
+        <label>ModifierModèles</label>
+        <name>EditTemplates__c</name>
+    </fields>
+    <fields>
+        <label>PPI_Modifiable</label>
+        <name>PPI_Editable__c</name>
+    </fields>
+    <fields>
+        <label>Utiliser PPI</label>
+        <name>UsePPI__c</name>
+    </fields>
+    <fields>
+        <label>Utiliser Modèles</label>
+        <name>UseTemplates__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

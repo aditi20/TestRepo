@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- PPI Table Data Set --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- PPI Table Data Set --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Alpha --></label>
+        <name>Alpha__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expenditure Definition --></label>
+        <name>ExpenditureDefinition__c</name>
+    </fields>
+    <fields>
+        <label><!-- Identifier --></label>
+        <name>Identifier__c</name>
+    </fields>
+    <fields>
+        <label><!-- Line Definition --></label>
+        <name>LineDefinition__c</name>
+    </fields>
+    <fields>
+        <label><!-- PPI Table --></label>
+        <name>PPITable__c</name>
+        <relationshipLabel><!-- PPI Table Data Sets --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- PPP --></label>
+        <name>PPP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Poverty Rate --></label>
+        <name>PovertyRate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Legend --></label>
+        <name>ReportLegend__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey --></label>
+        <name>Survey__c</name>
+        <relationshipLabel><!-- PPI Table Data Sets --></relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel><!-- PPI Table Data Set Number --></nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

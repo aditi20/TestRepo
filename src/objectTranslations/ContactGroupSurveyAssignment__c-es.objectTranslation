@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Encuesta Asignada</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Encuesta Asignada</value>
+    </caseValues>
+    <fields>
+        <label>Grupo de contacto</label>
+        <name>ContactGroup__c</name>
+        <relationshipLabel>Encuestas asignadas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha asignada a este grupo</label>
+        <name>DatePublishedToThisGroup__c</name>
+    </fields>
+    <fields>
+        <label>Fecha final de asignación</label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label>Número de miembros del grupo</label>
+        <name>MemberCount__c</name>
+    </fields>
+    <fields>
+        <label>Observaciones</label>
+        <name>Remarks__c</name>
+    </fields>
+    <fields>
+        <label>Fecha inicial de asignación</label>
+        <name>StartDate__c</name>
+    </fields>
+    <fields>
+        <label>Encuesta</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Encuesta asignada a grupo de contacto</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Número total de envíos para la meta</label>
+        <name>Target__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Contact Group Survey Assignment Layout</layout>
+        <sections>
+            <label>Enlaces personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>Contact Group Survey Assignment Number
+    <nameFieldLabel>Número de asignación de Encuesta de Grupo de Contactos</nameFieldLabel>
+</CustomObjectTranslation>

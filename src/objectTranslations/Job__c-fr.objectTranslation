@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Activité de Travail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Activité de Travail</value>
+    </caseValues>
+    <fields>
+        <label>Personnel</label>
+        <name>Assigned__c</name>
+        <relationshipLabel>Activités de Travail</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Client</label>
+        <name>Contact__c</name>
+        <relationshipLabel>Travaux de Client</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Date de Création</label>
+        <name>CreationDate__c</name>
+    </fields>
+    <fields>
+        <label>Note de Création</label>
+        <name>CreationNotes__c</name>
+    </fields>
+    <fields>
+        <label>Source de Création</label>
+        <name>CreationSource__c</name>
+        <picklistValues>
+            <masterLabel>Ad-hoc</masterLabel>
+            <translation>Ad-hoc</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Date de Fin</label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label>Stopper Emplacement</label>
+        <name>EndLocation__c</name>
+    </fields>
+    <fields>
+        <label>Travail</label>
+        <name>JobTemplate__c</name>
+        <relationshipLabel>Activités de Travail</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Date de démarrage</label>
+        <name>StartDate__c</name>
+    </fields>
+    <fields>
+        <label>Démarrer Emplacement</label>
+        <name>StartLocation__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nom d'activité de travail</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

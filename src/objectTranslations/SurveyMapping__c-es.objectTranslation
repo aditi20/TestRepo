@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Mapeo de encuesta</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Mapeo de encuesta</value>
+    </caseValues>
+    <fields>
+        <label>Mapa de campo del entrevistado</label>
+        <name>IntervieweeApiField__c</name>
+    </fields>
+    <fields>
+        <help>Establecer este campo para prevenir errores duplicados. El sistema revisará dentro del &quot;campo coincidente&quot;, si el valor para el &quot;campo coincidente&quot; ya existe, se actualizará el registro (no se insertará).</help>
+        <label>Campo coincidente</label>
+        <name>MatchingField__c</name>
+    </fields>
+    <fields>
+        <label>Nombre de objeto</label>
+        <name>ObjectApiName__c</name>
+    </fields>
+    <fields>
+        <label>Campo de mapeo de la Puntuación PPI</label>
+        <name>PPIScoreApiField__c</name>
+    </fields>
+    <fields>
+        <label>Repetir</label>
+        <name>Repeat__c</name>
+        <relationshipLabel>Mapeos de encuesta</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Campo de mapeo de la Encuesta Completa</label>
+        <name>SubmissionApiField__c</name>
+    </fields>
+    <fields>
+        <label>Campo de mapeo de la encuesta</label>
+        <name>SurveyApiField__c</name>
+    </fields>
+    <fields>
+        <label>Campo de mapeo de la versión de la enc.</label>
+        <name>SurveyVersionApiField__c</name>
+    </fields>
+    <fields>
+        <label>Encuesta</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Mapeos de la encuesta</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Campo de mapeo del encuestador</label>
+        <name>SurveyorApiField__c</name>
+    </fields>
+    <fields>
+        <label>Usar este contacto como entrevistado</label>
+        <name>UseAsInterviewee__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre del mapeo de encuesta</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Si el mapeo es usado por un entrevistado no puede mapear el campo de un entrevistado</errorMessage>
+        <name>IntervieweeMappingCheck</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Solo el objeto de contacto puede ser usado como entrevistado</errorMessage>
+        <name>onlyContactInteviewee</name>
+    </validationRules>
+</CustomObjectTranslation>

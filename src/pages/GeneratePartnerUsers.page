@@ -1,0 +1,271 @@
+<apex:page id="GenerateUserPage" controller="GeneratePartnerUsersController" sidebar="false" tabStyle="Mobile_User__c">
+    <style>
+    .strongFont{font-weight:bold;}
+    .error{
+        background-color:#F3E6E6;
+        border-color: #924949;
+        border-style: none;
+        border-width: 1px;
+        padding: 3px;
+    }
+    </style>
+    <apex:sectionHeader title="Generate Partner Users" subtitle="Taroworks Partner Users"/>
+    <apex:includeScript value="{!$Resource.jquery}" />
+    <apex:includeScript value="{!$Resource.jquery_validate}" />
+    <apex:pageMessages id="errorPanel"/>
+    <c:blockOverlay label="{!$Label.LOADING}..."/>
+    
+    <apex:form id="mainForm">
+        <apex:pageBlock id="detailsPageBlock">
+            <input type="hidden" id="isResultsVariable" value="{!isResultPage}" />
+            <apex:outputLabel style="font-weight:bold;"
+                value="{!$Label.GENERATE_PARTNER_HEADER_TEXT}"
+                rendered="{!!isResultPage}"
+                id="generatePartnerHeaderHelpText"
+            /><br/><br/>
+            <apex:actionFunction name="migrateMobileUsersAF"
+                action="{!migrateMobileUsers}"
+                rerender="errorPanel, detailsPageBlock, resultsOutputPanel"
+                oncomplete="addHelpTextGenerateUser();"
+             />
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Generate Users"
+                    id="GenerateUsersButton"
+                    onclick="validateForm();"
+                    disabled="{!if(partnerAccounts.size > 0, false, true)}"
+                    rendered="{!!isResultPage}"
+                    style="margin-left:19%;"
+                    oncomplete="return false;"
+                />
+                <apex:commandButton value="Cancel" action="/apex/MobileUserManager" rendered="{!!isResultPage}"/>
+            </apex:pageBlockButtons>
+            <apex:outputPanel id="detailsoutputPanel" rendered="{!!isResultPage}">
+                <apex:pageBlockSection title="Select Partner Account" columns="2" collapsible="false" dir="LTR">
+                    <apex:pageBlockSectionItem dataStyle="width:20%;">
+                        <apex:outputLabel value="Partner Account" />
+                        <apex:selectList value="{!partnerAccountSelected}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!partnerAccounts}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem dataStyle="width:80%;">
+                        <apex:outputText styleClass="strongFont" escape="false" value="{!$Label.PARTNER_ACCOUNT_HELP_TEXT}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Specify Domain and Email to be used for User" columns="2" collapsible="false" dir="LTR">
+                    <apex:pageBlockSectionItem dataStyle="width:20%;">
+                        <apex:outputLabel value="Domain"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputText id="domainForPartnerId" value="{!domainForPartnerUsers}" html-placeholder="companyname.com"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem dataStyle="width:80%;">
+                        <apex:outputText styleClass="strongFont" escape="false" value="{!$Label.DOMAIN_NAME_HELP_TEXT}" />
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem dataStyle="width:20%;">
+                        <apex:outputLabel value="Email"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputText id="emailForPartnerId" value="{!emailForPartnerUsers}" html-placeholder="name@domain.com"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem dataStyle="width:80%;">
+                        <apex:outputText styleClass="strongFont" escape="false" value="{!$Label.EMAIL_HELP_TEXT}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection><br/>
+            </apex:outputPanel>
+            <apex:outputPanel id="resultsOutputPanel" rendered="{!isResultPage}">
+                <apex:pageBlockSection title="New Taroworks Partner User Details" columns="1" id="contactDetailspageBlockSection" >
+                    <apex:pageMessage strength="2"
+                        severity="info"
+                        escape="false"
+                        summary="{!$Label.NO_MOBILE_USER_TO_MIGRATE}"
+                        rendered="{!If(displayResult.size > 0, false,true)}"
+                    />
+                    <apex:pageBlockTable value="{!displayResult}"
+                        var="userDetails"
+                        style="margin-left:48px;width:900px;"
+                        rendered="{!If(displayResult.size > 0, true,false)}"
+                    >
+                        <div style="margin-left:50px;">
+                            <apex:column id="actionColumn" title="{!$Label.ACTION}"
+                                    styleClass="{!userDetails.Id} actionColumn" >
+                                <apex:facet name="header">
+                                    <apex:outputText value="{!$Label.ACTION}" />
+                                </apex:facet>
+                                <apex:commandLink target="_blank"
+                                    id="editLink"
+                                    value="{!$Label.EDIT}"
+                                    styleClass="actionLink"
+                                    action="{!IF(userDetails.IsPartner, URLFOR($Action.User.EditUserAction, userDetails.Id), URLFOR($Action.Mobile_User__c.Edit, userDetails.Id))}"
+                                />
+                            </apex:column>
+                            <apex:column id="UsernameColumn" styleClass="{!userDetails.Id}"
+                                    title="{!$ObjectType.Mobile_User__c.Fields.Username__c.Label}">
+                                <apex:facet name="header">
+                                    <a href="javascript:void(0)">
+                                        {!$ObjectType.Mobile_User__c.Fields.Username__c.Label}
+                                    </a>
+                                </apex:facet>
+                                <apex:commandLink target="_blank" value="{!userDetails.Username}"
+                                        action="{!URLFOR($Page.MobileUserDetail, userDetails.Id, [id=userDetails.Id])}" />
+                            </apex:column>
+
+                            <apex:column id="ContactNameColumn" styleClass="{!userDetails.Id}"
+                                    title="{!$Label.CONTACT_NAME}">
+                                <apex:facet name="header">
+                                    <a href="javascript:void(0)">
+                                        {!$Label.CONTACT_NAME}
+                                    </a>
+                                </apex:facet>
+                                <apex:commandLink target="_blank" value="{!userDetails.ContactName}"
+                                    action="{!URLFOR($Action.Contact.View, userDetails.ContactId)}" />
+                            </apex:column>
+                            <apex:column id="IsActiveColumn" styleClass="{!userDetails.Id}"
+                                    title="{!$Label.ACTIVE}">
+                                <apex:facet name="header">
+                                    <a href="javascript:void(0)">
+                                        {!$Label.ACTIVE}
+                                    </a>
+                                </apex:facet>
+                                <apex:image width="21" height="16" alt="{!IF(userDetails.IsActive, 'Checked', 'Unchecked')}"
+                                    value="{!IF(userDetails.IsActive, '/img/checkbox_checked.gif', '/img/checkbox_unchecked.gif')}" />
+                            </apex:column>
+                        </div>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Mobile users with username already present"
+                    columns="1"
+                    id="invalidUserNamespageBlockSection"
+                    rendered="{!If(mobileUsersWithExistingUsernames.size > 0, true,false)}"
+                >
+                    <apex:pageMessage strength="2"
+                        severity="info"
+                        escape="false"
+                        summary="{!$Label.INVALID_USERNAME_HELP_TEXT}"
+                    />
+                    <apex:pageBlockTable value="{!mobileUsersWithExistingUsernames}" var="invalidUserName" style="margin-left:48px;width:900px;">
+                        <div style="margin-left:50px;">
+                            <apex:column id="actionColumn" title="{!$Label.ACTION}"
+                                    styleClass="{!invalidUserName.Id} actionColumn">
+                                <apex:facet name="header">
+                                    <apex:outputText value="{!$Label.ACTION}" />
+                                </apex:facet>
+                                <apex:commandLink target="_blank"
+                                    id="editLink"
+                                    value="{!$Label.EDIT}"
+                                    styleClass="actionLink"
+                                    action="{!IF(invalidUserName.IsPartner, URLFOR($Action.User.EditUserAction, invalidUserName.Id), URLFOR($Action.Mobile_User__c.Edit, invalidUserName.Id))}"
+                                />
+                            </apex:column>
+                            <apex:column id="UsernameColumn" styleClass="{!invalidUserName.Id}"
+                                    title="{!$ObjectType.Mobile_User__c.Fields.Username__c.Label}">
+                                <apex:facet name="header">
+                                    <a href="javascript:void(0)">
+                                        {!$ObjectType.Mobile_User__c.Fields.Username__c.Label}
+                                    </a>
+                                </apex:facet>
+                                <apex:commandLink target="_blank" value="{!invalidUserName.Username}"
+                                        action="{!URLFOR($Page.MobileUserDetail, invalidUserName.Id, [id=invalidUserName.Id])}" />
+                            </apex:column>
+                        
+                            <apex:column id="ContactNameColumn" styleClass="{!invalidUserName.Id}"
+                                    title="{!$Label.CONTACT_NAME}">
+                                <apex:facet name="header">
+                                    <a href="javascript:void(0)">
+                                        {!$Label.CONTACT_NAME}
+                                    </a>
+                                </apex:facet>
+                                <apex:commandLink target="_blank" value="{!invalidUserName.ContactName}"
+                                    action="{!URLFOR($Action.Contact.View, invalidUserName.ContactId)}" />
+                            </apex:column>
+                        </div>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+
+    <script>
+        $(document).ready(function() {
+            addHelpTextGenerateUser();
+        });
+
+        // Validation methods for format check to be passed to plugin
+        $.validator.addMethod("domainValid", function(value, element, arg){
+            var domainValue = $('[id$=domainForPartnerId]').val() || '';
+            domainValue = $.trim(domainValue)
+            var patt = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$/;
+            return patt.test(domainValue);
+        }, "Domain value incorrect format");
+
+        $.validator.addMethod("emailValid", function(value, element, arg){
+            var emailValue = $('[id$=emailForPartnerId]').val() || '';
+            emailValue = $.trim(emailValue);
+            var patt = /^[a-zA-Z0-9._\\%#~`=?&/$^*!}{+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;;
+            return patt.test(emailValue);
+        }, "Email value incorrect format");
+
+        function validateForm() {
+            $('[id$=mainForm]').validate({
+                errorElement: "div",
+                errorPlacement: function(error, element) {
+                    if (element.attr("id").match("emailForPartnerId$") != null) {
+                    } else if (element.attr("id").match("domainForPartnerId$") != null) {
+                    }
+                    error.appendTo(element.parent());   
+                    element.removeClass('error');
+                },
+                onfocusout: false,
+                onkeyup: false
+            });
+
+            // Add different rules and messages for the validation of fields
+            $('[id$=emailForPartnerId]').rules("add",{
+                 required: true,
+                 emailValid : true,
+                 messages: {
+                    required: '{!$Label.EMAIL_BLANK_VALIDATION_TEXT}',
+                    emailValid : '{!$Label.INVALID_EMAIL_ERROR_TEXT}'
+                 },
+            });
+            $('[id$=domainForPartnerId]').rules("add",{
+                 required: true,
+                 domainValid : true,
+                 messages: {
+                    required: '{!$Label.DOMAIN_BLANK_VALIDATION_TEXT}',
+                    domainValid: '{!$Label.INVALID_DOMAIN_ERROR_TEXT}'
+                 },
+            });
+
+            if($('[id$=mainForm]').valid()) {
+                migrateMobileUsersJS();
+            } else {
+                return;
+            }
+        }
+
+        function addHelpTextGenerateUser() {
+            if ($("input[id*='isResultsVariable']").val() == 'false') {
+                $(".pbBottomButtons").prepend('<div style="margin: 5px;font-weight:bold;display: {!If(isResultPage, false, true)}">{!$Label.GENERATE_USER_HELP_TEXT}</div>');
+            }
+            unblockPage();
+        }
+
+        function migrateMobileUsersJS() {
+            var userConfirmation = confirm('{!$Label.PARTNER_GENERATE_CONFIRMATION}');
+            if (userConfirmation == true) {
+                blockPage();
+                migrateMobileUsersAF();
+            } else {
+                return;
+            }
+        }
+    </script>
+</apex:page>

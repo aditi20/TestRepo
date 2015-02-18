@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Miembro</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Miembros</value>
+    </caseValues>
+    <fields>
+        <label>Grupo de contacto</label>
+        <name>ContactGroup__c</name>
+        <relationshipLabel>Grupos de contacto</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Contacto</label>
+        <name>Contact__c</name>
+        <relationshipLabel>Grupos de contacto</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha agregada a este grupo</label>
+        <name>DateAddedToThisGroup__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Contact Group Member Layout</layout>
+        <sections>
+            <label>Enlaces personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Número de Miembro del Grupo de Contactos</nameFieldLabel>
+</CustomObjectTranslation>

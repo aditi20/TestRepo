@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Question</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Question</value>
+    </caseValues>
+    <fields>
+        <label>Légende</label>
+        <name>Caption__c</name>
+    </fields>
+    <fields>
+        <label>Niveau de cascade</label>
+        <name>CascadingLevel__c</name>
+        <relationshipLabel>Niveaux de cascade</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Sélection de cascades</label>
+        <name>CascadingSelect__c</name>
+        <relationshipLabel>Sélection de cascades</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Question de Contrôle</label>
+        <name>ControllingQuestion__c</name>
+        <relationshipLabel>Question de Contrôles</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Utiliser par défaut la date actuelle</label>
+        <name>CurrentTime__c</name>
+    </fields>
+    <fields>
+        <label>EffectuerAprès</label>
+        <name>DoAfter__c</name>
+    </fields>
+    <fields>
+        <label>EffectuerAvant</label>
+        <name>DoBefore__c</name>
+    </fields>
+    <fields>
+        <label>Première Version</label>
+        <name>FromVersion__c</name>
+    </fields>
+    <fields>
+        <label>Texte d'aide / Instructions </label>
+        <name>Hint__c</name>
+    </fields>
+    <fields>
+        <label>Peut être modifié</label>
+        <name>IsDraft__c</name>
+    </fields>
+    <fields>
+        <label>Peut être modifié dans une enquête téléchargée</label>
+        <name>IsRemoteEditable__c</name>
+    </fields>
+    <fields>
+        <label>Maximum</label>
+        <name>Maximum__c</name>
+    </fields>
+    <fields>
+        <label>Minimum</label>
+        <name>Minimum__c</name>
+    </fields>
+    <fields>
+        <label>Parent</label>
+        <name>Parent__c</name>
+        <relationshipLabel>Questions</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Emplacement</label>
+        <name>Position__c</name>
+    </fields>
+    <fields>
+        <label>Version précédente</label>
+        <name>PreviousVersionQuestion__c</name>
+        <relationshipLabel>Nouvelle version</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Identité de serveur à distance</label>
+        <name>RemoteServerId__c</name>
+    </fields>
+    <fields>
+        <label>Répéter la valeur source</label>
+        <name>RepeatSourceValue__c</name>
+        <relationshipLabel>Source de Question</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Nombre de répétition</label>
+        <name>RepeatTimes__c</name>
+    </fields>
+    <fields>
+        <help>Vérifier la réponse si cette question est exigée avant de passer à la question suivante</help>
+        <label>Requis</label>
+        <name>Required__c</name>
+    </fields>
+    <fields>
+        <label>Afficher toutes les questions sur une page</label>
+        <name>SamePage__c</name>
+    </fields>
+    <fields>
+        <label>IgnorerComportementLogique</label>
+        <name>SkipLogicBehavior__c</name>
+        <picklistValues>
+            <masterLabel>Hide</masterLabel>
+            <translation>Masquer</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Show</masterLabel>
+            <translation>Afficher</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>IgnorerOpérateurLogique</label>
+        <name>SkipLogicOperator__c</name>
+        <picklistValues>
+            <masterLabel>All</masterLabel>
+            <translation>Tous</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Any</masterLabel>
+            <translation>Un</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Enquête</label>
+        <name>Survey__c</name>
+        <relationshipLabel>Questions</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Dernière Version</label>
+        <name>ToVersion__c</name>
+    </fields>
+    <fields>
+        <label>Type</label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>barcode</masterLabel>
+            <translation>Code barre</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>cascading-level</masterLabel>
+            <translation>Niveau de cascades</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>cascading-select</masterLabel>
+            <translation>Sélection en cascades</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>checkbox</masterLabel>
+            <translation>Case à cocher</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>date</masterLabel>
+            <translation>date</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>date-date</masterLabel>
+            <translation>date-date</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>date-datetime</masterLabel>
+            <translation>date-dateheure</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>end_of_survey</masterLabel>
+            <translation>fin_d'enquête</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>number</masterLabel>
+            <translation>nombre</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>number-decimal</masterLabel>
+            <translation>nombre-décimal</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>number-integer</masterLabel>
+            <translation>nombre-entier</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>picture</masterLabel>
+            <translation>photo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>radio</masterLabel>
+            <translation>radio</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>repeat</masterLabel>
+            <translation>Répéter</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>section</masterLabel>
+            <translation>section</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>signature</masterLabel>
+            <translation>signature</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>static-content</masterLabel>
+            <translation>Contenu statique</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>text</masterLabel>
+            <translation>texte</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>text-long</masterLabel>
+            <translation>texte-long</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>text-short</masterLabel>
+            <translation>texte-court</translation>
+        </picklistValues>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Question Layout</layout>
+        <sections>
+            <label>Liens Personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nom de Question</nameFieldLabel>
+    <namedFilters>
+        <errorMessage>Le Parent doit être une question ou une section répétée, ou une sélection en cascade s'il s'agit d'un niveau de cascade et si cela fait partie de la même enquête.</errorMessage>
+        <name>nf_01IG0000001sjs0MAA_00NG0000008irUDMAY</name>
+    </namedFilters>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage>Les sélections en cascade ne sont pas admises dans une section répétée</errorMessage>
+        <name>CheckCascadingOnRepeat</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Une sélection en cascade est exigée pour ce type de section</errorMessage>
+        <name>CheckCascadingSelectInCascadingQuestions</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Impossible d'ajouter ou de déplacer une question d'enquête dans une section répétée</errorMessage>
+        <name>CheckFinalIntoRepeated</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Impossible de créer une question lorsque le Minimum est supérieur au Maximum</errorMessage>
+        <name>CheckMinimumNotGreaterThanMaximum</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Uniquement les sections de type SECTION et REPETTION peuvent ne pas avoir de parent. Si une question n'est pas une section ou une répétition, son parent doit être une section ou une répétition.</errorMessage>
+        <name>CheckParent</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Le nombre de répétitions et les champs de valeurs source peuvent être uniquement implémentés dans des questions répétées et simplement l'une d'entre elle peut être implémentée simultanément.</errorMessage>
+        <name>CheckRepeatedSourceFields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>La valeur de la première version doit être inférieure ou égale à la valeur de la dernière version</errorMessage>
+        <name>FirstVersionLastVersion</name>
+    </validationRules>
+</CustomObjectTranslation>

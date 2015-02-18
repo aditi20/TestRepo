@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Condition ignorée</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Condition ignorée</value>
+    </caseValues>
+    <fields>
+        <label>Condition</label>
+        <name>Condition__c</name>
+        <picklistValues>
+            <masterLabel>Answered</masterLabel>
+            <translation>Répondu</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GreaterThan</masterLabel>
+            <translation>SupérieurA</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>InRange</masterLabel>
+            <translation>DanslaPlage</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is</masterLabel>
+            <translation>Est</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LesserThan</masterLabel>
+            <translation>InférieurA</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Rejeté</label>
+        <name>Negate__c</name>
+    </fields>
+    <fields>
+        <label>Parent</label>
+        <name>Parent__c</name>
+        <relationshipLabel>Conditions Ignorées</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Question Source</label>
+        <name>SourceQuestion__c</name>
+        <relationshipLabel>Contidions Affectées Rejetées</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Valeurs</label>
+        <name>Value__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de conditions Ignorées</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

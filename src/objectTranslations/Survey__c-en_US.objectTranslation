@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Survey</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Surveys</value>
+    </caseValues>
+    <fields>
+        <label><!-- Alias --></label>
+        <name>Alias__c</name>
+    </fields>
+    <fields>
+        <label><!-- Allow Anonymous Interviewee --></label>
+        <name>AllowAnonymousInterviewee__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message After Submission --></label>
+        <name>Close_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country Code --></label>
+        <name>CountryCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deployment --></label>
+        <name>Deployment__c</name>
+        <picklistValues>
+            <masterLabel>Smartphone</masterLabel>
+            <translation><!-- Smartphone --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- GPS Capture --></label>
+        <name>Gps_Location_Enabled__c</name>
+    </fields>
+    <fields>
+        <label><!-- GPS Show Map --></label>
+        <name>Gps_ShowMap__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interviewee Map Field --></label>
+        <name>InterviewMapField__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsCloned --></label>
+        <name>IsCloned__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is PPI --></label>
+        <name>IsPPI__c</name>
+    </fields>
+    <fields>
+        <label><!-- Language Code --></label>
+        <name>LanguageCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Year --></label>
+        <name>PPIDataYear__c</name>
+    </fields>
+    <fields>
+        <label><!-- Password --></label>
+        <name>Password__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published Date --></label>
+        <name>PublishedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question Count --></label>
+        <name>QuestionCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response Count --></label>
+        <name>ResponseCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Saving XForm --></label>
+        <name>Saving_XForm__c</name>
+    </fields>
+    <fields>
+        <label><!-- StatusImage --></label>
+        <name>StatusImage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Published</masterLabel>
+            <translation><!-- Published --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Version --></label>
+        <name>Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- XForm Status --></label>
+        <name>XForm_Status__c</name>
+        <picklistValues>
+            <masterLabel>CUSTOM</masterLabel>
+            <translation><!-- CUSTOM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DEFAULT</masterLabel>
+            <translation><!-- DEFAULT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NONE</masterLabel>
+            <translation><!-- NONE --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Survey Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- The selected country code is not valid. This should be an ISO 3166-1 alpha-2 country code. --></errorMessage>
+        <name>Country_Code_Should_Have_A_Match</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The name of the survey must be unique --></errorMessage>
+        <name>UniqueName</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The year should be greater than 1900 --></errorMessage>
+        <name>YearFormat</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Export_To_XForms --></label>
+        <name>Export_To_XForms</name>
+    </webLinks>
+</CustomObjectTranslation>

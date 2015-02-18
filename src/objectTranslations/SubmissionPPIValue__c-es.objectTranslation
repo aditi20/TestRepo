@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Valor del envío de PPI</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Valor del envío de PPI</value>
+    </caseValues>
+    <fields>
+        <label>Línea de tabla PPI</label>
+        <name>PPITableLine__c</name>
+        <relationshipLabel>Valores PPI de la encuesta completa</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Encuesta completa</label>
+        <name>Submission__c</name>
+        <relationshipLabel>Valores PPI de la encuesta completa</relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de la unión</nameFieldLabel>
+</CustomObjectTranslation>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Puntaje del envío</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Puntaje del envío</value>
+    </caseValues>
+    <fields>
+        <label>Grupo anotador</label>
+        <name>ScoringGroup__c</name>
+        <relationshipLabel>Puntuación de la encuesta completa</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Encuesta completa</label>
+        <name>Submission__c</name>
+        <relationshipLabel>Puntuación de la encuesta completa</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Puntuación total</label>
+        <name>TotalScore__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre del puntaje del envío</nameFieldLabel>
+</CustomObjectTranslation>

@@ -1,0 +1,5 @@
+<!--(c) Copyright 2013 Grameen Foundation USA. All rights reserved-->
+<apex:page standardController="ContactGroup__c" tabStyle="ContactGroups__tab" >
+  <apex:sectionHeader title="{!$ObjectType.ContactGroup__c.Label}" subtitle="{!ContactGroup__c.Name}"/>
+  <apex:detail subject="{!ContactGroup__c}" title="false" relatedList="true" />
+</apex:page>

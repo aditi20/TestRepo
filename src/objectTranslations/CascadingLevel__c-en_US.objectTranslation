@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CascadingLevel</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Cascading Levels</value>
+    </caseValues>
+    <fields>
+        <label><!-- Cascading Select --></label>
+        <name>CascadingSelect__c</name>
+        <relationshipLabel><!-- Cascading Levels --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Controlling Level --></label>
+        <name>ControllingLevel__c</name>
+        <relationshipLabel><!-- Cascading Levels --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Label --></label>
+        <name>Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- position --></label>
+        <name>Position__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

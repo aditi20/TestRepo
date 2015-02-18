@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dispositivo</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dispositivos</value>
+    </caseValues>
+    <fields>
+        <label>Versión de la aplicación</label>
+        <name>App_version__c</name>
+    </fields>
+    <fields>
+        <label>Identificación del dispositivo</label>
+        <name>Device_Id__c</name>
+    </fields>
+    <fields>
+        <label>IMEI</label>
+        <name>IMEI__c</name>
+    </fields>
+    <fields>
+        <label>Último ingreso por</label>
+        <name>LastCheckInBy__c</name>
+        <relationshipLabel>Dispositivos</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Último ingreso</label>
+        <name>LastCheckInDate__c</name>
+    </fields>
+    <fields>
+        <label>Último usuario</label>
+        <name>Last_Check_in_By_Name__c</name>
+    </fields>
+    <fields>
+        <label>Modelo</label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <label>Número</label>
+        <name>Number__c</name>
+    </fields>
+    <fields>
+        <label>Sistema Operativo</label>
+        <name>OS__c</name>
+    </fields>
+    <fields>
+        <label>Estado</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation>Inactivo</translation>
+        </picklistValues>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Device Layout</layout>
+        <sections>
+            <label>Enlaces personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Alias</nameFieldLabel>
+    <webLinks>
+        <label>Activar</label>
+        <name>Activate</name>
+    </webLinks>
+    <webLinks>
+        <label>Desactivar</label>
+        <name>Deactivate</name>
+    </webLinks>
+    <webLinks>
+        <label>Borrar</label>
+        <name>Delete</name>
+    </webLinks>
+</CustomObjectTranslation>
